@@ -2,28 +2,19 @@ import { Scene } from 'phaser';
 
 export class Game extends Scene
 {
-    constructor ()
-    {
-        super('Game');
-    }
+    background: Phaser.GameObjects.Image;
 
-    preload ()
-    {
-        this.load.setPath('assets');
-        
-        this.load.image('star', 'star.png');
-        this.load.image('background', 'bg.png');
-        this.load.image('logo', 'logo.png');
+    constructor (){
+        super('Game');
     }
 
     create ()
     {
-        
-        this.add.image(512, 384, 'background');
-        this.add.image(512, 350, 'logo').setDepth(100);
-        this.add.text(512, 490, 'Make something fun!\nand share it with us:\nsupport@phaser.io', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
+        this.add.image(0, 0, 'background').setOrigin(0,0);
+        this.add.image(500, 400, 'cat');
+
+        this.add.text(512, 490, 'AAAAAAAH', {
+            fontFamily: 'Arial Black', fontSize: 38, color: '#000',
             align: 'center'
         }).setOrigin(0.5).setDepth(100);
         
