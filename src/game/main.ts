@@ -14,12 +14,12 @@ const config: Types.Core.GameConfig = {
     backgroundColor: '#fff',
     scale: {
         width: 900,
-        height: 1080
+        height: 1000
     },
     physics: {
         default: 'arcade',
         arcade: { 
-            debug: false,
+            debug: true,
             gravity: {
                 y: 0,
                 x: 0

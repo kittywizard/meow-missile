@@ -37,7 +37,14 @@ export class Boot extends Scene
 
     loadImages() {
         this.load.image('background', 'assets/background.png');
-        this.load.image('cat', 'assets/cat.png');
+        this.load.spritesheet('tali', 
+            'assets/tali_sheet.png', 
+            { frameWidth: 50, frameHeight: 50 }
+        );
+        this.load.spritesheet('cat', 
+            'assets/tali_placeholder.png', 
+            { frameWidth: 50, frameHeight: 50 }
+        );
     }
 
     createBars() {
