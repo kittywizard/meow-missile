@@ -42,10 +42,12 @@ export class Boot extends Scene
             'assets/tali_sheet.png', 
             { frameWidth: 50, frameHeight: 50 }
         );
-        this.load.spritesheet('cat', 
-            'assets/tali_placeholder.png', 
+
+        this.load.spritesheet('tali1', 
+            'assets/tali_sheet.png', 
             { frameWidth: 50, frameHeight: 50 }
         );
+
     }
 
     loadFonts() {

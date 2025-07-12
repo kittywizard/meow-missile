@@ -15,10 +15,11 @@ export class Enemy extends Phaser.GameObjects.Sprite {
     init() {
         this.scene.anims.create({
             key: this.name,
-            frames: this.scene.anims.generateFrameNumbers(this.name, { end: 0 }),
+            frames: this.scene.anims.generateFrameNumbers(this.name, { start: 0 }),
             frameRate: 10,
-            repeat: 1
+            repeat: -1
         });
+        this.anims.play(this.name, true);
 
         
 

@@ -17,7 +17,7 @@ export class Player extends Phaser.GameObjects.Sprite {
             key: this.name,
             frames: this.scene.anims.generateFrameNumbers(this.name, { end: 0 }),
             frameRate: 10,
-            repeat: 1
+            repeat: -1
         });
 
         
