@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
-import { Player } from '../Player';
+import { Player } from '../components/Player';
+import { Enemy } from '../components/Enemy';
 
 export class Game extends Scene
 {
@@ -7,22 +8,16 @@ export class Game extends Scene
 
     constructor (){
         super('Game');
+        this.score = 0;
         }
 
     create ()
     {
         this.add.image(0, 0, 'background').setOrigin(0,0);
         const player = new Player(this, 600, 500, "tali");
-        const player2 = new Player(this, 800, 700, "cat");
-        this.physics.add.collider(player, player2);
-
+        const enemy1 = new Enemy(this, 400, 500, "tali");
+        this.physics.add.collider(player, enemy1);
         this.add.bitmapText(512, 400, 'wendy', 'test', 50);
     
-
-        // this.add.text(512, 490, 'this will be main game screen', {
-        //     fontFamily: 'Arial Black', fontSize: 38, color: '#000',
-        //     align: 'center'
-        // }).setOrigin(0.5).setDepth(100);
-        
     }
 }
