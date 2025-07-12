@@ -15,6 +15,8 @@ export class Game extends Scene
         const player = new Player(this, 600, 500, "tali");
         const player2 = new Player(this, 800, 700, "cat");
         this.physics.add.collider(player, player2);
+
+        this.add.bitmapText(512, 400, 'wendy', 'test', 50);
     
 
         // this.add.text(512, 490, 'this will be main game screen', {

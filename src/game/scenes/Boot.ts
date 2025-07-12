@@ -10,6 +10,7 @@ export class Boot extends Scene
         //preload some functions
         this.createBars();
         this.setLoadEvents();
+        this.loadFonts();
         this.loadImages();
         this.setRegistry();
     }
@@ -44,6 +45,14 @@ export class Boot extends Scene
         this.load.spritesheet('cat', 
             'assets/tali_placeholder.png', 
             { frameWidth: 50, frameHeight: 50 }
+        );
+    }
+
+    loadFonts() {
+        this.load.bitmapFont(
+        "wendy",
+        "assets/fonts/wendy.png",
+        "assets/fonts/wendy.xml"
         );
     }
 
