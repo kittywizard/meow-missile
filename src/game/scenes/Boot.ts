@@ -2,6 +2,9 @@ import { Scene } from 'phaser';
 
 export class Boot extends Scene
 {
+    loadBar: Phaser.GameObjects.Graphics;
+    progressBar: Phaser.GameObjects.Graphics;
+
     constructor () {
         super('Boot');
     }
