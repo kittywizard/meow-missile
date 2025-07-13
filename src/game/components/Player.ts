@@ -62,7 +62,8 @@ export class Player extends Phaser.GameObjects.Sprite {
     }
 
     update() {
-        //if (this.death) return;        
+        //if (this.death) return;    
+            
         //left right on the x axis
         if(this.cursor?.left.isDown) {
             this.x -= 5; 
@@ -83,6 +84,7 @@ export class Player extends Phaser.GameObjects.Sprite {
         //y axis, up and down
         if (this.cursor?.up.isDown) {
             this.y -= 5;
+            console.log("down")
         }
         else if (this.cursor?.down.isDown) {
             this.y += 5;
