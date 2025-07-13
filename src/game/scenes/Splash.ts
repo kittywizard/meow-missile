@@ -2,6 +2,11 @@ import { Scene } from 'phaser';
 
 export class Splash extends Scene
 {
+    center_width: number;
+    center_height: number;
+    width:  number;
+    height: number;
+
     constructor (){
         super('Splash');
     }
@@ -20,8 +25,8 @@ export class Splash extends Scene
     }
 
     create() {
-        this.width = this.sys.game.config.width;
-        this.height = this.sys.game.config.height;
+        this.width = parseInt(this.sys.game.config.width);
+        this.height = parseInt(this.sys.game.config.height);
         this.center_width = this.width / 2;
         this.center_height = this.height / 2;
         this.showInstructions();

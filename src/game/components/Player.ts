@@ -7,18 +7,22 @@ export class Player extends Phaser.GameObjects.Sprite {
     A: Phaser.Input.Keyboard.Key | undefined;
     S: Phaser.Input.Keyboard.Key | undefined;
     D: Phaser.Input.Keyboard.Key | undefined;
+    death: any;
+    id: number;
 
     
     constructor(scene: Scene, x: integer, y: integer, name: string) {
         super(scene, x, y, name); //from sprite class 
 
         this.name = name;
+        this.id = Math.random();
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.setScale(1);
         this.setControls();
         this.init();
+
     }
 
     setControls() {
@@ -30,14 +34,64 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.D = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     }
 
+    shoot() {
+        //pew pew
+        console.log("pew pew");
+    }
+
     init() {
         this.scene.anims.create({
             key: this.name,
-            frames: this.scene.anims.generateFrameNumbers(this.name, { end: 0 }),
+            frames: this.scene.anims.generateFrameNumbers(this.name, { start: 0, end: 0 }),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.scene.anims.create({
+            key: this.name + "right",
+            frames: this.scene.anims.generateFrameNumbers(this.name, { start: 1, end: 1 }),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.scene.anims.create({
+            key: this.name + "left",
+            frames: this.scene.anims.generateFrameNumbers(this.name, { start: 0, end: 0 }),
             frameRate: 10,
             repeat: -1
         });
         this.anims.play(this.name, true);
+    }
+
+    update() {
+        //if (this.death) return;        
+        //left right on the x axis
+        if(this.cursor?.left.isDown) {
+            this.x -= 5; 
+            this.anims.play(this.name + "left", true);
+            console.log("left");
+            //shadow optional
+        }
+        else if(this.cursor?.right.isDown) {
+            this.x += 5; 
+            this.anims.play(this.name + "right", true);
+            //shadow optional
+        }
+        else {
+            this.anims.play(this.name, true);
+            //shadow
+        }
+
+        //y axis, up and down
+        if (this.cursor?.up.isDown) {
+            this.y -= 5;
+        }
+        else if (this.cursor?.down.isDown) {
+            this.y += 5;
+        }
+
+        //shoot the missiles!
+        if (Phaser.Input.Keyboard.JustDown(this.SPACE)) {
+            this.shoot();
+        }
 
     }
 }
