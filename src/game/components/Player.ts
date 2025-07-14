@@ -32,6 +32,8 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.A = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.S = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.D = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+
+        // TO DO : add actual WASD keyboard controls
     }
 
     shoot() {
@@ -64,11 +66,12 @@ export class Player extends Phaser.GameObjects.Sprite {
     update() {
         //if (this.death) return;    
             
+        // // ARROW KEYS!!!! // //
+
         //left right on the x axis
         if(this.cursor?.left.isDown) {
             this.x -= 5; 
             this.anims.play(this.name + "left", true);
-            console.log("left");
             //shadow optional
         }
         else if(this.cursor?.right.isDown) {
@@ -84,7 +87,6 @@ export class Player extends Phaser.GameObjects.Sprite {
         //y axis, up and down
         if (this.cursor?.up.isDown) {
             this.y -= 5;
-            console.log("down")
         }
         else if (this.cursor?.down.isDown) {
             this.y += 5;

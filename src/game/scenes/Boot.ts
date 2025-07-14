@@ -46,7 +46,7 @@ export class Boot extends Scene
             { frameWidth: 50, frameHeight: 50 }
         );
 
-        this.load.spritesheet('tali1', 
+        this.load.spritesheet('enemy0', 
             'assets/tali_sheet.png', 
             { frameWidth: 50, frameHeight: 50 }
         );
