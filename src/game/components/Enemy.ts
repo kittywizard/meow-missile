@@ -1,4 +1,6 @@
 import { Scene } from "phaser";
+import Explosion from "./Explosion";
+import { EnemyShot } from "./EnemyShot";
 
 const TYPES = {
     enemy0: {points: 400, lives: 1},
