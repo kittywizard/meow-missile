@@ -9,6 +9,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     D: Phaser.Input.Keyboard.Key | undefined;
     death: any;
     id: number;
+    shadow: Phaser.GameObjects.Image;
 
     
     constructor(scene: Scene, x: integer, y: integer, name: string) {
@@ -16,6 +17,7 @@ export class Player extends Phaser.GameObjects.Sprite {
 
         this.name = name;
         this.id = Math.random();
+        this.spawnShadow(x, y);
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
@@ -36,9 +38,36 @@ export class Player extends Phaser.GameObjects.Sprite {
         // TO DO : add actual WASD keyboard controls
     }
 
+    showPoints(score: any, color = 0xff0000) {
+        let text = this.scene.add.bitmapText(
+            this.x + 20, this.y - 30,
+            "wendy", score, 20, 0xfffd37
+        ).setOrigin(0.5);
+
+        this.scene.tweens.add({
+            targets:text,
+            duration: 2000,
+            alpha: {from: 1, to: 0},
+            y: {from: text.y - 10, to: text.y - 100},
+        });
+    }
+
     shoot() {
         //pew pew
         console.log("pew pew");
+
+        //this.scene.playAudio("shot");
+        //this.shootingPatterns.shoot(this.x, this.y, this.powerUp);
+    }
+
+    spawnShadow (x: number,y: number) {
+        this.shadow = this.scene.add.image(x + 20, y + 20, "player1")
+        .setTint(0x000000)
+        .setAlpha(0.4);
+    }
+
+    dead() {
+        console.log("You have died.");
     }
 
     init() {
@@ -63,8 +92,13 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.anims.play(this.name, true);
     }
 
+    updateShadow() {
+        this.shadow.x = this.x + 20;
+        this.shadow.y = this.y + 20;
+    }
+
     update() {
-        //if (this.death) return;    
+        if (this.death) return;    
             
         // // ARROW KEYS!!!! // //
 
@@ -72,16 +106,16 @@ export class Player extends Phaser.GameObjects.Sprite {
         if(this.cursor?.left.isDown) {
             this.x -= 5; 
             this.anims.play(this.name + "left", true);
-            //shadow optional
+            this.shadow.setScale(0.5, 1);
         }
         else if(this.cursor?.right.isDown) {
             this.x += 5; 
             this.anims.play(this.name + "right", true);
-            //shadow optional
+            this.shadow.setScale(0.5, 1);
         }
         else {
             this.anims.play(this.name, true);
-            //shadow
+            this.shadow.setScale(1, 1);
         }
 
         //y axis, up and down
@@ -96,6 +130,8 @@ export class Player extends Phaser.GameObjects.Sprite {
         if (Phaser.Input.Keyboard.JustDown(this.SPACE)) {
             this.shoot();
         }
+
+        this.updateShadow();
 
     }
 }

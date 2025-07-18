@@ -74,6 +74,7 @@ export class EnemyGenerator {
         this.scene.endScene();
     }
 
+    //path that neemies follow when in formation
     createPath() {
         this.waves++;
         if(this.waves === 3) this.finishScene();
@@ -96,46 +97,115 @@ export class EnemyGenerator {
 
         this.path.lineTo(start, this.scene.height + 50);
         this.graphics = this.scene.add.graphics();
-        this.graphics.lineStyle(0. 0xffffff, 0); //debug
+        this.graphics.lineStyle(0, 0xffffff, 0); //debug only
     }
 
-    orderedWave() {
+    //enemy wave in ordered formation
+    orderedWave(difficulty = 5) {
+        const x = Phaser.Math.Between(64, this.scene.width - 200);
+        const y = Phaser.Math.Between(-100, 0);
+        const minus = Phaser.Math.Between(-1, 1) > 0 ? 1 : -1;
 
+        Array(difficulty).fill().forEach((_, i) => {
+            this.addOrder(i, x, y, minus);
+        });
     }
 
-    wave() {
+    //simple enemy wave
+    wave(difficulty = 5) {
+        this.createPath();
 
+        const x = Phaser.Math.Between(64, this.scene.width - 200);
+        const y = Phaser.Math.Between(-100, 0);
+        const minus = Phaser.Math.Between(-1, 1) > 0 ? 1 : -1;
+
+        Array(difficulty).fill().forEach((_, i) => {
+            this.addToWave(i)
+        });
     }
+
     //enemy types
     tank() {
-
+        this.scene.enemyGroup.add(
+            new Enemy(this.scene, Phaser.Math.Between(100, 600), -100, "enemy2", 0, 620)
+        );
     }
 
     slider() {
-
+        throw new Error("Slider not implemented.");
     }
 
     releaseBoss() {
-        throw new Error("Method not implemented.");
+        throw new Error("Boss not implemented.");
     }
 
+    //add new enemy in random position
     add() {
-
+        const enemy = new Enemy(
+            this.scene,
+            Phaser.Math.Between(32, this.scene.width - 32),
+            0
+        );
+        this.scene.enemyGroup.add(enemy);
     }
 
-    addOrder() {
+    //for the ordered wave enemies
+    addOrder(i: number, x: number, y: number, minus: number) {
+        const offset = minus * 70;
 
+        this.scene.enemyGroup.add(
+            new Enemy(this.scene, 
+                x + i * 70, 
+                i * y + offset, 
+                "enemy0", 0, 300))
     }
 
-    addToWave() {
-
+    //add to a wave
+    addToWave(i: number) {
+        const enemy = new Enemy(
+            this.scene,
+            Phaser.Math.Between(32, this.scene.width - 32),
+            0,
+            "enemy0"
+        );
+        this.scene.tweens.add({
+            targets: enemy,
+            z: 1,
+            ease: "Linear",
+            duration: 12000,
+            repeat: -1,
+            delay: i * 100,
+        })
+        this;
+        this.scene.enemyWaveGroup.add(enemy);
     }
 
     update() {
+        if(this.path) {
+            this.path.draw(this.graphics);
 
+            this.scene.enemyWaveGroup.children.entries.forEach((enemy)=> {
+
+            });
+
+            if(this.activeWave && this.checkIfWaveDestroyed()) {
+                this.activeWave = false;
+                this.scene.spawnShake();
+                this.path.destroy();
+            }
+        }
+
+        this.scene.enemyWaveGroup.children.entries.forEach((enemy: any) => {
+            if (enemy === null || !enemy.active || enemy.y > this.scene.height +  100) {
+                enemy.destroy();
+            }
+            enemy.update();
+        });
     }
 
     checkIfWaveDestroyed() {
-        
+        const enemies = this.scene.enemyWaveGroup.children.entries;
+
+        return enemies.length === enemies.filter((enemy: { active: any; }) => !enemy.active).length
     }
 }
