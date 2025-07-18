@@ -5,6 +5,7 @@ const TYPES = {
 
 export class Shot extends Phaser.GameObjects.PointLight {
     playerName: string;
+    shadow: Phaser.GameObjects.Arc;
     constructor(scene: Phaser.Scene, x: number, y: number, type="water", playerName: string, velocityX = 0, velocityY = -500){
         const { color,  radius, intensity } = TYPES[type];
 
@@ -26,7 +27,11 @@ export class Shot extends Phaser.GameObjects.PointLight {
         this.init();
     } 
     spawnShadow(x: number, y: number, velocityX: number, velocityY: number) {
-        throw new Error("Method not implemented.");
+        this.shadow = this.scene.add.circle(x + 20, y + 20, 10, 0x000000).setAlpha(0.4);
+        this.scene.add.existing(this.shadow);
+        this.scene.physics.add.existing(this.shadow);
+        this.shadow.body.setVelocityX(velocityX);
+        this.shadow.body.setVelocityY(velocityY);
     }
 
 

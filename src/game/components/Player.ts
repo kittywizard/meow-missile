@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-
+import shootingPatterns from "../generators/ShootingPatterns";
 export class Player extends Phaser.GameObjects.Sprite {
     SPACE: Phaser.Input.Keyboard.Key | undefined;
     cursor: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
@@ -10,14 +10,16 @@ export class Player extends Phaser.GameObjects.Sprite {
     death: any;
     id: number;
     shadow: Phaser.GameObjects.Image;
+    shootingPatterns: shootingPatterns;
 
     
-    constructor(scene: Scene, x: integer, y: integer, name: string) {
+    constructor(scene: Scene, x: integer, y: integer, name: string = "tali") {
         super(scene, x, y, name); //from sprite class 
 
         this.name = name;
         this.id = Math.random();
         this.spawnShadow(x, y);
+        this.shootingPatterns = new shootingPatterns(this.scene, this.name);
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
@@ -57,11 +59,11 @@ export class Player extends Phaser.GameObjects.Sprite {
         console.log("pew pew");
 
         //this.scene.playAudio("shot");
-        //this.shootingPatterns.shoot(this.x, this.y, this.powerUp);
+        this.shootingPatterns.shoot(this.x, this.y, "water");
     }
 
     spawnShadow (x: number,y: number) {
-        this.shadow = this.scene.add.image(x + 20, y + 20, "player1")
+        this.shadow = this.scene.add.image(x + 20, y + 20, "tali")
         .setTint(0x000000)
         .setAlpha(0.4);
     }
@@ -89,7 +91,7 @@ export class Player extends Phaser.GameObjects.Sprite {
             frameRate: 10,
             repeat: -1
         });
-        this.anims.play(this.name, true);
+       this.anims.play(this.name, true);
     }
 
     updateShadow() {
