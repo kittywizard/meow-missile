@@ -1,11 +1,12 @@
 const TYPES = {
-    foe: {  color: 0xfff01f, radius: 16, intensity: 0.4},
+    enemy: {  color: 0xfff01f, radius: 16, intensity: 0.4},
     water: { color: 0x0000cc, radius: 16, intensity: 0.4}
 }
 
 export class EnemyShot extends Phaser.GameObjects.PointLight {
 
     playerName: any;
+    shadow: GameObject;
     constructor(scene: Phaser.Scene, x: number, y: number, type="water", playerName: any, velocityX = 0, velocityY = 0)
 
     {
@@ -14,7 +15,7 @@ export class EnemyShot extends Phaser.GameObjects.PointLight {
         this.name = "enemyshot";
         this.scene = scene;
         this.playerName = playerName;
-        //shadow
+        this.spawnShadow(x, y, velocityX, velocityY);
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
@@ -36,6 +37,15 @@ export class EnemyShot extends Phaser.GameObjects.PointLight {
             intensity: { from: 0.3, to: 0.7},
             repeat: -1,
         })
+    }
+
+    spawnShadow(x: number, y: number, velocityX: number, velocityY: number) {
+        this.shadow = this.scene.add.circle(x + 20, y + 20, 10, 0x000000).setAlpha(0.4);
+        this.scene.add.existing(this.shadow);
+        this.scene.physics.add.existing(this.shadow);
+        if (this.playerName === "boss") {
+            this.shadow.body.setVelocity(velocityX, velocityY);
+        }
     }
 
     shot() {

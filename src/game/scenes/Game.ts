@@ -100,45 +100,45 @@ export class Game extends Scene
             this
         );
 
-        // this.physics.add.overlap(
-        //     this.shots,
-        //     this.enemyGroup,
-        //     this.destroyEnemy,
-        //     () => {return true},
-        //     this
-        // );
+        this.physics.add.overlap(
+            this.shots,
+            this.enemyGroup,
+            this.destroyEnemy,
+            () => {return true},
+            this
+        );
 
     // this.physics.add.overlap(
-        //     this.shots,
-        //     this.enemyWaveGroup,
-        //     this.destroyWaveEnemy,
-        //     () => {return true},
-        //     this
-        // );
+    //         this.shots,
+    //         this.enemyWaveGroup,
+    //         this.destroyWaveEnemy,
+    //         () => {return true},
+    //         this
+    //     );
 
-        // this.physics.add.collider(
-        //     this.players,
-        //     this.powerUps,
-        //     this.pickPowerUps,
-        //     () => {return true},
-        //     this
-        // );
+    //     this.physics.add.collider(
+    //         this.players,
+    //         this.powerUps,
+    //         this.pickPowerUps,
+    //         () => {return true},
+    //         this
+    //     );
 
     // this.physics.add.overlap(
-        //     this.players,
-        //     this.enemyShots,
-        //     this.hitPlayer,
-        //     () => {return true},
-        //     this
-        // );
+    //         this.players,
+    //         this.enemyShots,
+    //         this.hitPlayer,
+    //         () => {return true},
+    //         this
+    //     );
 
     // this.physics.add.collider(
-        //     this.shots,
-        //     this.enemyShots,
-        //     this.destroyShot,
-        //     () => {return true},
-        //     this
-        // );
+    //         this.shots,
+    //         this.enemyShots,
+    //         this.destroyShot,
+    //         () => {return true},
+    //         this
+    //     );
 
         this.physics.world.on("worldbounds", this.onWorldBounds);
 
@@ -158,7 +158,7 @@ export class Game extends Scene
         throw new Error('Method not implemented.');
     }
 
-     destroyShot(shot, enemyShot) {
+     destroyShot(shot: { x: number; y: number; shadow: { destroy: () => void; }; destroy: () => void; playerName: any; }, enemyShot: { shadow: { destroy: () => void; }; destroy: () => void; }) {
         const point = this.lights.addPointLight(shot.x, shot.y, 0xffffff, 10, 0.7);
         this.tweens.add({
             targets: point,
@@ -175,12 +175,12 @@ export class Game extends Scene
         this.updateScore(shot.playerName, 50);
      }
 
-     destroyWaveEnemy(shot, enemy) {
+     destroyWaveEnemy(shot: { x: number; y: number; playerName: any; destroy: () => void; }, enemy: { x?: any; y?: any; lives?: number; points?: number; dead?: () => void; }) {
         this.lastDestroyedWaveEnemy = {x: enemy.x, y: enemy.y};
         this.destroyEnemy(shot, enemy);
      }
 
-     destroyEnemy(shot, enemy) {
+     destroyEnemy(shot: { x: number; y: number; playerName: any; destroy: () => void; }, enemy: { lives: number; points: number; dead: () => void; }) {
         enemy.lives--;
         //this.playAudio("explosion");
         const point = this.lights.addPointLight(shot.x, shot.y, 0xffffff, 10, 0.7);
