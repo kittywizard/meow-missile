@@ -16,6 +16,8 @@ export class Boot extends Scene
         this.loadFonts();
         this.loadImages();
         this.setRegistry();
+        this.loadAudios();
+        this.loadSpriteSheets();
     }
 
     setLoadEvents() {
@@ -51,6 +53,27 @@ export class Boot extends Scene
             { frameWidth: 50, frameHeight: 50 }
         );
 
+    }
+
+    loadSpriteSheets() {
+        //load the seperate animated images here later
+    }
+
+    loadAudios() {
+        // this.load.audio("shot", "assets/sounds/shot.mp3");
+        // this.load.audio("enemyshot", "assets/sounds/foeshot.mp3");
+        // this.load.audio("enemydestroy", "assets/sounds/foedestroy.mp3");
+        // this.load.audio("enemyexplosion", "assets/sounds/foexplosion.mp3");
+        // this.load.audio("explosion", "assets/sounds/explosion.mp3");
+        // this.load.audio("stageclear1", "assets/sounds/stageclear1.mp3");
+        // this.load.audio("stageclear2", "assets/sounds/stageclear2.mp3");
+        // this.load.audio("boss", "assets/sounds/boss.mp3");
+        // this.load.audio("splash", "assets/sounds/splash.mp3");
+
+        // Array(3).fill(0).forEach((_, i) =>{
+        //     this.load.audio(`music${i + 1}`, `assets/sounds/music${i + 1}.mp3`);
+        // });
+        
     }
 
     loadFonts() {
