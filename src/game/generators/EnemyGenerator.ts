@@ -185,7 +185,14 @@ export class EnemyGenerator {
             this.path.draw(this.graphics);
 
             this.scene.enemyWaveGroup.children.entries.forEach((enemy)=> {
+                if(enemy === null || !enemy.active) return;
 
+                let t = enemy.z;
+                let vec = enemy.getData("vector");
+                this.path.getPoint(t, vec);
+                enemy.setPosition(vec.x, vec.y);
+                enemy.shadow.setPosition(vec.x + 20, vec.y + 20);
+                enemy.setDepth(enemy.y);
             });
 
             if(this.activeWave && this.checkIfWaveDestroyed()) {

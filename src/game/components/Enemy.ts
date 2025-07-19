@@ -47,9 +47,11 @@ export class Enemy extends Phaser.GameObjects.Sprite {
         //called from generator class
 
         //unsure if this will be needed
-        // if(this.y > this.scene.height + 64) {
-        //     if(this.name !== "enemy2") this.shadow.destroy();
-        // }
+        if(this.y > this.scene.height + 64) {
+            if(this.name !== "enemy2") this.shadow.destroy();
+            this.destroy();
+        }
+        
 
         if(this.name === "boss" && Phaser.Math.Between(1, 6) > 5) {
             //boss stuff
