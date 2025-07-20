@@ -108,13 +108,13 @@ export class Game extends Scene
         //     this
         // );
 
-    this.physics.add.overlap(
-            this.shots,
-            this.enemyWaveGroup,
-            this.destroyWaveEnemy,
-            () => {return true},
-            this
-        );
+    // this.physics.add.overlap(
+    //         this.shots,
+    //         this.enemyWaveGroup,
+    //         this.destroyWaveEnemy,
+    //         () => {return true},
+    //         this
+    //     );
 
         // this.physics.add.collider(
         //     this.players,
@@ -124,21 +124,21 @@ export class Game extends Scene
         //     this
         // );
 
-    this.physics.add.overlap(
-            this.players,
-            this.enemyShots,
-            this.hitPlayer,
-            () => {return true},
-            this
-        );
+    // this.physics.add.overlap(
+    //         this.players,
+    //         this.enemyShots,
+    //         this.hitPlayer,
+    //         () => {return true},
+    //         this
+    //     );
 
-    this.physics.add.collider(
-            this.shots,
-            this.enemyShots,
-            this.destroyShot,
-            () => {return true},
-            this
-        );
+    // this.physics.add.collider(
+    //         this.shots,
+    //         this.enemyShots,
+    //         this.destroyShot,
+    //         () => {return true},
+    //         this
+    //     );
 
     this.physics.world.on("worldbounds", this.onWorldBounds);
 

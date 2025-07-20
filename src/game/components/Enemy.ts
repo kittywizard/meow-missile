@@ -94,7 +94,7 @@ export class Enemy extends Phaser.GameObjects.Sprite {
 
         const explosion = this.scene.add.circle(this.x, this.y, 5).setStrokeStyle(20, 0xffffff);
 
-        //this.showPoints(this.points);
+        this.showPoints(this.points);
 
         this.scene.tweens.add({
             targets: explosion,
@@ -104,6 +104,34 @@ export class Enemy extends Phaser.GameObjects.Sprite {
             onComplete: () => {
                 explosion.destroy();
             },
+        });
+
+        new Explosion(this.scene, this.x, this.y, explosionRadius);
+        if(
+            this.name !== "enemy2" &&
+            this.scene &&
+            this.scene.scene.isActive() &&
+            this.shadow &&
+            this.shadow.active
+        )
+            this.shadow.destroy();
+
+        if(this.name === "boss") {
+            this.scene.number  = 5;
+            //this.scene.playAudio("explosion");
+            this.scene.endScene();
+        }
+        this.destroy();
+    }
+    showPoints(score: string, color = 0xff0000) {
+        let text = this.scene.add.bitmapText(this.x + 20, this.y - 30, "wendy", "+" + score, 40, color).setOrigin(0.5);
+
+        this.scene.tweens.add({
+            targets: text,
+            duration: 800,
+            alpha: {from: 1, to: 0},
+            y: {from: this.y -20, to: this.y - 80},
+            onComplete: () => { text.destroy() },
         });
     }
 }
