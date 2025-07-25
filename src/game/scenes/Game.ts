@@ -100,21 +100,21 @@ export class Game extends Scene
             this
         );
 
-        // this.physics.add.overlap(
-        //     this.shots,
-        //     this.enemyGroup,
-        //     this.destroyEnemy,
-        //     () => {return true},
-        //     this
-        // );
+        this.physics.add.overlap(
+            this.shots,
+            this.enemyGroup,
+            this.destroyEnemy,
+            () => {return true},
+            this
+        );
 
-    // this.physics.add.overlap(
-    //         this.shots,
-    //         this.enemyWaveGroup,
-    //         this.destroyWaveEnemy,
-    //         () => {return true},
-    //         this
-    //     );
+    this.physics.add.overlap(
+            this.shots,
+            this.enemyWaveGroup,
+            this.destroyWaveEnemy,
+            () => {return true},
+            this
+        );
 
         // this.physics.add.collider(
         //     this.players,

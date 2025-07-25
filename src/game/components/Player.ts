@@ -13,7 +13,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     shootingPatterns: shootingPatterns;
 
     
-    constructor(scene: Scene, x: integer, y: integer, name: string = "tali") {
+    constructor(scene: Scene, x: integer, y: integer, name: string = "player1") {
         super(scene, x, y, name); //from sprite class 
 
         this.name = name;
@@ -63,7 +63,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     }
 
     spawnShadow (x: number,y: number) {
-        this.shadow = this.scene.add.image(x + 20, y + 20, "tali")
+        this.shadow = this.scene.add.image(x + 20, y + 20, "player1")
         .setTint(0x000000)
         .setAlpha(0.4);
     }

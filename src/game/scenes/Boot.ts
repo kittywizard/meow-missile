@@ -56,7 +56,23 @@ export class Boot extends Scene
     }
 
     loadSpriteSheets() {
-        //load the seperate animated images here later
+        //loading test image for now
+        this.load.spritesheet("player1", "assets/images/player1.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+        });
+         this.load.spritesheet("enemy0", "assets/images/foe0.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+        });
+        this.load.spritesheet("enemy1", "assets/images/foe1.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+        });
+        this.load.spritesheet("enemy2", "assets/images/foe2.png", {
+            frameWidth: 32,
+            frameHeight: 32,
+        });
     }
 
     loadAudios() {
