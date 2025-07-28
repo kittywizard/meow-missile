@@ -119,9 +119,8 @@ export class EnemyGenerator {
         const y = Phaser.Math.Between(-100, 0);
         const minus = Phaser.Math.Between(-1, 1) > 0 ? 1 : -1;
 
-        Array(difficulty).fill().forEach((_, i) => {
-            this.addToWave(i)
-        });
+        Array(difficulty).fill().forEach((_, i) => this.addToWave(i));
+        this.activeWave = true;
     }
 
     //enemy types
