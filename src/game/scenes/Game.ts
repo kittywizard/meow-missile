@@ -28,6 +28,7 @@ export class Game extends Scene
     shotsLayer: Phaser.GameObjects.Layer;
     shots: Phaser.GameObjects.Group;
     lastDestroyedWaveEnemy: { x: any; y: any; };
+    scores: any;
     //crashEnemy: ArcadePhysicsCallback | undefined;
 
     constructor (){
@@ -54,11 +55,11 @@ export class Game extends Scene
         this.center_width = this.width / 2;
         this.center_height = this.height / 2;
         new SceneEffect(this).simpleOpen(() => 0);
-
+        this.addScores();
         this.addPlayers();
         this.addEnemies();
-        this.addColliders();
         this.addShots();
+        this.addColliders();
 
         this.add.image(0, 0, 'background').setOrigin(0,0);
     }
@@ -69,6 +70,7 @@ export class Game extends Scene
         this.players = this.add.group();
         this.player = new Player(this, this.center_height, this.center_width);
         this.players.add(this.player);
+        console.log(this.players)
     }
 
     addEnemies() {
@@ -76,8 +78,6 @@ export class Game extends Scene
         this.enemyWaveGroup = this.add.group();
         this.enemyShots = this.add.group();
         this.enemies = new EnemyGenerator(this);
-
-        // console.log(this.enemies)
      }
 
      addShots() {
@@ -85,6 +85,23 @@ export class Game extends Scene
         this.shots = this.add.group();
 
         console.log(this.shots)
+     }
+
+     addScores() {
+        this.scores = {
+            player1: {},
+            player2: {}
+        };
+
+        this.scores["player1"]["scoreText"] = this.add.bitmapText(
+            150, 16, "wendy", 
+            String(this.registry.get("score_player1")).padStart(6, "0"))
+            .setOrigin(0.5).setScrollFactor(0);
+        this.scores["player2"]["scoreText"] = this.add.bitmapText(
+            150, 16, "wendy", 
+            String(this.registry.get("score_player1")).padStart(6, "0"))
+            .setOrigin(0.5).setScrollFactor(0);
+
      }
 
      //physics time!
@@ -105,21 +122,21 @@ export class Game extends Scene
             this
         );
 
-    //     this.physics.add.overlap(
-    //         this.shots,
-    //         this.enemyGroup,
-    //         this.destroyEnemy,
-    //         () => {return true},
-    //         this
-    //     );
+        this.physics.add.overlap(
+            this.shots,
+            this.enemyGroup,
+            this.destroyEnemy,
+            () => {return true},
+            this
+        );
 
-    // this.physics.add.overlap(
-    //         this.shots,
-    //         this.enemyWaveGroup,
-    //         this.destroyWaveEnemy,
-    //         () => {return true},
-    //         this
-    //     );
+    this.physics.add.overlap(
+            this.shots,
+            this.enemyWaveGroup,
+            this.destroyWaveEnemy,
+            () => {return true},
+            this
+        );
 
         this.physics.add.collider(
             this.players,
@@ -137,13 +154,13 @@ export class Game extends Scene
             this
         );
 
-    // this.physics.add.collider(
-    //         this.shots,
-    //         this.enemyShots,
-    //         this.destroyShot,
-    //         () => {return true},
-    //         this
-    //     );
+    this.physics.add.collider(
+            this.shots,
+            this.enemyShots,
+            this.destroyShot,
+            () => {return true},
+            this
+        );
 
     this.physics.world.on("worldbounds", this.onWorldBounds);
 
@@ -159,8 +176,18 @@ export class Game extends Scene
         }
      }
 
-    updateScore(playerName: any, arg1: number) {
-        throw new Error('Method not implemented.');
+    updateScore(playerName: any, points: number) {
+        const score = +this.registry.get("score_" + playerName) + points;
+        this.registry.set("score_" + playerName, score);
+        this.scores[playerName]["scoreText"].setText(String(score).padStart(6, "0"));
+
+        this.tweens.add({
+            targets:this.scores[playerName]["scoreText"], 
+            duration: 200,
+            tint: {from: 0x0000ff, to: 0xffffff},
+            scale: {from: 1.2, to: 1},
+            repeat: 2
+        })
     }
 
      destroyShot(shot, enemyShot) {
