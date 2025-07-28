@@ -14,6 +14,9 @@ export class Enemy extends Phaser.GameObjects.Sprite {
     lives: any;
     id: number;
     shadow: any;
+    patternIndex: number;
+    pattern: number[];
+    direction: number;
 
     constructor(scene: Scene, x: integer, y: integer, name: string = "enemy0", velocityX: number = 0, velocityY: number = 0) {
         super(scene, x, y, name); //from sprite class 
@@ -30,21 +33,42 @@ export class Enemy extends Phaser.GameObjects.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(false);
+        this.body.setCircle(19);
+        this.body.setOffset(12,12);
         this.body.setVelocityX(velocityX);
         this.body.setVelocityY(velocityY);
         this.setData("vector", new Phaser.Math.Vector2());
-        
+        if(this.name === "boss") {
+            this.setBossShot();
+        }
         this.init();
+    }
+    setBossShot() {
+        this.patternIndex = 0;
+        this.pattern = Phaser.Utils.Array.NumberArrayStep(-300, 300, 50);
+        this.pattern = this.pattern.concat(
+            Phaser.Utils.Array.NumberArrayStep(300, -300, 50)
+        );
+
+        this.scene.tweens.add({
+            targets: this,
+            duration: 2000,
+            y: {from: this.y, to:  this.y + Phaser.Math.Between(100, -100) },
+            x: {from: this.x, to: this.x + Phaser.Math.Between(100, -100) },
+            yoyo: true,
+            repeat: -1,
+        });
     }
 
     init() {
         this.scene.anims.create({
             key: this.name,
-            frames: this.scene.anims.generateFrameNumbers(this.name, { start: 1, end: 1 }),
+            frames: this.scene.anims.generateFrameNumbers(this.name),
             frameRate: 10,
             repeat: -1
         });
         this.anims.play(this.name, true);
+        this.direction = -1;
     }
 
     update () {
@@ -56,7 +80,8 @@ export class Enemy extends Phaser.GameObjects.Sprite {
         }
         
         if(this.name === "boss" && Phaser.Math.Between(1, 6) > 5) {
-            //boss stuff
+            //boss function
+            console.log("boss pew pew");
         } else if (Phaser.Math.Between(1, 101) > 100) {
             if(!this.scene || !this.scene.player) return;
 
