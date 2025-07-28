@@ -30,7 +30,7 @@ export class Game extends Scene
     //crashEnemy: ArcadePhysicsCallback | undefined;
 
     constructor (){
-        super('Game');
+        super({key: "game"});
         this.score = 0;
         this.player = null;
         this.scoreText = "";
@@ -38,13 +38,13 @@ export class Game extends Scene
 
     // data from previous scene (transition?)
     //not needed yet
-    // init(data) {
-    //     this.name = data.name;
-    //     this.number = data.number;
-    //     this.next = data.next;
-    //    // this.currentPowerUp = +this.registry.get("currentPowerUp");
+    init(data) {
+        this.name = data.name;
+        this.number = data.number;
+        this.next = data.next;
+       // this.currentPowerUp = +this.registry.get("currentPowerUp");
 
-    // }
+    }
 
     create ()
     {
@@ -75,11 +75,15 @@ export class Game extends Scene
         this.enemyWaveGroup = this.add.group();
         this.enemyShots = this.add.group();
         this.enemies = new EnemyGenerator(this);
+
+        // console.log(this.enemies)
      }
 
      addShots() {
         this.shotsLayer = this.add.layer();
         this.shots = this.add.group();
+
+        console.log(this.shots)
      }
 
      //physics time!
@@ -100,37 +104,37 @@ export class Game extends Scene
             this
         );
 
-        this.physics.add.overlap(
-            this.shots,
-            this.enemyGroup,
-            this.destroyEnemy,
+    //     this.physics.add.overlap(
+    //         this.shots,
+    //         this.enemyGroup,
+    //         this.destroyEnemy,
+    //         () => {return true},
+    //         this
+    //     );
+
+    // this.physics.add.overlap(
+    //         this.shots,
+    //         this.enemyWaveGroup,
+    //         this.destroyWaveEnemy,
+    //         () => {return true},
+    //         this
+    //     );
+
+        this.physics.add.collider(
+            this.players,
+            this.powerUps,
+            this.pickPowerUps,
             () => {return true},
             this
         );
 
     this.physics.add.overlap(
-            this.shots,
-            this.enemyWaveGroup,
-            this.destroyWaveEnemy,
+            this.players,
+            this.enemyShots,
+            this.hitPlayer,
             () => {return true},
             this
         );
-
-        // this.physics.add.collider(
-        //     this.players,
-        //     this.powerUps,
-        //     this.pickPowerUps,
-        //     () => {return true},
-        //     this
-        // );
-
-    // this.physics.add.overlap(
-    //         this.players,
-    //         this.enemyShots,
-    //         this.hitPlayer,
-    //         () => {return true},
-    //         this
-    //     );
 
     // this.physics.add.collider(
     //         this.shots,

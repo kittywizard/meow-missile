@@ -6,7 +6,7 @@ export class Boot extends Scene
     progressBar: Phaser.GameObjects.Graphics;
 
     constructor () {
-        super('Boot');
+        super({key: "boot"});
     }
 
     preload() {
@@ -37,7 +37,7 @@ export class Boot extends Scene
             }, this);
 
             this.load.on("complete", () => {
-                this.scene.start("Splash")
+                this.scene.start("splash")
             },this)
     }
 

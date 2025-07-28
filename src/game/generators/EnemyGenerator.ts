@@ -56,6 +56,8 @@ export class EnemyGenerator {
             });
             }
         }
+
+        console.log(this.scene.number)
     }
 
     stop() {
