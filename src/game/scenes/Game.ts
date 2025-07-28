@@ -2,6 +2,7 @@ import { Scene } from 'phaser';
 import { Player } from '../components/Player';
 import { Enemy } from '../components/Enemy';
 import { EnemyGenerator } from '../generators/EnemyGenerator';
+import SceneEffect from '../components/SceneEffect';
 
 
 export class Game extends Scene
@@ -43,7 +44,6 @@ export class Game extends Scene
         this.number = data.number;
         this.next = data.next;
        // this.currentPowerUp = +this.registry.get("currentPowerUp");
-
     }
 
     create ()
@@ -53,6 +53,7 @@ export class Game extends Scene
         this.height = this.sys.game.config.height;
         this.center_width = this.width / 2;
         this.center_height = this.height / 2;
+        new SceneEffect(this).simpleOpen(() => 0);
 
         this.addPlayers();
         this.addEnemies();
@@ -263,6 +264,27 @@ export class Game extends Scene
             repeat: 10,
             onComplete: () => {this.player.blinking = false}
         });
+     }
+
+     endScene() {
+        this.enemyWaveGroup.children.entries.forEach(foe => foe.shadow.destroy());
+        this.enemyGroup.children.entries.forEach((foe) => foe.shadow.destroy());
+        this.shots.children.entries.forEach(shot => shot.shadow.destroy());
+        this.enemyShots.children.entries.forEach(shot => shot.shadow.destroy());
+
+        this.time.delayedCall(2000, () => this.finishScene(), null, this)
+     }
+
+     finishScene() {
+        this.game.sound.stopAll();
+        this.scene.stop("game");
+        const scene = this.number < 5 ? "transition" : "outro";
+
+        this.scene.start(scene, {
+            next: "game",
+            name: "STAGE",
+            number: this.number + 1
+        })
      }
 
     update() {

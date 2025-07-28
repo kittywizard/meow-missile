@@ -1,12 +1,13 @@
 import { Scene } from 'phaser';
 import SceneEffect from '../components/SceneEffect';
 
-export class Splash extends Scene
+export default class Splash extends Scene
 {
     center_width: number;
     center_height: number;
     width:  number;
     height: number;
+    theme: any;
 
     constructor (){
         super({key: "splash"});
@@ -20,8 +21,10 @@ export class Splash extends Scene
     }
 
     startGame() {
-        this.input.keyboard?.on("keydown-SPACE",
-            () => this.scene.start('transition'), {
+        if(this.theme) this.theme.stop();
+        console.log("start game")
+        
+       this.scene.start('transition', {
                 next: "game",
                 name: "STAGE",
                 number: 1,
@@ -38,8 +41,9 @@ export class Splash extends Scene
         this.height = parseInt(this.sys.game.config.height);
         this.center_width = this.width / 2;
         this.center_height = this.height / 2;
-        this.showInstructions();
-        this.startGame();
+
+        this.time.delayedCall(500, () => this.showInstructions(), null, this);
+        this.input.keyboard?.on("keydown-SPACE", () => this.transitionToChange(), this)
     }
 
 }

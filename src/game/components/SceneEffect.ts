@@ -1,4 +1,5 @@
 export default class SceneEffect {
+  scene: any;
   constructor(scene) {
     this.scene = scene;
   }
