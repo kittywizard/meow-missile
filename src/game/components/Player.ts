@@ -1,5 +1,6 @@
 import { Scene } from "phaser";
 import shootingPatterns from "../generators/ShootingPatterns";
+import Explosion from "./Explosion";
 export class Player extends Phaser.GameObjects.Sprite {
     SPACE: Phaser.Input.Keyboard.Key | undefined;
     cursor: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
@@ -68,6 +69,21 @@ export class Player extends Phaser.GameObjects.Sprite {
 
     dead() {
         console.log("You have died.");
+
+        const explosion = this.scene.add.circle(this.x, this.y, 10).setStrokeStyle(40, 0xffffff);
+        this.scene.tweens.add({
+            targets: explosion,
+            radius: {from: 10, to: 512},
+            alpha: {from: 1, to: 0.3},
+            duration: 300,
+            onComplete: () => explosion.destroy()
+        });
+
+        this.scene.cameras.main.shake(500);
+        this.death = true;
+        this.shadow.destroy();
+        new Explosion(this.scene, this.x, this.y, 40);
+        super.destroy();
     }
 
     init() {
