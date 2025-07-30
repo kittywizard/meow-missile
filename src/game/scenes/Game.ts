@@ -93,15 +93,13 @@ export class Game extends Scene
         };
 
         this.scores["player1"]["scoreText"] = this.add.bitmapText(
-            150, this.center_height / 2, "wendy", 
+            150, 16, "wendy", 
             String(this.registry.get("score_player1")).padStart(6, "0"), 50)
             .setOrigin(0.5).setScrollFactor(0).setDropShadow(3, 4, 0x222222, 0.7);
         // this.scores["player2"]["scoreText"] = this.add.bitmapText(
         //     this.width - 150, 16, "wendy", 
         //     String(this.registry.get("score_player2")).padStart(6, "0"), 50)
         //     .setOrigin(0.5).setScrollFactor(0);
-
-        console.log(this.scores["player1"]["scoreText"])
 
      }
 
@@ -191,7 +189,6 @@ export class Game extends Scene
             repeat: 2
         });
 
-        console.log(this.scores[playerName]["scoreText"])
     }
 
      destroyShot(shot, enemyShot) {
