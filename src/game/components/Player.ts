@@ -24,6 +24,12 @@ export class Player extends Phaser.GameObjects.Sprite {
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
+        this.body.setAllowGravity(false);
+        this.body.setCollideWorldBounds(true);
+        this.body.setCircle(26);
+        this.body.setOffset(6, 9);
+        this.power = 0;
+        this.blinking = false;
         this.setScale(1);
         this.setControls();
         this.init();

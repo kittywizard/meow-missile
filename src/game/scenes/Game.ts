@@ -29,6 +29,7 @@ export class Game extends Scene
     shots: Phaser.GameObjects.Group;
     lastDestroyedWaveEnemy: { x: any; y: any; };
     scores: any;
+    trailLayer: Phaser.GameObjects.Layer;
     //crashEnemy: ArcadePhysicsCallback | undefined;
 
     constructor (){
@@ -68,7 +69,7 @@ export class Game extends Scene
 
     //adding
     addPlayers() {
-        this.add.trailLayer = this.add.layer();
+        this.trailLayer = this.add.layer();
         this.players = this.add.group();
         this.player = new Player(this, this.center_height, this.center_width);
         this.players.add(this.player);
@@ -168,7 +169,7 @@ export class Game extends Scene
      //callbacks for the above colliders
      onWorldBounds(body: any, t: any) {
         const name = body.gameObject.name.toString();
-        
+
         if(["enemyShot", "shot"].includes(name)){
             body.gameObject.shadow.destroy();
             body.gameObject.destroy();

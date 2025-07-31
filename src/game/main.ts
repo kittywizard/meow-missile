@@ -14,16 +14,16 @@ const config: Types.Core.GameConfig = {
     parent: 'game-container',
     backgroundColor: '#fff',
     scale: {
-        width: 900,
-        height: 1000
+        width: 1000,
+        height: 900
     },
+    autoRound: false,
     physics: {
         default: 'arcade',
         arcade: { 
             debug: true,
             gravity: {
-                y: 0,
-                x: 0
+                y: 0
             } 
         }
     },

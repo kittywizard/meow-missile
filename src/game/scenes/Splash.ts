@@ -22,9 +22,8 @@ export default class Splash extends Scene
 
     startGame() {
         if(this.theme) this.theme.stop();
-        console.log("start game")
         
-       this.scene.start('transition', {
+        this.scene.start('transition', {
                 next: "game",
                 name: "STAGE",
                 number: 1,
