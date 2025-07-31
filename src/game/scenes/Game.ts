@@ -168,7 +168,7 @@ export class Game extends Scene
      //callbacks for the above colliders
      onWorldBounds(body: any, t: any) {
         const name = body.gameObject.name.toString();
-        console.log(name)
+        
         if(["enemyShot", "shot"].includes(name)){
             body.gameObject.shadow.destroy();
             body.gameObject.destroy();
