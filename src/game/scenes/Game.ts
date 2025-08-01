@@ -64,7 +64,12 @@ export class Game extends Scene
         this.addEnemies();
         this.addShots();
         this.addColliders();
-        //this.setBackground();
+        this.setBackground();
+    }
+
+    //tiled, scrolling background. larger pixel size
+    setBackground() {
+        this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
     }
 
     //adding
@@ -320,6 +325,6 @@ export class Game extends Scene
         if (this.player) this.player.update();
         this.enemies.update();
         //background movement 
-        //this.background.tilePositionY -= 10;
+        this.background.tilePositionY -= 10;
     }
 }
