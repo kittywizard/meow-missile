@@ -45,8 +45,8 @@ export default class Boot extends Scene
         this.load.image('background', 'assets/crazy-bg.png');
 
         this.load.spritesheet('player1', 
-            'assets/tali_sheet.png', 
-            { frameWidth: 50, frameHeight: 50 }
+            'assets/tali_spritesheet.png', 
+            { frameWidth: 64, frameHeight: 64 }
         );
 
         this.load.spritesheet('enemy0', 
