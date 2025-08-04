@@ -8,13 +8,16 @@ export default class Splash extends Scene
     width:  number;
     height: number;
     theme: any;
+    background: Phaser.GameObjects.TileSprite;
 
     constructor (){
         super({key: "splash"});
     }
 
     showInstructions() {
-        this.add.image(0, 0, 'background').setOrigin(0,0);
+       // this.add.image(0, 0, 'background').setOrigin(0,0);
+        this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
+
         this.add.bitmapText(this.center_width, this.center_height, 'wendy', 'meow missile', 80).setOrigin(0.5).setDropShadow(3, 4, 0x222222, 0.7);
 
         this.add.bitmapText(this.center_width, 600, 'wendy', 'space to play', 60).setOrigin(0.5).setDropShadow(3, 4, 0x222222, 0.7);

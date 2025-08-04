@@ -23,7 +23,7 @@ export default class Transition extends Phaser.Scene {
             "and other helpful tips"
         ];
 
-        this.add.image(0, 0, 'background').setOrigin(0,0);
+        this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
 
 
         this.width = this.sys.game.config.width;
