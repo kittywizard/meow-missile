@@ -23,14 +23,14 @@ export default class Transition extends Phaser.Scene {
             "and other helpful tips"
         ];
 
-        this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
-
-
         this.width = this.sys.game.config.width;
         this.height = this.sys.game.config.height;
         this.center_width = this.width / 2;
         this.center_height = this.height / 2;
         //this.sound.add("stageclear2").play();
+
+        this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
+
 
         console.log(this.number)
         this.add.bitmapText(this.center_width, this.center_height - 50, "wendy", messages[this.number - 1], 100).setOrigin(0.5).setDropShadow(3, 4, 0x222222, 0.7);;
