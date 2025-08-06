@@ -43,26 +43,14 @@ export default class Boot extends Scene
 
     loadImages() {
         this.load.image('background', 'assets/crazy-bg.png');
-
-        this.load.spritesheet('player1', 
-            'assets/tali_spritesheet.png', 
-            { frameWidth: 64, frameHeight: 64 }
-        );
-
-        this.load.spritesheet('enemy0', 
-            'assets/hairball.png', 
-            { frameWidth: 64, frameHeight: 64 }
-        );
-
     }
 
     loadSpriteSheets() {
-        //loading test image for now
-        this.load.spritesheet("tali", "assets/images/player1.png", {
+        this.load.spritesheet("player1", "assets/tali_spritesheet.png", {
             frameWidth: 64,
             frameHeight: 64,
         });
-         this.load.spritesheet("enemy0", "assets/images/hairball.png", {
+         this.load.spritesheet("enemy0", "assets/hairball.png", {
             frameWidth: 64,
             frameHeight: 64,
         });
