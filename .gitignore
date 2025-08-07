@@ -28,3 +28,6 @@ dist-ssr
 .screenshot
 log.js
 instructions.md
+.eslintrc.cjs
+.editorconfig
+/vite
