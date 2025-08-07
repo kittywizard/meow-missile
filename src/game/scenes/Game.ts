@@ -59,12 +59,12 @@ export class Game extends Scene
         this.cameras.main.setBackgroundColor(0x333333);
         this.lights.enable();
         this.lights.setAmbientColor(0x666666);
+        this.setBackground();
         this.addScores();
         this.addPlayers();
         this.addEnemies();
         this.addShots();
         this.addColliders();
-        this.setBackground();
     }
 
     //tiled, scrolling background. larger pixel size
@@ -81,6 +81,8 @@ export class Game extends Scene
     }
 
     addEnemies() {
+
+        // check code, where do we specify different enemy names?
         this.enemyGroup = this.add.group();
         this.enemyWaveGroup = this.add.group();
         this.enemyShots = this.add.group();
@@ -181,8 +183,7 @@ export class Game extends Scene
         }
      }
 
-    updateScore(playerName, points: number = 0) {
-        console.log(playerName)
+    updateScore(playerName: string, points: number = 0) {
         const score = +this.registry.get("score_" + playerName) + points;
         this.registry.set("score_" + playerName, score);
         this.scores[playerName]["scoreText"].setText(String(score).padStart(6, "0"));
@@ -221,6 +222,7 @@ export class Game extends Scene
 
      destroyEnemy(shot, enemy) {
         enemy.lives--;
+        console.log(enemy.lives)
         //this.playAudio("explosion");
         const point = this.lights.addPointLight(shot.x, shot.y, 0xffffff, 10, 0.7);
 
@@ -247,7 +249,8 @@ export class Game extends Scene
         shot.destroy();
 
         if(enemy.lives === 0) {
-            const point = this.lights.addPointLight(shot.x, shot.y, 0xffffff,10, 0.70);
+            //this.playAudio("foedestroy");
+            const point = this.lights.addPointLight(shot.x, shot.y, 0xffffff,10, 0.7);
 
             this.tweens.add({
                 targets: point,

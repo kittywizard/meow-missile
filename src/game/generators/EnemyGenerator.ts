@@ -57,7 +57,6 @@ export class EnemyGenerator {
             }
         }
 
-        console.log(this.scene.number)
     }
 
     stop() {
@@ -133,7 +132,24 @@ export class EnemyGenerator {
     }
 
     slider() {
-        throw new Error("Slider not implemented.");
+        let velocity = -200;
+        let x = 0;
+        if (Phaser.Math.Between(-1, 1) > 0) {
+            velocity = 200;
+            x = -100;
+        } else {
+            x = this.scene.width + 100;
+        }
+
+        const enemy = new Enemy(this.scene, x, Phaser.Math.Between(100, 600), "enemy1", velocity, 0);
+
+        this.scene.tweens.add({
+            targets: [enemy, enemy.shadow],
+            duration: 500,
+            rotation: "+=5",
+            repeat: -1,
+        });
+        this.scene.enemyGroup.add(enemy);
     }
 
     releaseBoss() {
@@ -163,6 +179,7 @@ export class EnemyGenerator {
 
     //add to a wave
     addToWave(i: number) {
+        //enemy name auto-generated> check example
         const enemy = new Enemy(
             this.scene,
             Phaser.Math.Between(32, this.scene.width - 32),
@@ -203,7 +220,7 @@ export class EnemyGenerator {
             }
         }
 
-        this.scene.enemyWaveGroup.children.entries.forEach((enemy: any) => {
+        this.scene.enemyGroup.children.entries.forEach((enemy: any) => {
             if (enemy === null || !enemy.active || enemy.y > this.scene.height +  100) {
                 enemy.destroy();
             }
@@ -214,6 +231,6 @@ export class EnemyGenerator {
     checkIfWaveDestroyed() {
         const enemies = this.scene.enemyWaveGroup.children.entries;
 
-        return enemies.length === enemies.filter((enemy: { active: any; }) => !enemy.active).length
+        return enemies.length === enemies.filter((enemy: { active: any; }) => !enemy.active).length;
     }
 }

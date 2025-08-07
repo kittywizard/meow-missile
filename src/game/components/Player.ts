@@ -1,5 +1,6 @@
 import { Scene } from "phaser";
 import shootingPatterns from "../generators/ShootingPatterns";
+import { LightParticle } from "./LightParticle";
 import Explosion from "./Explosion";
 export class Player extends Phaser.GameObjects.Sprite {
     SPACE: Phaser.Input.Keyboard.Key | undefined;
@@ -20,19 +21,20 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.name = name;
         this.id = Math.random();
         this.spawnShadow(x, y);
-        this.shootingPatterns = new shootingPatterns(this.scene, this.name);
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
+        this.shootingPatterns = new shootingPatterns(this.scene, this.name);
+
         this.body.setAllowGravity(false);
         this.body.setCollideWorldBounds(true);
         this.body.setCircle(26);
         this.body.setOffset(6, 9);
         this.power = 0;
         this.blinking = false;
-        this.setScale(1);
-        this.setControls();
+        //this.setScale(1);
         this.init();
+        this.setControls();
 
     }
 
@@ -68,7 +70,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     }
 
     spawnShadow (x: number,y: number) {
-        this.shadow = this.scene.add.image(x + 20, y + 20, "player1")
+        this.shadow = this.scene.add.image(x + 10, y + 10, "player1")
         .setTint(0x000000)
         .setAlpha(0.4);
     }
@@ -101,7 +103,7 @@ export class Player extends Phaser.GameObjects.Sprite {
         });
         this.scene.anims.create({
             key: this.name + "right",
-            frames: this.scene.anims.generateFrameNumbers(this.name, { start: 1, end: 1 }),
+            frames: this.scene.anims.generateFrameNumbers(this.name, { start: 2, end: 2 }),
             frameRate: 10,
             repeat: -1
         });
@@ -111,15 +113,21 @@ export class Player extends Phaser.GameObjects.Sprite {
             frameRate: 10,
             repeat: -1
         });
+        this.scene.anims.create({
+            key: this.name + "vomit",
+            frames: this.scene.anims.generateFrameNumbers(this.name, { start: 1, end: 1 }),
+            frameRate: 10,
+            repeat: -1
+        });
        this.anims.play(this.name, true);
     }
 
     updateShadow() {
-        this.shadow.x = this.x + 20;
-        this.shadow.y = this.y + 20;
+        this.shadow.x = this.x + 10;
+        this.shadow.y = this.y + 10;
     }
 
-    update() {
+    update(timestep: any, delta: any) {
         if (this.death) return;    
             
         // // ARROW KEYS!!!! // //
@@ -136,7 +144,8 @@ export class Player extends Phaser.GameObjects.Sprite {
             this.shadow.setScale(0.5, 1);
         }
         else {
-            this.anims.play(this.name, true);
+            //this.anims.play(this.name, true);
+            this.anims.play(this.name + "vomit", true); //fix later
             this.shadow.setScale(1, 1);
         }
 
@@ -152,6 +161,8 @@ export class Player extends Phaser.GameObjects.Sprite {
         if (Phaser.Input.Keyboard.JustDown(this.SPACE)) {
             this.shoot();
         }
+
+        this.scene.trailLayer.add(new LightParticle(this.scene, this.x, this.y, 0xffffff, 10));
 
         this.updateShadow();
 
