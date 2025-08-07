@@ -177,7 +177,7 @@ export class Game extends Scene
      onWorldBounds(body: any, t: any) {
         const name = body.gameObject.name.toString();
 
-        if(["enemyShot", "shot"].includes(name)){
+        if(["enemyshot", "shot"].includes(name)){
             body.gameObject.shadow.destroy();
             body.gameObject.destroy();
         }
@@ -215,21 +215,21 @@ export class Game extends Scene
         this.updateScore(shot.playerName, 50);
      }
 
-     destroyWaveEnemy(shot: { x: number; y: number; playerName: any; destroy: () => void; }, enemy: { x?: any; y?: any; lives?: number; points?: number; dead?: () => void; }) {
-        this.lastDestroyedWaveEnemy = {x: enemy.x, y: enemy.y};
+     destroyWaveEnemy(shot: any, enemy: any) {
+        this.lastDestroyedWaveEnemy = {x: enemy.x, y: enemy.y}; //this is for power-ups
         this.destroyEnemy(shot, enemy);
      }
 
-     destroyEnemy(shot, enemy) {
+
+     destroyEnemy(shot: any, enemy: any) {
         enemy.lives--;
-        console.log(enemy.lives)
         //this.playAudio("explosion");
         const point = this.lights.addPointLight(shot.x, shot.y, 0xffffff, 10, 0.7);
 
         this.tweens.add({
             targets: point,
             duration: 400,
-            tint: {from: 0xffffff, to: 0xff0000},
+            scale: { from: 1, to: 0},
         });
 
         this.tweens.add({

@@ -162,7 +162,8 @@ export class Player extends Phaser.GameObjects.Sprite {
             this.shoot();
         }
 
-        this.scene.trailLayer.add(new LightParticle(this.scene, this.x, this.y, 0xffffff, 10));
+        //light particle stream - great if the cat is shitting itself or turns into a spaceship but unnecessary for now
+        //this.scene.trailLayer.add(new LightParticle(this.scene, this.x, this.y, 0xffffff, 10));
 
         this.updateShadow();
 

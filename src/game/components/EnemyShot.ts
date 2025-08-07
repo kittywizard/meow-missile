@@ -1,32 +1,32 @@
 const TYPES = {
     enemy: {  color: 0xfff01f, radius: 16, intensity: 0.4},
-    water: { color: 0x0000cc, radius: 16, intensity: 0.4}
+    water: { color: 0xff44aa, radius: 16, intensity: 0.8}
 }
 
 export class EnemyShot extends Phaser.GameObjects.PointLight {
 
-    playerName: any;
-    shadow: GameObject;
-    constructor(scene: Phaser.Scene, x: number, y: number, type="water", playerName: any, velocityX = 0, velocityY = 0)
+    playerName: string;
+    shadow: Phaser.GameObjects.Arc;
 
-    {
+    constructor(scene: Phaser.Scene, x: number, y: number, type="water", playerName: any, velocityX = 0, velocityY = -300) {
         const { color, radius, intensity } = TYPES[type];
+
         super(scene, x, y, color, radius, intensity);
+
         this.name = "enemyshot";
         this.scene = scene;
         this.playerName = playerName;
-        this.spawnShadow(x, y, velocityX, velocityY);
         scene.add.existing(this);
         scene.physics.add.existing(this);
-
+        
         // if (PLAYER IS BOSS) this.body.setVelocity(velocityX, velocityY);
-
+        
         this.body.setAllowGravity(false);
-        this.body.setCollideWorldBounds(true);
-        this.body.onWorldBounds = true;
         this.body.setCircle(10);
         this.body.setOffset(6, 9);
-
+        this.body.setCollideWorldBounds(true);
+        this.body.onWorldBounds = true;
+        this.spawnShadow(x, y, velocityX, velocityY);
         this.init();
     }
 

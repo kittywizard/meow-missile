@@ -6,6 +6,7 @@ const TYPES = {
 export class Shot extends Phaser.GameObjects.PointLight {
     playerName: string;
     shadow: Phaser.GameObjects.Arc;
+    
     constructor(scene: Phaser.Scene, x: number, y: number, type="water", playerName: string, velocityX = 0, velocityY = -500){
         const { color,  radius, intensity } = TYPES[type];
 
