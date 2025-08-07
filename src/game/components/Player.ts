@@ -66,7 +66,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     shoot() {
         //pew pew
         //this.scene.playAudio("shot");
-        this.shootingPatterns.shoot(this.x, this.y, "water");
+        this.shootingPatterns.shoot(this.x, this.y, "hairball");
     }
 
     spawnShadow (x: number,y: number) {

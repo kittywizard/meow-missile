@@ -43,6 +43,7 @@ export default class Boot extends Scene
 
     loadImages() {
         this.load.image('background', 'assets/crazy-bg.png');
+        //this.load.image('hairball', "assets/hairball_halfsize.png");
     }
 
     loadSpriteSheets() {
@@ -50,6 +51,11 @@ export default class Boot extends Scene
             frameWidth: 64,
             frameHeight: 64,
         });
+        //change this asset once there's more frames
+        this.load.spritesheet("hairball", "assets/hairball.png", {
+            frameWidth: 64,
+            frameHeight: 64
+        })
          this.load.spritesheet("enemy0", "assets/carpet.png", {
             frameWidth: 150,
             frameHeight: 150,
