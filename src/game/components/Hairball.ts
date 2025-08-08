@@ -1,7 +1,7 @@
 export class Hairball extends Phaser.GameObjects.Sprite {
     id: number;
     direction: number;
-    constructor(scene: Phaser.Scene, x: number, y: number, name: string, velocityX = 0, velocityY = -500) {
+    constructor(scene: Phaser.Scene, x: number, y: number, name: string, velocityX = 0, velocityY = -500, playerName: string = "player1") {
         super(scene, x, y, name);
 
         this.name = name;

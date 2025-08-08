@@ -16,8 +16,8 @@ export class Game extends Scene
     number: any;
     next: any;
     duration: number;
-    width: string | number;
-    height: string | number;
+    width:  number;
+    height: number;
     center_width: number;
     center_height: number;
     players: Phaser.GameObjects.Group;
