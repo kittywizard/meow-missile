@@ -1,17 +1,21 @@
 export class Hairball extends Phaser.GameObjects.Sprite {
     id: number;
     direction: number;
+    playerName: string;
+    shadow: Phaser.GameObjects.Arc;
+
     constructor(scene: Phaser.Scene, x: number, y: number, name: string, velocityX = 0, velocityY = -500, playerName: string = "player1") {
         super(scene, x, y, name);
 
         this.name = name;
+        this.playerName = playerName;
         this.id = Math.random();
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(false);
         this.body.setCircle(10);
-        this.body.setOffset(12,12);
+        this.body.setOffset(6,9);
         this.body.setVelocityX(velocityX);
         this.body.setVelocityY(velocityY);
         this.body.setCollideWorldBounds(true);
