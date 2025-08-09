@@ -16,8 +16,8 @@ export class Game extends Scene
     number: any;
     next: any;
     duration: number;
-    width: string | number;
-    height: string | number;
+    width:  number;
+    height: number;
     center_width: number;
     center_height: number;
     players: Phaser.GameObjects.Group;
@@ -177,7 +177,7 @@ export class Game extends Scene
      onWorldBounds(body: any, t: any) {
         const name = body.gameObject.name.toString();
 
-        if(["enemyshot", "shot"].includes(name)){
+        if(["enemyshot", "shot", "hairball"].includes(name)){
             body.gameObject.shadow.destroy();
             body.gameObject.destroy();
         }
@@ -237,6 +237,7 @@ export class Game extends Scene
             duration: 400,
             tint: { from: 0xffffff, to: 0xff0000},
         });
+        console.log(shot.playerName);
 
         this.updateScore(shot.playerName, 50);
         this.tweens.add({

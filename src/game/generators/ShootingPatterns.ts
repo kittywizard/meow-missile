@@ -1,7 +1,8 @@
 import { Shot } from "../components/Shot";
+import { Hairball } from "../components/Hairball";
 
 export default class shootingPatterns {
-    shootingMethods: { water: any; };
+    shootingMethods: { hairball: any; };
     scene: any;
     name: string;
 
@@ -9,7 +10,7 @@ export default class shootingPatterns {
         this.scene = scene;
         this.name = name;
         this.shootingMethods = {
-            water: this.single.bind(this),
+            hairball: this.single.bind(this),
             //here too - types of shots
         };
     }
@@ -20,6 +21,6 @@ export default class shootingPatterns {
 
     //types of shots, add more later (update with powerups)
     single(x: number, y: number) {
-        this.scene.shots.add(new Shot(this.scene, x, y, "water", this.name));
+        this.scene.shots.add(new Hairball(this.scene, x, y, "hairball"));
     }
 }
