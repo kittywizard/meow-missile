@@ -148,6 +148,7 @@ export class Enemy extends Phaser.GameObjects.Sprite {
         }
         this.destroy();
     }
+    
     showPoints(score: string, color = 0xff0000) {
         let text = this.scene.add.bitmapText(this.x + 20, this.y - 30, "wendy", "+" + score, 40, color).setOrigin(0.5);
 

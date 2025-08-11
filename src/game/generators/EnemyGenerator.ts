@@ -35,14 +35,14 @@ export class EnemyGenerator {
             });
             this.generateEvent2 = this.scene.time.addEvent({
                 delay: 15000,
-                callback: this.wave(),
+                callback: () => this.wave(),
                 callbackScope: this,
                 loop: true,
             });
             if (this.scene.number > 1) {
                 this.generateEvent3 = this.scene.time.addEvent({
                     delay: 3000,
-                    callback: this.tank(),
+                    callback: () => this.tank(),
                     callbackScope: this,
                     loop: true,
                 });  
@@ -50,7 +50,7 @@ export class EnemyGenerator {
             if(this.scene.number > 2){
                 this.generateEvent4 = this.scene.time.addEvent({
                     delay: 5000,
-                    callback: this.slider(),
+                    callback: () => this.slider(),
                     callbackScope: this,
                     loop: true,
             });
@@ -77,6 +77,7 @@ export class EnemyGenerator {
 
     //path that neemies follow when in formation
     createPath() {
+        console.log(this.waves);
         this.waves++;
         if(this.waves === 3) this.finishScene();
 

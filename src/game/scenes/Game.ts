@@ -81,8 +81,6 @@ export class Game extends Scene
     }
 
     addEnemies() {
-
-        // check code, where do we specify different enemy names?
         this.enemyGroup = this.add.group();
         this.enemyWaveGroup = this.add.group();
         this.enemyShots = this.add.group();
@@ -237,7 +235,6 @@ export class Game extends Scene
             duration: 400,
             tint: { from: 0xffffff, to: 0xff0000},
         });
-        console.log(shot.playerName);
 
         this.updateScore(shot.playerName, 50);
         this.tweens.add({
@@ -286,6 +283,13 @@ export class Game extends Scene
 
      }
 
+     spawnShake() {
+        // const {x, y} = this.lastDestroyedWaveEnemy;
+        // this.shake = new PowerUp();
+        // this.powerUps.add(this.shake);
+        console.log("you get a power up! .. eventually")
+     }
+
      //power ups not implemented yet
     //  pickPowerUp(player, powerUp) {
 
@@ -314,6 +318,7 @@ export class Game extends Scene
      }
 
      finishScene() {
+        console.log("finish scene");
         this.game.sound.stopAll();
         this.scene.stop("game");
         const scene = this.number < 5 ? "transition" : "outro";

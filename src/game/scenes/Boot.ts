@@ -42,7 +42,7 @@ export default class Boot extends Scene
     }
 
     loadImages() {
-        this.load.image('background', 'assets/floor2.png');
+        this.load.image('background', 'assets/crazy-bg.png');
         //this.load.image('hairball', "assets/hairball_halfsize.png");
     }
 
