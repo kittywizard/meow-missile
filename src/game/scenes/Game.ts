@@ -2,6 +2,7 @@ import { Scene } from 'phaser';
 import { Player } from '../components/Player';
 import { Enemy } from '../components/Enemy';
 import { EnemyGenerator } from '../generators/EnemyGenerator';
+import { PowerUp } from '../components/PowerUp';
 import SceneEffect from '../components/SceneEffect';
 
 
@@ -30,6 +31,7 @@ export class Game extends Scene
     lastDestroyedWaveEnemy: { x: any; y: any; };
     scores: any;
     trailLayer: Phaser.GameObjects.Layer;
+    currentPowerUp: number;
     //crashEnemy: ArcadePhysicsCallback | undefined;
 
     constructor (){
@@ -45,7 +47,7 @@ export class Game extends Scene
         this.name = data.name;
         this.number = data.number;
         this.next = data.next;
-       // this.currentPowerUp = +this.registry.get("currentPowerUp");
+        this.currentPowerUp = +this.registry.get("currentPowerUp");
     }
 
     create ()
@@ -283,17 +285,18 @@ export class Game extends Scene
 
      }
 
+     //probably rename this as my power ups will be different item
      spawnShake() {
-        // const {x, y} = this.lastDestroyedWaveEnemy;
-        // this.shake = new PowerUp();
-        // this.powerUps.add(this.shake);
+        const {x, y} = this.lastDestroyedWaveEnemy;
+        this.shake = new PowerUp();
+        this.powerUps.add(this.shake);
         console.log("you get a power up! .. eventually")
      }
 
      //power ups not implemented yet
-    //  pickPowerUp(player, powerUp) {
+     pickPowerUp(player, powerUp) {
 
-    //  }
+     }
 
      respawnPlayer() {
         this.player = new Player(this, this.center_width, this.center_height);
