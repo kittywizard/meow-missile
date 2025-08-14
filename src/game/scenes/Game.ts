@@ -32,6 +32,8 @@ export class Game extends Scene
     scores: any;
     trailLayer: Phaser.GameObjects.Layer;
     currentPowerUp: number;
+    powerUps: any;
+    shake: PowerUp;
     //crashEnemy: ArcadePhysicsCallback | undefined;
 
     constructor (){
@@ -172,6 +174,9 @@ export class Game extends Scene
      this.physics.world.on("worldbounds", this.onWorldBounds);
 
      }
+    pickPowerUps<Game extends Game>(players: Phaser.GameObjects.Group, powerUps: any, pickPowerUps: any, arg3: () => boolean, arg4: this) {
+        throw new Error('Method not implemented.');
+    }
 
      //callbacks for the above colliders
      onWorldBounds(body: any, t: any) {
@@ -288,14 +293,15 @@ export class Game extends Scene
      //probably rename this as my power ups will be different item
      spawnShake() {
         const {x, y} = this.lastDestroyedWaveEnemy;
-        this.shake = new PowerUp();
+        this.shake = new PowerUp(this, x, y);
+        console.log(this.shake)
         this.powerUps.add(this.shake);
         console.log("you get a power up! .. eventually")
      }
 
      //power ups not implemented yet
      pickPowerUp(player, powerUp) {
-
+        console.log("pick power up")
      }
 
      respawnPlayer() {

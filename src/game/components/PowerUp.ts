@@ -53,10 +53,11 @@ export class PowerUp extends Phaser.GameObjects.Sprite {
         this.direction = -1;
 
     }
-    spawnShadow(x: number, y: number) {
+
+    spawnShadow(x: any, y: number) {
         this.shadow = this.scene.add.image(x + 20, y + 20, "plenny0")
         .setTint(0x000000).setAlpha(0.4);
-        this.scene.physics.add.existing(this);
+        this.scene.physics.add.existing(this.shadow);
         this.shadow.body.setVelocityX(-100); 
     }
 

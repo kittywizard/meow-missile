@@ -68,6 +68,10 @@ export default class Boot extends Scene
             frameWidth: 32,
             frameHeight: 32,
         });
+        this.load.spritesheet("plenny0", "assets/images/plenny0.png", {
+            frameWidth: 32,
+            frameHeight: 32,
+        });
     }
 
     loadAudios() {

@@ -13,14 +13,17 @@ export class Player extends Phaser.GameObjects.Sprite {
     id: number;
     shadow: Phaser.GameObjects.Image;
     shootingPatterns: shootingPatterns;
+    power: number;
+    blinking: boolean;
 
     
-    constructor(scene: Scene, x: integer, y: integer, name: string = "player1") {
+    constructor(scene: Scene, x: integer, y: integer, name: string = "player1", powerUp: string = "water") {
         super(scene, x, y, name); //from sprite class 
 
         this.name = name;
         this.id = Math.random();
         this.spawnShadow(x, y);
+        this.powerUp = this.powerUp;
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
@@ -66,7 +69,10 @@ export class Player extends Phaser.GameObjects.Sprite {
     shoot() {
         //pew pew
         //this.scene.playAudio("shot");
-        this.shootingPatterns.shoot(this.x, this.y, "hairball");
+        this.shootingPatterns.shoot(this.x, this.y, this.powerUp);
+    }
+    powerUp(x: number, y: number, powerUp: any) {
+        throw new Error("Method not implemented.");
     }
 
     spawnShadow (x: number,y: number) {
