@@ -15,6 +15,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     shootingPatterns: shootingPatterns;
     power: number;
     blinking: boolean;
+    powerUp: string;
 
     
     constructor(scene: Scene, x: integer, y: integer, name: string = "player1", powerUp: string = "hairball") {
@@ -69,10 +70,8 @@ export class Player extends Phaser.GameObjects.Sprite {
     shoot() {
         //pew pew
         //this.scene.playAudio("shot");
+        console.log(this.powerUp)
         this.shootingPatterns.shoot(this.x, this.y, this.powerUp);
-    }
-    powerUp(x: number, y: number, powerUp: any) {
-        throw new Error("Method not implemented.");
     }
 
     spawnShadow (x: number,y: number) {

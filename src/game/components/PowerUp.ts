@@ -4,7 +4,7 @@ export class PowerUp extends Phaser.GameObjects.Sprite {
     shadow: Phaser.GameObjects.Image;
     direction: number;
     
-    constructor(scene: Phaser.Scene | undefined, x: number | undefined, y: number | undefined, name = "plenny0", power = "fruit") {
+    constructor(scene: Phaser.Scene | undefined, x: number | undefined, y: number | undefined, name = "plenny0", power = "hairball ") {
         super(scene, x, y, name);
 
         this.name = name;

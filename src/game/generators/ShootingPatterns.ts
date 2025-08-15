@@ -18,6 +18,7 @@ export default class shootingPatterns {
     }
 
     shoot(x: number, y: number, powerUp: string) {
+        // console.log(powerUp)
         this.shootingMethods[powerUp](x, y, powerUp);
     }
 

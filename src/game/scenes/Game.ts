@@ -73,7 +73,7 @@ export class Game extends Scene
         this.addColliders();
     }
     addPowerUps() {
-        this.available = ["fruit", "hairball"];
+        this.available = ["hairball", "hairball", "water"];
         this.powerUps = this.add.group();
     }
 
@@ -318,14 +318,8 @@ export class Game extends Scene
      spawnShake() {
         const {x, y} = this.lastDestroyedWaveEnemy;
         this.shake = new PowerUp(this, x, y);
-        console.log(this.shake)
         this.powerUps.add(this.shake);
         console.log("you get a power up! .. eventually")
-     }
-
-     //power ups not implemented yet
-     pickPowerUp(player, powerUp) {
-        console.log("pick power up")
      }
 
      respawnPlayer() {
