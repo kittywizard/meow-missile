@@ -113,12 +113,12 @@ export default class Boot extends Scene
 
     setRegistry() {
         this.registry.set("score_player1", 0);
-        this.registry.set("power_player1", "water");
+        this.registry.set("power_player1", "hairball");
         this.registry.set("lives_player1", 0);
 
         //player 2 not really implemented
         this.registry.set("score_player2", 0);
-        this.registry.set("power_player2", "water");
+        this.registry.set("power_player2", "hairball");
         this.registry.set("lives_player2", 0);
     }
 

@@ -43,6 +43,7 @@ export default class Splash extends Scene
         this.height = parseInt(this.sys.game.config.height);
         this.center_width = this.width / 2;
         this.center_height = this.height / 2;
+        this.registry.set("currentPowerUp", 0);
 
         this.time.delayedCall(500, () => this.showInstructions(), null, this);
         this.input.keyboard?.on("keydown-SPACE", () => this.transitionToChange(), this)

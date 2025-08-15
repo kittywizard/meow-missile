@@ -72,16 +72,12 @@ export class Game extends Scene
         this.addShots();
         this.addColliders();
     }
-    addPowerUps() {
-        this.available = ["hairball", "hairball", "water"];
-        this.powerUps = this.add.group();
-    }
-
+    
     //tiled, scrolling background. larger pixel size
     setBackground() {
         this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
     }
-
+    
     //adding
     addPlayers() {
         this.trailLayer = this.add.layer();
@@ -89,19 +85,23 @@ export class Game extends Scene
         this.player = new Player(this, this.center_height, this.center_width);
         this.players.add(this.player);
     }
-
+    
     addEnemies() {
         this.enemyGroup = this.add.group();
         this.enemyWaveGroup = this.add.group();
         this.enemyShots = this.add.group();
         this.enemies = new EnemyGenerator(this);
-     }
-
-     addShots() {
+    }
+    
+    addShots() {
         this.shotsLayer = this.add.layer();
         this.shots = this.add.group();
-     }
-
+    }
+    
+    addPowerUps() {
+        this.available = ["hairball", "hairball", "water"];
+        this.powerUps = this.add.group();
+    }
      addScores() {
         this.scores = {
             player1: {},
@@ -181,7 +181,7 @@ export class Game extends Scene
 
      }
 
-    pickPowerUps(player, powerUp) {
+    pickPowerUps(player: any, powerUp: { destroy: () => void; }) {
         //this.playAudio("stageclear1");
         this.updatePowerUp(player, powerUp);
         this.tweens.add({
@@ -194,11 +194,14 @@ export class Game extends Scene
         powerUp.destroy();
     }
 
-    updatePowerUp(player, powerUp) {
+    updatePowerUp(player: { powerUp: string; }, powerUp: { destroy: () => void; }) {
+        console.log(player.powerUp);
+        console.log(this.currentPowerUp)
         player.powerUp = this.available[this.currentPowerUp];
         this.currentPowerUp = this.currentPowerUp + 1 === this.available.length
             ? this.currentPowerUp : this.currentPowerUp + 1;
         this.registry.set("currentPowerUp", this.currentPowerUp);
+        console.log("current power up " + this.currentPowerUp);
     }
     
 
