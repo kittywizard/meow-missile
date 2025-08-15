@@ -1,10 +1,12 @@
+const TYPES = {}
 export class Hairball extends Phaser.GameObjects.Sprite {
     id: number;
     direction: number;
     playerName: string;
     shadow: Phaser.GameObjects.Arc;
 
-    constructor(scene: Phaser.Scene, x: number, y: number, name: string, velocityX = 0, velocityY = -500, playerName: string = "player1") {
+    //name == type in shot example (i think)
+    constructor(scene: Phaser.Scene, x: number, y: number, name: string, playerName: string = "player1", velocityX = 0, velocityY = -500) {
         super(scene, x, y, name);
 
         this.name = name;

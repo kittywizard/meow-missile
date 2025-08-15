@@ -22,12 +22,12 @@ export default class shootingPatterns {
     }
 
     //types of shots, add more later (update with powerups)
-    single(x: number, y: number) {
+    single(x: number, y: number, powerUp: any) {
         this.scene.shots.add(new Hairball(this.scene, x, y, powerUp, this.name));
     }
  
     //duplicate for testing purposes, delete or change later
-    single2(x: number, y: number) {
+    single2(x: number, y: number, powerUp: any) {
         this.scene.shots.add(new Hairball(this.scene, x, y, powerUp, this.name));
     }
 

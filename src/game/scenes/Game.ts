@@ -34,6 +34,7 @@ export class Game extends Scene
     currentPowerUp: number;
     powerUps: any;
     shake: PowerUp;
+    available: string[];
     //crashEnemy: ArcadePhysicsCallback | undefined;
 
     constructor (){
@@ -66,9 +67,14 @@ export class Game extends Scene
         this.setBackground();
         this.addScores();
         this.addPlayers();
+        this.addPowerUps();
         this.addEnemies();
         this.addShots();
         this.addColliders();
+    }
+    addPowerUps() {
+        this.available = ["fruit", "hairball"];
+        this.powerUps = this.add.group();
     }
 
     //tiled, scrolling background. larger pixel size
@@ -174,9 +180,27 @@ export class Game extends Scene
      this.physics.world.on("worldbounds", this.onWorldBounds);
 
      }
-    pickPowerUps<Game extends Game>(players: Phaser.GameObjects.Group, powerUps: any, pickPowerUps: any, arg3: () => boolean, arg4: this) {
-        throw new Error('Method not implemented.');
+
+    pickPowerUps(player, powerUp) {
+        //this.playAudio("stageclear1");
+        this.updatePowerUp(player, powerUp);
+        this.tweens.add({
+            targets: player,
+            duration: 200,
+            alpha: {from: 0.5, to: 1},
+            scale: {from: 1.4, to: 1},
+            repeat: 3,
+        });
+        powerUp.destroy();
     }
+
+    updatePowerUp(player, powerUp) {
+        player.powerUp = this.available[this.currentPowerUp];
+        this.currentPowerUp = this.currentPowerUp + 1 === this.available.length
+            ? this.currentPowerUp : this.currentPowerUp + 1;
+        this.registry.set("currentPowerUp", this.currentPowerUp);
+    }
+    
 
      //callbacks for the above colliders
      onWorldBounds(body: any, t: any) {

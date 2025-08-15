@@ -17,13 +17,13 @@ export class Player extends Phaser.GameObjects.Sprite {
     blinking: boolean;
 
     
-    constructor(scene: Scene, x: integer, y: integer, name: string = "player1", powerUp: string = "water") {
+    constructor(scene: Scene, x: integer, y: integer, name: string = "player1", powerUp: string = "hairball") {
         super(scene, x, y, name); //from sprite class 
 
         this.name = name;
         this.id = Math.random();
         this.spawnShadow(x, y);
-        this.powerUp = this.powerUp;
+        this.powerUp = powerUp;
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
