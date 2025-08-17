@@ -16,6 +16,8 @@ export class Player extends Phaser.GameObjects.Sprite {
     power: number;
     blinking: boolean;
     powerUp: string;
+    playerShots: any;
+    nextShotTime: number;
 
     
     constructor(scene: Scene, x: integer, y: integer, name: string = "player1", powerUp: string = "hairball") {
@@ -25,6 +27,7 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.id = Math.random();
         this.spawnShadow(x, y);
         this.powerUp = powerUp;
+        this.nextShotTime = 0;
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
@@ -71,7 +74,6 @@ export class Player extends Phaser.GameObjects.Sprite {
     shoot() {
         //pew pew
         //this.scene.playAudio("shot");
-        console.log(this.powerUp)
         this.shootingPatterns.shoot(this.x, this.y, this.powerUp);
     }
 
@@ -126,6 +128,12 @@ export class Player extends Phaser.GameObjects.Sprite {
             repeat: -1
         });
        this.anims.play(this.name, true);
+
+    //not sure where this goes, but need a group with max size to stop overloading the game
+       this.playerShots = this.physics.add.group({
+        defaultKey: 'hairball', 
+        maxSize: 10
+       });
     }
 
     updateShadow() {
@@ -165,15 +173,30 @@ export class Player extends Phaser.GameObjects.Sprite {
 
         //shoot the missiles!
 
+        //original
         if(this.SPACE?.on('down', () => {
-            //set a slight delay holy shit
-            this.shoot();
+            this.scene.time.delayedCall(2000, () => this.shoot(), null, this); 
         }))
-
-        //light particle stream - great if the cat is shitting itself or turns into a spaceship but unnecessary for now
-        //this.scene.trailLayer.add(new LightParticle(this.scene, this.x, this.y, 0xffffff, 10));
-
-        this.updateShadow();
+        
+        // "Updated" if statement using delta to delay shots
+         if (this.SPACE.isDown && timestep > this.nextShotTime) {
+            this.fireShot();
+            this.updateShadow();
+            this.nextShotTime = timestep + 200;
+        }
 
     }
+
+     fireShot() {
+            let shot = this.playerShots.get(this.player.x, this.player.y); // Get inactive bullet
+
+            if (shot) {
+                shot.setActive(true);
+                shot.setVisible(true);
+                shot.body.enable = true; // Enable physics body
+
+                shot.body.onWorldBounds = true;
+                shot.body.collideWorldBounds = true;
+            }
+    } 
 }

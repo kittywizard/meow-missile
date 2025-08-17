@@ -195,13 +195,10 @@ export class Game extends Scene
     }
 
     updatePowerUp(player: { powerUp: string; }, powerUp: { destroy: () => void; }) {
-        console.log(player.powerUp);
-        console.log(this.currentPowerUp)
         player.powerUp = this.available[this.currentPowerUp];
         this.currentPowerUp = this.currentPowerUp + 1 === this.available.length
             ? this.currentPowerUp : this.currentPowerUp + 1;
         this.registry.set("currentPowerUp", this.currentPowerUp);
-        console.log("current power up " + this.currentPowerUp);
     }
     
 
@@ -322,7 +319,6 @@ export class Game extends Scene
         const {x, y} = this.lastDestroyedWaveEnemy;
         this.shake = new PowerUp(this, x, y);
         this.powerUps.add(this.shake);
-        console.log("you get a power up! .. eventually")
      }
 
      respawnPlayer() {
