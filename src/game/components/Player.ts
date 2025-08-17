@@ -43,7 +43,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     }
 
     setControls() {
-        this.SPACE = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.SPACE = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE, emitOnRepeat);
         this.cursor = this.scene.input.keyboard?.createCursorKeys();
         this.W = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.A = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -163,6 +163,8 @@ export class Player extends Phaser.GameObjects.Sprite {
         }
 
         //shoot the missiles!
+
+        //this is just looking for one key press, probably need to write new function
         if (Phaser.Input.Keyboard.JustDown(this.SPACE)) {
             this.shoot();
         }
