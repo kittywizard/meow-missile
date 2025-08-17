@@ -43,7 +43,8 @@ export class Player extends Phaser.GameObjects.Sprite {
     }
 
     setControls() {
-        this.SPACE = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE, emitOnRepeat);
+        this.SPACE = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.SPACE?.setEmitOnRepeat(true);
         this.cursor = this.scene.input.keyboard?.createCursorKeys();
         this.W = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.A = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -164,10 +165,10 @@ export class Player extends Phaser.GameObjects.Sprite {
 
         //shoot the missiles!
 
-        //this is just looking for one key press, probably need to write new function
-        if (Phaser.Input.Keyboard.JustDown(this.SPACE)) {
+        if(this.SPACE?.on('down', () => {
+            //set a slight delay holy shit
             this.shoot();
-        }
+        }))
 
         //light particle stream - great if the cat is shitting itself or turns into a spaceship but unnecessary for now
         //this.scene.trailLayer.add(new LightParticle(this.scene, this.x, this.y, 0xffffff, 10));
