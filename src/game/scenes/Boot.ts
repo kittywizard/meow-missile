@@ -94,8 +94,8 @@ export default class Boot extends Scene
     loadFonts() {
         this.load.bitmapFont(
         "wendy",
-        "assets/fonts/wendy.png",
-        "assets/fonts/wendy.xml"
+        "assets/fonts/minogram_6x10.png",
+        "assets/fonts/minogram_6x10.xml"
         );
     }
 

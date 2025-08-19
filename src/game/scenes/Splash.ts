@@ -18,9 +18,9 @@ export default class Splash extends Scene
        // this.add.image(0, 0, 'background').setOrigin(0,0);
         this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
 
-        this.add.bitmapText(this.center_width, this.center_height, 'wendy', 'MEOW missile', 60).setOrigin(0.5).setTintFill(0x000000);
+        this.add.bitmapText(this.center_width, this.center_height, 'wendy', 'MEOW missile', 100).setOrigin(0.5).setTintFill(0x000000);
 
-        this.add.bitmapText(this.center_width, 600, 'wendy', 'space to play', 40).setOrigin(0.5).setTintFill(0x000000);
+        this.add.bitmapText(this.center_width, 600, 'wendy', 'space to play', 10).setOrigin(0.5).setTintFill(0x000000).setScale(1.5);
     }
 
     startGame() {

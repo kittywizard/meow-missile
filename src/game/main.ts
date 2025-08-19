@@ -17,6 +17,9 @@ const config: Types.Core.GameConfig = {
         width: 1000,
         height: 900
     },
+    render: {
+        pixelArt: true
+    },
     autoRound: false,
     physics: {
         default: 'arcade',
