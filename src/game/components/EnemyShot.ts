@@ -56,7 +56,7 @@ export class EnemyShot extends Phaser.GameObjects.PointLight {
     }
 
     showPoints(score: number, color = 0xff0000) {
-        let text = this.scene.add.bitmapText(this.x + 20, this.y - 30, 'wendy', "+" + score, 40, color).setOrigin(0.5);
+        let text = this.scene.add.bitmapText(this.x + 20, this.y - 30, 'minogram', "+" + score, 40, color).setOrigin(0.5);
         this.scene.tweens.add({
             targets: text,
             duration: 800, 

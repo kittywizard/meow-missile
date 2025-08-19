@@ -33,9 +33,9 @@ export default class Transition extends Phaser.Scene {
 
 
         console.log(this.number)
-        this.add.bitmapText(this.center_width, this.center_height - 50, "wendy", messages[this.number - 1], 100).setOrigin(0.5).setDropShadow(3, 4, 0x222222, 0.7);;
+        this.add.bitmapText(this.center_width, this.center_height - 50, "minogram", messages[this.number - 1], 100).setOrigin(0.5).setDropShadow(3, 4, 0x222222, 0.7);;
 
-        this.add.bitmapText(this.center_width, this.center_height + 50, "wendy", "Ready Player 1", 80).setOrigin(0.5).setDropShadow(3, 4, 0x222222, 0.7);;
+        this.add.bitmapText(this.center_width, this.center_height + 50, "minogram", "Ready Player 1", 80).setOrigin(0.5).setDropShadow(3, 4, 0x222222, 0.7);;
         this.time.delayedCall(2000, () => this.loadNext(), null, this);
     }
 

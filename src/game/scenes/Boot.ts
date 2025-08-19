@@ -93,7 +93,7 @@ export default class Boot extends Scene
 
     loadFonts() {
         this.load.bitmapFont(
-        "wendy",
+        "minogram",
         "assets/fonts/minogram_6x10.png",
         "assets/fonts/minogram_6x10.xml"
         );

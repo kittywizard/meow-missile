@@ -56,7 +56,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     showPoints(score: any, color = 0xff0000) {
         let text = this.scene.add.bitmapText(
             this.x + 20, this.y - 30,
-            "wendy", score, 20, 0xfffd37
+            "minogram", score, 20, 0xfffd37
         ).setOrigin(0.5);
 
         this.scene.tweens.add({

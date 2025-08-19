@@ -109,11 +109,11 @@ export class Game extends Scene
         };
 
         this.scores["player1"]["scoreText"] = this.add.bitmapText(
-            150, 16, "wendy", 
+            150, 16, "minogram", 
             String(this.registry.get("score_player1")).padStart(6, "0"), 50)
             .setOrigin(0.5).setScrollFactor(0).setDropShadow(3, 4, 0x222222, 0.7);
         // this.scores["player2"]["scoreText"] = this.add.bitmapText(
-        //     this.width - 150, 16, "wendy", 
+        //     this.width - 150, 16, "minogram", 
         //     String(this.registry.get("score_player2")).padStart(6, "0"), 50)
         //     .setOrigin(0.5).setScrollFactor(0);
 
