@@ -47,7 +47,7 @@ export class Player extends Phaser.GameObjects.Sprite {
 
     setControls() {
         this.SPACE = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        this.SPACE?.setEmitOnRepeat(true);
+        this.SPACE?.setEmitOnRepeat(true); //allows for holding the key down and firing events
         this.cursor = this.scene.input.keyboard?.createCursorKeys();
         this.W = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.A = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -129,11 +129,7 @@ export class Player extends Phaser.GameObjects.Sprite {
         });
        this.anims.play(this.name, true);
 
-    //not sure where this goes, but need a group with max size to stop overloading the game
-       this.playerShots = this.physics.add.group({
-        defaultKey: 'hairball', 
-        maxSize: 10
-       });
+
     }
 
     updateShadow() {
@@ -173,20 +169,21 @@ export class Player extends Phaser.GameObjects.Sprite {
 
         //shoot the missiles!
 
-        //original
-        if(this.SPACE?.on('down', () => {
-            this.scene.time.delayedCall(2000, () => this.shoot(), null, this); 
-        }))
+        //this delays the initial call but not continuosly ?? spelling 
+        if(this.SPACE?.on('down', () => this.scene.time.delayedCall(2000, () => this.shoot(), null, this))) console.log("fire!!")
         
         // "Updated" if statement using delta to delay shots
-         if (this.SPACE.isDown && timestep > this.nextShotTime) {
-            this.fireShot();
-            this.updateShadow();
-            this.nextShotTime = timestep + 200;
-        }
+        //delta doesn't seem to be anything other than undefined
+        // if (this.SPACE.isDown && delta > this.nextShotTime) {
+        //      console.log(delta)
+        //     this.shoot();
+        //     this.updateShadow();
+        //     this.nextShotTime = delta + 200;
+        // }
 
     }
 
+    //update this
      fireShot() {
             let shot = this.playerShots.get(this.player.x, this.player.y); // Get inactive bullet
 
@@ -198,5 +195,9 @@ export class Player extends Phaser.GameObjects.Sprite {
                 shot.body.onWorldBounds = true;
                 shot.body.collideWorldBounds = true;
             }
+
+            //current
+            //this.shootingPatterns.shoot(this.x, this.y, this.powerUp);
+
     } 
 }

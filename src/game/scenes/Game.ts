@@ -95,7 +95,13 @@ export class Game extends Scene
     
     addShots() {
         this.shotsLayer = this.add.layer();
-        this.shots = this.add.group();
+        //this.shots = this.add.group();
+
+        //setting max limit
+       this.shots = this.physics.add.group({
+        defaultKey: 'hairball', 
+        maxSize: 10
+       });
     }
     
     addPowerUps() {
