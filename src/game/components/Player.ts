@@ -70,11 +70,10 @@ export class Player extends Phaser.GameObjects.Sprite {
     shoot() {
         //pew pew
         //this.scene.playAudio("shot");
-        console.log(this.powerUp)
         this.shootingPatterns.shoot(this.x, this.y, this.powerUp);
     }
 
-    spawnShadow (x: number,y: number) {
+    spawnShadow (x: number, y: number) {
         this.shadow = this.scene.add.image(x + 10, y + 10, "player1")
         .setTint(0x000000)
         .setAlpha(0.4);
