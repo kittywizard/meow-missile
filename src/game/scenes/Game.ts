@@ -45,8 +45,7 @@ export class Game extends Scene
     }
 
     // data from previous scene (transition?)
-    //not needed yet
-    init(data) {
+    init(data: { name: any; number: any; next: any; }) {
         this.name = data.name;
         this.number = data.number;
         this.next = data.next;

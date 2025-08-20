@@ -4,6 +4,7 @@ import Boot from './scenes/Boot';
 //import { Preloader } from './scenes/Preloader';
 import Splash from './scenes/Splash';
 import Transition from './scenes/Transition';
+import CharacterSelect from './scenes/CharacterSelect';
 
 // Find out more information about the Game Config at:
 // https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
@@ -31,7 +32,7 @@ const config: Types.Core.GameConfig = {
         }
     },
     scene: [
-        Boot, MainGame, Splash, Transition
+        Boot, MainGame, Splash, Transition, CharacterSelect
     ]
 };
 
