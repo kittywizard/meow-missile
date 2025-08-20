@@ -176,7 +176,7 @@ export class EnemyGenerator {
             new Enemy(this.scene, 
                 x + i * 70, 
                 i * y + offset, 
-                "enemy0", 0, 300))
+                "enemy0", 0, 300));
     }
 
     //add to a wave
@@ -212,7 +212,7 @@ export class EnemyGenerator {
                 this.path.getPoint(t, vec);
                 enemy.setPosition(vec.x, vec.y);
                 enemy.shadow.setPosition(vec.x + 20, vec.y + 20);
-                enemy.setDepth(enemy.y);
+               // enemy.setDepth(enemy.y);
             });
 
             if(this.activeWave && this.checkIfWaveDestroyed()) {
