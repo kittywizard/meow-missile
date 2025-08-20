@@ -44,6 +44,7 @@ export default class Boot extends Scene
     loadImages() {
         this.load.image('background', 'assets/crazy-bg.png');
         //this.load.image('hairball', "assets/hairball_halfsize.png");
+        this.load.image('top', 'assets/ui/ui_top.png');
     }
 
     loadSpriteSheets() {
@@ -113,6 +114,7 @@ export default class Boot extends Scene
 
     setRegistry() {
         this.registry.set("score_player1", 0);
+        this.registry.set("player1_name", "Tali");
         this.registry.set("power_player1", "hairball");
         this.registry.set("lives_player1", 0);
 

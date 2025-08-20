@@ -74,8 +74,12 @@ export class Game extends Scene
     }
     
     //tiled, scrolling background. larger pixel size
+    //change name if this works? setUI maybe
     setBackground() {
         this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
+        this.add.tileSprite(0, 0, this.width, 50, "top").setOrigin(0).setDepth(4);
+        //add other UI elements here
+        //how to layer so they are above everything? 
     }
     
     //adding
@@ -91,6 +95,9 @@ export class Game extends Scene
         this.enemyWaveGroup = this.add.group();
         this.enemyShots = this.add.group();
         this.enemies = new EnemyGenerator(this);
+
+        //this.enemyGroup.setDepth(1);
+        this.enemyWaveGroup.setDepth(1);
     }
     
     addShots() {
@@ -103,15 +110,16 @@ export class Game extends Scene
         this.powerUps = this.add.group();
     }
      addScores() {
+        //set depth on this element so it is the only thing above the UI top
         this.scores = {
             player1: {},
             player2: {}
         };
 
         this.scores["player1"]["scoreText"] = this.add.bitmapText(
-            150, 16, "minogram", 
-            String(this.registry.get("score_player1")).padStart(6, "0"), 50)
-            .setOrigin(0.5).setScrollFactor(0).setDropShadow(3, 4, 0x222222, 0.7);
+            30,15, "minogram", 
+            String(this.registry.get('player1_name') + " ") + String(this.registry.get("score_player1")).padStart(4, "0"), 30)
+            .setOrigin(0).setScrollFactor(0).setDropShadow(3, 4, 0x222222, 0.7).setDepth(1000);
         // this.scores["player2"]["scoreText"] = this.add.bitmapText(
         //     this.width - 150, 16, "minogram", 
         //     String(this.registry.get("score_player2")).padStart(6, "0"), 50)
@@ -195,13 +203,10 @@ export class Game extends Scene
     }
 
     updatePowerUp(player: { powerUp: string; }, powerUp: { destroy: () => void; }) {
-        console.log(player.powerUp);
-        console.log(this.currentPowerUp)
         player.powerUp = this.available[this.currentPowerUp];
         this.currentPowerUp = this.currentPowerUp + 1 === this.available.length
             ? this.currentPowerUp : this.currentPowerUp + 1;
         this.registry.set("currentPowerUp", this.currentPowerUp);
-        console.log("current power up " + this.currentPowerUp);
     }
     
 
@@ -218,7 +223,7 @@ export class Game extends Scene
     updateScore(playerName: string, points: number = 0) {
         const score = +this.registry.get("score_" + playerName) + points;
         this.registry.set("score_" + playerName, score);
-        this.scores[playerName]["scoreText"].setText(String(score).padStart(6, "0"));
+        this.scores[playerName]["scoreText"].setText(String(this.registry.get('player1_name') + " ") + String(score).padStart(4, "0"));
 
         this.tweens.add({
             targets: this.scores[playerName]["scoreText"], 
@@ -322,7 +327,6 @@ export class Game extends Scene
         const {x, y} = this.lastDestroyedWaveEnemy;
         this.shake = new PowerUp(this, x, y);
         this.powerUps.add(this.shake);
-        console.log("you get a power up! .. eventually")
      }
 
      respawnPlayer() {

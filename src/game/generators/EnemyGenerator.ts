@@ -77,7 +77,6 @@ export class EnemyGenerator {
 
     //path that neemies follow when in formation
     createPath() {
-        console.log(this.waves);
         this.waves++;
         if(this.waves === 3) this.finishScene();
 
@@ -127,12 +126,14 @@ export class EnemyGenerator {
 
     //enemy types
     tank() {
+        console.log("tank spawned");
         this.scene.enemyGroup.add(
             new Enemy(this.scene, Phaser.Math.Between(100, 600), -100, "enemy2", 0, 620)
         );
     }
 
     slider() {
+        console.log('slider spawned')
         let velocity = -200;
         let x = 0;
         if (Phaser.Math.Between(-1, 1) > 0) {
@@ -170,7 +171,7 @@ export class EnemyGenerator {
     //for the ordered wave enemies
     addOrder(i: number, x: number, y: number, minus: number) {
         const offset = minus * 70;
-
+    
         this.scene.enemyGroup.add(
             new Enemy(this.scene, 
                 x + i * 70, 
