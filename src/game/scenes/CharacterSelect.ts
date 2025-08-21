@@ -5,6 +5,8 @@ export default class CharacterSelect extends Phaser.Scene {
     center_width: number;
     height: number;
     center_height: number;
+    background: Phaser.GameObjects.TileSprite;
+    
     constructor() {
         super({key: "characterselect"});
     }
@@ -12,7 +14,8 @@ export default class CharacterSelect extends Phaser.Scene {
     showCharacters() {
         this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
 
-        this.add.bitmapText(this.center_width, this.center_height, 'minogram', 'character shit goes here', 80).setOrigin(0.5).setTintFill(0x000000);
+        this.add.bitmapText(this.center_width, this.center_height + 100, 'minogram', 'Select a Character', 30).setOrigin(0.5).setTintFill(0x000000);
+        this.add.bitmapText(this.center_width, this.center_height + 140, 'minogram', 'SPACE to start', 30).setOrigin(0.5).setTintFill(0x000000);
 
     }
     

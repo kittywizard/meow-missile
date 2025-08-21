@@ -17,6 +17,7 @@ export default class Boot extends Scene
         this.loadImages();
         this.setRegistry();
         this.loadAudios();
+        this.loadCharacterSheets();
         this.loadSpriteSheets();
     }
 
@@ -45,14 +46,19 @@ export default class Boot extends Scene
         this.load.image('background', 'assets/crazy-bg.png');
         //this.load.image('hairball', "assets/hairball_halfsize.png");
         this.load.image('top', 'assets/ui/ui_top.png');
+        this.load.image('title', 'assets/ui/titlescreen.png');
     }
 
-    loadSpriteSheets() {
+    loadCharacterSheets() {
+        //can sprite name (below) be changed to be more descriptive w/o breaking everything calling player1- outside of sprites?
         this.load.spritesheet("player1", "assets/tali_spritesheet.png", {
             frameWidth: 64,
             frameHeight: 64,
         });
-        //change this asset once there's more frames
+
+    }
+
+    loadSpriteSheets() {
         this.load.spritesheet("hairball", "assets/hairball.png", {
             frameWidth: 64,
             frameHeight: 64
