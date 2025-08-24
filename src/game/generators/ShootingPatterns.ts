@@ -1,4 +1,3 @@
-import { Shot } from "../components/Shot";
 import { Hairball } from "../components/Hairball";
 
 export default class shootingPatterns {
