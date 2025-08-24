@@ -118,7 +118,7 @@ export class Game extends Scene
         this.scores["player1"]["scoreText"] = this.add.bitmapText(
             30,15, "minogram", 
             String(this.registry.get('player1_name') + " ") + String(this.registry.get("score_player1")).padStart(4, "0"), 30)
-            .setOrigin(0).setScrollFactor(0).setDropShadow(3, 4, 0x222222, 0.7).setDepth(1000);
+            .setOrigin(0).setScrollFactor(0).setTintFill(0x000000).setDepth(1000);
         // this.scores["player2"]["scoreText"] = this.add.bitmapText(
         //     this.width - 150, 16, "minogram", 
         //     String(this.registry.get("score_player2")).padStart(6, "0"), 50)
@@ -213,8 +213,11 @@ export class Game extends Scene
      onWorldBounds(body: any, t: any) {
         const name = body.gameObject.name.toString();
 
-        if(["enemyshot", "shot", "hairball"].includes(name)){
+        if(["enemyshot", "shot"].includes(name)){
             body.gameObject.shadow.destroy();
+            body.gameObject.destroy();
+        }
+        else if(["hairball"].includes(name)) {
             body.gameObject.destroy();
         }
      }
@@ -244,7 +247,6 @@ export class Game extends Scene
 
         //this.playAudio("enemyexplosion");
 
-        shot.shadow.destroy();
         shot.destroy();
         enemyShot.shadow.destroy();
         enemyShot.destroy();

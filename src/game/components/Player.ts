@@ -23,7 +23,6 @@ export class Player extends Phaser.GameObjects.Sprite {
 
         this.name = name;
         this.id = Math.random();
-        this.spawnShadow(x, y);
         this.powerUp = powerUp;
 
         this.scene.add.existing(this);
@@ -36,7 +35,6 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.body.setOffset(6, 9);
         this.power = 0;
         this.blinking = false;
-        //this.setScale(1);
         this.init();
         this.setControls();
 
@@ -73,11 +71,6 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.shootingPatterns.shoot(this.x, this.y, this.powerUp);
     }
 
-    spawnShadow (x: number, y: number) {
-        this.shadow = this.scene.add.image(x + 10, y + 10, "player1")
-        .setTint(0x000000)
-        .setAlpha(0.4);
-    }
 
     dead() {
         console.log("You have died.");
@@ -93,7 +86,6 @@ export class Player extends Phaser.GameObjects.Sprite {
 
         this.scene.cameras.main.shake(500);
         this.death = true;
-        this.shadow.destroy();
         new Explosion(this.scene, this.x, this.y, 40);
         super.destroy();
     }
@@ -126,10 +118,6 @@ export class Player extends Phaser.GameObjects.Sprite {
        this.anims.play(this.name, true);
     }
 
-    updateShadow() {
-        this.shadow.x = this.x + 10;
-        this.shadow.y = this.y + 10;
-    }
 
     update(timestep: any, delta: any) {
         if (this.death) return;    
@@ -140,17 +128,14 @@ export class Player extends Phaser.GameObjects.Sprite {
         if(this.cursor?.left.isDown) {
             this.x -= 5; 
             this.anims.play(this.name + "left", true);
-            this.shadow.setScale(0.5, 1);
         }
         else if(this.cursor?.right.isDown) {
             this.x += 5; 
             this.anims.play(this.name + "right", true);
-            this.shadow.setScale(0.5, 1);
         }
         else {
             //this.anims.play(this.name, true);
             this.anims.play(this.name + "vomit", true); //fix later
-            this.shadow.setScale(1, 1);
         }
 
         //y axis, up and down
@@ -169,7 +154,6 @@ export class Player extends Phaser.GameObjects.Sprite {
         //light particle stream - great if the cat is shitting itself or turns into a spaceship but unnecessary for now
         //this.scene.trailLayer.add(new LightParticle(this.scene, this.x, this.y, 0xffffff, 10));
 
-        this.updateShadow();
 
     }
 }
