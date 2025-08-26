@@ -75,7 +75,7 @@ export default class Boot extends Scene
             frameWidth: 32,
             frameHeight: 32,
         });
-        this.load.spritesheet("plenny0", "assets/powerup_catnip.png", {
+        this.load.spritesheet("catnip", "assets/powerup_catnip.png", {
             frameWidth: 64,
             frameHeight: 64,
         });

@@ -4,7 +4,7 @@ export class PowerUp extends Phaser.GameObjects.Sprite {
     shadow: Phaser.GameObjects.Image;
     direction: number;
     
-    constructor(scene: Phaser.Scene | undefined, x: number | undefined, y: number | undefined, name = "plenny0", power = "hairball ") {
+    constructor(scene: Phaser.Scene, x: number, y: number, name = "catnip", power = "catnip") {
         super(scene, x, y, name);
 
         this.name = name;
@@ -55,7 +55,7 @@ export class PowerUp extends Phaser.GameObjects.Sprite {
     }
 
     spawnShadow(x: any, y: number) {
-        this.shadow = this.scene.add.image(x + 20, y + 20, "plenny0")
+        this.shadow = this.scene.add.image(x + 20, y + 20, "catnip")
         .setTint(0x000000).setAlpha(0.4);
         this.scene.physics.add.existing(this.shadow);
         this.shadow.body.setVelocityX(-100); 

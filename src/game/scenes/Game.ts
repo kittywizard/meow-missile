@@ -104,10 +104,8 @@ export class Game extends Scene
     }
     
     addPowerUps() {
-        this.available = ["hairball", "hairball", "water"];
+        this.available = ["catnip"];
         this.powerUps = this.add.group();
-
-        //add time callback?
     }
 
     addScores() {
@@ -204,6 +202,7 @@ export class Game extends Scene
     }
 
     updatePowerUp(player: { powerUp: string; }, powerUp: { destroy: () => void; }) {
+        console.log(player.powerUp)
         player.powerUp = this.available[this.currentPowerUp];
         this.currentPowerUp = this.currentPowerUp + 1 === this.available.length
             ? this.currentPowerUp : this.currentPowerUp + 1;
@@ -332,7 +331,6 @@ export class Game extends Scene
         this.time.delayedCall(5000, () => {
             this.shake.destroy(); //dunno if this is needed but it's here for now
             this.powerUps.remove(this.shake); //this worked!
-        
         }, null, this);
 
     }
@@ -353,7 +351,6 @@ export class Game extends Scene
     endScene() {
         this.enemyWaveGroup.children.entries.forEach(foe => foe.shadow.destroy());
         this.enemyGroup.children.entries.forEach((foe) => foe.shadow.destroy());
-        this.shots.children.entries.forEach(shot => shot.shadow.destroy());
         this.enemyShots.children.entries.forEach(shot => shot.shadow.destroy());
 
         this.time.delayedCall(2000, () => this.finishScene(), null, this)
