@@ -16,6 +16,8 @@ export class Player extends Phaser.GameObjects.Sprite {
     power: number;
     blinking: boolean;
     powerUp: string;
+    playerShots: any;
+    nextShotTime: number;
 
     
     constructor(scene: Scene, x: integer, y: integer, name: string = "player1", powerUp: string = "hairball") {
@@ -24,6 +26,7 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.name = name;
         this.id = Math.random();
         this.powerUp = powerUp;
+        this.nextShotTime = 0;
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
@@ -42,6 +45,7 @@ export class Player extends Phaser.GameObjects.Sprite {
 
     setControls() {
         this.SPACE = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.SPACE?.setEmitOnRepeat(true); //allows for holding the key down and firing events
         this.cursor = this.scene.input.keyboard?.createCursorKeys();
         this.W = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.A = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -116,6 +120,8 @@ export class Player extends Phaser.GameObjects.Sprite {
             repeat: -1
         });
        this.anims.play(this.name, true);
+
+
     }
 
 
@@ -147,13 +153,37 @@ export class Player extends Phaser.GameObjects.Sprite {
         }
 
         //shoot the missiles!
-        if (Phaser.Input.Keyboard.JustDown(this.SPACE)) {
-            this.shoot();
-        }
 
+        //this delays the initial call but not continuosly ?? spelling 
+        if(this.SPACE?.on('down', () => this.scene.time.delayedCall(2000, () => this.shoot(), null, this))) console.log("fire!!")
+        
+        // "Updated" if statement using delta to delay shots
+        //delta doesn't seem to be anything other than undefined
+        // if (this.SPACE.isDown && delta > this.nextShotTime) {
+        //      console.log(delta)
+        //     this.shoot();
+        //     this.updateShadow();
+        //     this.nextShotTime = delta + 200;
+        // }
         //light particle stream - great if the cat is shitting itself or turns into a spaceship but unnecessary for now
         //this.scene.trailLayer.add(new LightParticle(this.scene, this.x, this.y, 0xffffff, 10));
-
-
     }
+
+    //update this
+     fireShot() {
+            let shot = this.playerShots.get(this.player.x, this.player.y); // Get inactive bullet
+
+            if (shot) {
+                shot.setActive(true);
+                shot.setVisible(true);
+                shot.body.enable = true; // Enable physics body
+
+                shot.body.onWorldBounds = true;
+                shot.body.collideWorldBounds = true;
+            }
+
+            //current
+            //this.shootingPatterns.shoot(this.x, this.y, this.powerUp);
+
+    } 
 }

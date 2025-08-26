@@ -100,7 +100,13 @@ export class Game extends Scene
     
     addShots() {
         this.shotsLayer = this.add.layer();
-        this.shots = this.add.group();
+        //this.shots = this.add.group();
+
+        //setting max limit
+       this.shots = this.physics.add.group({
+        defaultKey: 'hairball', 
+        maxSize: 10
+       });
     }
     
     addPowerUps() {
@@ -202,7 +208,6 @@ export class Game extends Scene
     }
 
     updatePowerUp(player: { powerUp: string; }, powerUp: { destroy: () => void; }) {
-        console.log(player.powerUp)
         player.powerUp = this.available[this.currentPowerUp];
         this.currentPowerUp = this.currentPowerUp + 1 === this.available.length
             ? this.currentPowerUp : this.currentPowerUp + 1;
@@ -327,6 +332,7 @@ export class Game extends Scene
         const {x, y} = this.lastDestroyedWaveEnemy;
         this.shake = new PowerUp(this, x, y);
         this.powerUps.add(this.shake);
+     }
 
         this.time.delayedCall(5000, () => {
             this.shake.destroy(); //dunno if this is needed but it's here for now
