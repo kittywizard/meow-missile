@@ -17,6 +17,7 @@ export default class Boot extends Scene
         this.loadImages();
         this.setRegistry();
         this.loadAudios();
+        this.loadCharacterSheets();
         this.loadSpriteSheets();
     }
 
@@ -42,16 +43,22 @@ export default class Boot extends Scene
     }
 
     loadImages() {
-        this.load.image('background', 'assets/crazy-bg.png');
+        this.load.image('background', 'assets/woodfloor.png');
         //this.load.image('hairball', "assets/hairball_halfsize.png");
+        this.load.image('top', 'assets/ui/ui_top.png');
+        this.load.image('title', 'assets/ui/titlescreen.png');
     }
 
-    loadSpriteSheets() {
+    loadCharacterSheets() {
+        //can sprite name (below) be changed to be more descriptive w/o breaking everything calling player1- outside of sprites?
         this.load.spritesheet("player1", "assets/tali_spritesheet.png", {
             frameWidth: 64,
             frameHeight: 64,
         });
-        //change this asset once there's more frames
+
+    }
+
+    loadSpriteSheets() {
         this.load.spritesheet("hairball", "assets/hairball.png", {
             frameWidth: 64,
             frameHeight: 64
@@ -68,9 +75,9 @@ export default class Boot extends Scene
             frameWidth: 32,
             frameHeight: 32,
         });
-        this.load.spritesheet("plenny0", "assets/images/plenny0.png", {
-            frameWidth: 32,
-            frameHeight: 32,
+        this.load.spritesheet("catnip", "assets/powerup_catnip.png", {
+            frameWidth: 64,
+            frameHeight: 64,
         });
     }
 
@@ -93,9 +100,9 @@ export default class Boot extends Scene
 
     loadFonts() {
         this.load.bitmapFont(
-        "wendy",
-        "assets/fonts/wendy.png",
-        "assets/fonts/wendy.xml"
+        "minogram",
+        "assets/fonts/minogram_6x10.png",
+        "assets/fonts/minogram_6x10.xml"
         );
     }
 
@@ -113,6 +120,7 @@ export default class Boot extends Scene
 
     setRegistry() {
         this.registry.set("score_player1", 0);
+        this.registry.set("player1_name", "Tali");
         this.registry.set("power_player1", "hairball");
         this.registry.set("lives_player1", 0);
 

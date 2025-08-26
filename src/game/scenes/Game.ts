@@ -1,6 +1,5 @@
 import { Scene } from 'phaser';
 import { Player } from '../components/Player';
-import { Enemy } from '../components/Enemy';
 import { EnemyGenerator } from '../generators/EnemyGenerator';
 import { PowerUp } from '../components/PowerUp';
 import SceneEffect from '../components/SceneEffect';
@@ -45,8 +44,7 @@ export class Game extends Scene
     }
 
     // data from previous scene (transition?)
-    //not needed yet
-    init(data) {
+    init(data: { name: any; number: any; next: any; }) {
         this.name = data.name;
         this.number = data.number;
         this.next = data.next;
@@ -74,8 +72,12 @@ export class Game extends Scene
     }
     
     //tiled, scrolling background. larger pixel size
+    //change name if this works? setUI maybe
     setBackground() {
         this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
+        this.add.tileSprite(0, 0, this.width, 50, "top").setOrigin(0).setDepth(4);
+        //add other UI elements here
+        //how to layer so they are above everything? 
     }
     
     //adding
@@ -91,6 +93,9 @@ export class Game extends Scene
         this.enemyWaveGroup = this.add.group();
         this.enemyShots = this.add.group();
         this.enemies = new EnemyGenerator(this);
+
+        //this.enemyGroup.setDepth(1);
+        this.enemyWaveGroup.setDepth(1);
     }
     
     addShots() {
@@ -105,28 +110,30 @@ export class Game extends Scene
     }
     
     addPowerUps() {
-        this.available = ["hairball", "hairball", "water"];
+        this.available = ["catnip"];
         this.powerUps = this.add.group();
     }
-     addScores() {
+
+    addScores() {
+        //set depth on this element so it is the only thing above the UI top
         this.scores = {
             player1: {},
             player2: {}
         };
 
         this.scores["player1"]["scoreText"] = this.add.bitmapText(
-            150, 16, "wendy", 
-            String(this.registry.get("score_player1")).padStart(6, "0"), 50)
-            .setOrigin(0.5).setScrollFactor(0).setDropShadow(3, 4, 0x222222, 0.7);
+            30,15, "minogram", 
+            String(this.registry.get('player1_name') + " ") + String(this.registry.get("score_player1")).padStart(4, "0"), 30)
+            .setOrigin(0).setScrollFactor(0).setTintFill(0x000000).setDepth(1000);
         // this.scores["player2"]["scoreText"] = this.add.bitmapText(
-        //     this.width - 150, 16, "wendy", 
+        //     this.width - 150, 16, "minogram", 
         //     String(this.registry.get("score_player2")).padStart(6, "0"), 50)
         //     .setOrigin(0.5).setScrollFactor(0);
 
-     }
+    }
 
      //physics time!
-     addColliders() {
+    addColliders() {
         this.physics.add.collider(
             this.players,
             this.enemyGroup,
@@ -151,7 +158,7 @@ export class Game extends Scene
             this
         );
 
-    this.physics.add.overlap(
+        this.physics.add.overlap(
             this.shots,
             this.enemyWaveGroup,
             this.destroyWaveEnemy,
@@ -167,7 +174,7 @@ export class Game extends Scene
             this
         );
 
-    this.physics.add.overlap(
+        this.physics.add.overlap(
             this.players,
             this.enemyShots,
             this.hitPlayer,
@@ -175,7 +182,7 @@ export class Game extends Scene
             this
         );
 
-    this.physics.add.collider(
+        this.physics.add.collider(
             this.shots,
             this.enemyShots,
             this.destroyShot,
@@ -183,9 +190,9 @@ export class Game extends Scene
             this
         );
 
-     this.physics.world.on("worldbounds", this.onWorldBounds);
+        this.physics.world.on("worldbounds", this.onWorldBounds);
 
-     }
+    }
 
     pickPowerUps(player: any, powerUp: { destroy: () => void; }) {
         //this.playAudio("stageclear1");
@@ -209,31 +216,34 @@ export class Game extends Scene
     
 
      //callbacks for the above colliders
-     onWorldBounds(body: any, t: any) {
+    onWorldBounds(body: any, t: any) {
         const name = body.gameObject.name.toString();
 
-        if(["enemyshot", "shot", "hairball"].includes(name)){
+        if(["enemyshot", "shot"].includes(name)){
             body.gameObject.shadow.destroy();
             body.gameObject.destroy();
         }
-     }
+        else if(["hairball"].includes(name)) {
+            body.gameObject.destroy();
+        }
+    }
 
     updateScore(playerName: string, points: number = 0) {
         const score = +this.registry.get("score_" + playerName) + points;
         this.registry.set("score_" + playerName, score);
-        this.scores[playerName]["scoreText"].setText(String(score).padStart(6, "0"));
+        this.scores[playerName]["scoreText"].setText(String(this.registry.get('player1_name') + " ") + String(score).padStart(4, "0"));
 
         this.tweens.add({
             targets: this.scores[playerName]["scoreText"], 
             duration: 200,
-            tint: {from: 0x0000ff, to: 0xffffff},
+            tint: {from: 0x5564d9, to: 0x000000},
             scale: {from: 1.2, to: 1},
             repeat: 2
         });
 
     }
 
-     destroyShot(shot, enemyShot) {
+    destroyShot(shot, enemyShot) {
         const point = this.lights.addPointLight(shot.x, shot.y, 0xffffff, 10, 0.7);
         this.tweens.add({
             targets: point,
@@ -243,20 +253,18 @@ export class Game extends Scene
 
         //this.playAudio("enemyexplosion");
 
-        shot.shadow.destroy();
         shot.destroy();
         enemyShot.shadow.destroy();
         enemyShot.destroy();
         this.updateScore(shot.playerName, 50);
-     }
+    }
 
-     destroyWaveEnemy(shot: any, enemy: any) {
+    destroyWaveEnemy(shot: any, enemy: any) {
         this.lastDestroyedWaveEnemy = {x: enemy.x, y: enemy.y}; //this is for power-ups
         this.destroyEnemy(shot, enemy);
-     }
+    }
 
-
-     destroyEnemy(shot: any, enemy: any) {
+    destroyEnemy(shot: any, enemy: any) {
         enemy.lives--;
         //this.playAudio("explosion");
         const point = this.lights.addPointLight(shot.x, shot.y, 0xffffff, 10, 0.7);
@@ -297,9 +305,9 @@ export class Game extends Scene
             enemy.dead();
         }
 
-     }
+    }
 
-     hitPlayer(player, shot) {
+    hitPlayer(player, shot) {
         if(player.blinking) return;
 
         this.players.remove(this.player);
@@ -308,26 +316,32 @@ export class Game extends Scene
         shot.shadow.destroy();
         shot.destroy();
         this.time.delayedCall(1000, () => this.respawnPlayer(), null, this);
-     }
+    }
 
-     crashEnemy(player, enemy) {
+    crashEnemy(player, enemy) {
         if(player.blinking) return;
 
         player.dead();
         //this.playAudio("explosion");
         enemy.dead();
         this.time.delayedCall(1000, () => this.respawnPlayer(), null, this);
-
-     }
+    }
 
      //probably rename this as my power ups will be different item
-     spawnShake() {
+    spawnShake() {
         const {x, y} = this.lastDestroyedWaveEnemy;
         this.shake = new PowerUp(this, x, y);
         this.powerUps.add(this.shake);
      }
 
-     respawnPlayer() {
+        this.time.delayedCall(5000, () => {
+            this.shake.destroy(); //dunno if this is needed but it's here for now
+            this.powerUps.remove(this.shake); //this worked!
+        }, null, this);
+
+    }
+
+    respawnPlayer() {
         this.player = new Player(this, this.center_width, this.center_height);
         this.player.blinking = true;
         this.players.add(this.player);
@@ -338,18 +352,17 @@ export class Game extends Scene
             repeat: 10,
             onComplete: () => {this.player.blinking = false}
         });
-     }
+    }
 
-     endScene() {
+    endScene() {
         this.enemyWaveGroup.children.entries.forEach(foe => foe.shadow.destroy());
         this.enemyGroup.children.entries.forEach((foe) => foe.shadow.destroy());
-        this.shots.children.entries.forEach(shot => shot.shadow.destroy());
         this.enemyShots.children.entries.forEach(shot => shot.shadow.destroy());
 
         this.time.delayedCall(2000, () => this.finishScene(), null, this)
-     }
+    }
 
-     finishScene() {
+    finishScene() {
         console.log("finish scene");
         this.game.sound.stopAll();
         this.scene.stop("game");
@@ -360,7 +373,7 @@ export class Game extends Scene
             name: "STAGE",
             number: this.number + 1
         })
-     }
+    }
 
     update() {
         if (this.player) this.player.update();

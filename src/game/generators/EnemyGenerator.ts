@@ -77,7 +77,6 @@ export class EnemyGenerator {
 
     //path that neemies follow when in formation
     createPath() {
-        console.log(this.waves);
         this.waves++;
         if(this.waves === 3) this.finishScene();
 
@@ -170,12 +169,12 @@ export class EnemyGenerator {
     //for the ordered wave enemies
     addOrder(i: number, x: number, y: number, minus: number) {
         const offset = minus * 70;
-
+    
         this.scene.enemyGroup.add(
             new Enemy(this.scene, 
                 x + i * 70, 
                 i * y + offset, 
-                "enemy0", 0, 300))
+                "enemy0", 0, 300));
     }
 
     //add to a wave
@@ -211,7 +210,7 @@ export class EnemyGenerator {
                 this.path.getPoint(t, vec);
                 enemy.setPosition(vec.x, vec.y);
                 enemy.shadow.setPosition(vec.x + 20, vec.y + 20);
-                enemy.setDepth(enemy.y);
+               // enemy.setDepth(enemy.y);
             });
 
             if(this.activeWave && this.checkIfWaveDestroyed()) {
