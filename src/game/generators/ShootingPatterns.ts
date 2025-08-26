@@ -27,9 +27,9 @@ export default class shootingPatterns {
  
     //duplicate for testing purposes, delete or change later
     double(x: number, y: number, powerUp: any) {
-        console.log('double shot')
-        this.scene.shots.add(new Hairball(this.scene, x, y, powerUp, this.name));
-        this.scene.shots.add(new Hairball(this.scene, x, y, powerUp, this.name, -60));
+        //calling 'hairball' is the name of the sprite we want to use, not the power up
+        this.scene.shots.add(new Hairball(this.scene, x, y, "hairball", this.name));
+        this.scene.shots.add(new Hairball(this.scene, x, y, "hairball", this.name, -60));
 
     }
 
