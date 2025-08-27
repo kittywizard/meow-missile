@@ -30,7 +30,7 @@ export class Player extends Phaser.GameObjects.Sprite {
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        this.shootingPatterns = new shootingPatterns(this.scene, this.name);
+       // this.shootingPatterns = new shootingPatterns(this.scene, this.name);
 
         this.body.setAllowGravity(false);
         this.body.setCollideWorldBounds(true);
@@ -44,8 +44,6 @@ export class Player extends Phaser.GameObjects.Sprite {
     }
 
     setControls() {
-        this.SPACE = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        this.SPACE?.setEmitOnRepeat(true); //allows for holding the key down and firing events
         this.cursor = this.scene.input.keyboard?.createCursorKeys();
         this.W = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.A = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -68,12 +66,6 @@ export class Player extends Phaser.GameObjects.Sprite {
             y: {from: text.y - 10, to: text.y - 100},
         });
     }
-    
-    shoot() {
-            //pew pew
-            //this.scene.playAudio("shot");
-            this.shootingPatterns.shoot(this.x, this.y, "hairball");
-        }
     
 
     dead() {
@@ -121,14 +113,6 @@ export class Player extends Phaser.GameObjects.Sprite {
         });
        this.anims.play(this.name, true);
     }
-
-    // preUpdate(time, delta) {
-    // super.preUpdate(time, delta);
-
-    // if(this.y <= 0) {
-    //     this.setActive(false);
-    //     this.setVisible(false);
-    // }
 
     update(timestep: any, delta: any) {
         if (this.death) return;    

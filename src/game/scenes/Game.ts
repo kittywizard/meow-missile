@@ -4,6 +4,7 @@ import { EnemyGenerator } from '../generators/EnemyGenerator';
 import { PowerUp } from '../components/PowerUp';
 import SceneEffect from '../components/SceneEffect';
 import { Hairball } from '../components/Hairball';
+import { Shots } from '../generators/ShotGenerator';
 
 
 export class Game extends Scene
@@ -100,19 +101,10 @@ export class Game extends Scene
     }
     
     addShots() {
+        this.SPACE = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.SPACE.setEmitOnRepeat(true); //allows for holding the key down and firing eventss
         this.shotsLayer = this.add.layer();
-        //the physics group has to be on the 'scene' class for physics to work
-        this.playerShots = this.add.group({
-            classType: Phaser.GameObjects.Sprite,
-            defaultKey: null,
-            active: true,
-            maxSize: 10,
-            runChildUpdate: true,
-            createCallback: () => console.log('add'),
-            removeCallback: () => console.log('remove'),
-        });
-
-        this.playerShots.addMultiple([]) //array of game objects
+        this.playerShots = new Shots(this);
     }
     
     addPowerUps() {
@@ -383,5 +375,12 @@ export class Game extends Scene
         this.enemies.update();
         //background movement 
         this.background.tilePositionY -= 10;
+
+       this.SPACE.on('down', () => this.playerShots.fireShot(this.player.x, this.player.y))
+
+    //    if(Phaser.Input.Keyboard.JustDown(this.SPACE)) {
+    //         console.log(this.player.x)
+    //         this.playerShots.fireShot(this.player.x, this.player.y)
+    //     }
     }
 }

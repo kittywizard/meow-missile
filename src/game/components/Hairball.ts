@@ -1,5 +1,4 @@
-const TYPES = {}
-export class Hairball extends Phaser.GameObjects.Sprite {
+export class Hairball extends Phaser.Physics.Arcade.Sprite {
     id: number;
     direction: number;
     playerName: string;
@@ -7,7 +6,7 @@ export class Hairball extends Phaser.GameObjects.Sprite {
 
     //name == type in shot example (i think)
     constructor(scene: Phaser.Scene, x: number, y: number, name: string, playerName: string = "player1", velocityX = 0, velocityY = -500) {
-        super(scene, x, y, name);
+        super(scene, x, y, 'hairball');
 
         this.name = name;
         this.playerName = playerName;
@@ -19,17 +18,27 @@ export class Hairball extends Phaser.GameObjects.Sprite {
         this.setActive(false);
         this.setVisible(false);
 
-        this.body.setAllowGravity(false);
-        this.body.setCircle(10);
-        this.body.setOffset(6,9);
-        this.body.setVelocityX(velocityX);
-        this.body.setVelocityY(velocityY);
-        this.body.setCollideWorldBounds(true);
-        this.body.onWorldBounds = true;
-
         this.init();
     }
 
+    fire(x: number, y: number) {
+        console.log(this)
+        this.body?.reset(x, y);
+
+        this.setActive(true);
+        this.setVisible(true);
+
+        this.setVelocityY(-300);
+    }
+
+    protected preUpdate(time: number, delta: number): void {
+        super.preUpdate(time, delta);
+
+        if(this.y <= -32) {
+            this.setActive(false);
+            this.setVisible(false);
+        }
+    }
 
     init() {
         this.scene.anims.create({
