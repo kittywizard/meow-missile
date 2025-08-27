@@ -15,6 +15,10 @@ export class Hairball extends Phaser.GameObjects.Sprite {
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
+
+        this.setActive(false);
+        this.setVisible(false);
+
         this.body.setAllowGravity(false);
         this.body.setCircle(10);
         this.body.setOffset(6,9);

@@ -3,6 +3,7 @@ import { Player } from '../components/Player';
 import { EnemyGenerator } from '../generators/EnemyGenerator';
 import { PowerUp } from '../components/PowerUp';
 import SceneEffect from '../components/SceneEffect';
+import { Hairball } from '../components/Hairball';
 
 
 export class Game extends Scene
@@ -34,7 +35,7 @@ export class Game extends Scene
     powerUps: any;
     shake: PowerUp;
     available: string[];
-    //crashEnemy: ArcadePhysicsCallback | undefined;
+    playerShots: Phaser.GameObjects.Group;
 
     constructor (){
         super({key: "game"});
@@ -100,13 +101,18 @@ export class Game extends Scene
     
     addShots() {
         this.shotsLayer = this.add.layer();
-        //this.shots = this.add.group();
+        //the physics group has to be on the 'scene' class for physics to work
+        this.playerShots = this.add.group({
+            classType: Phaser.GameObjects.Sprite,
+            defaultKey: null,
+            active: true,
+            maxSize: 10,
+            runChildUpdate: true,
+            createCallback: () => console.log('add'),
+            removeCallback: () => console.log('remove'),
+        });
 
-        //setting max limit
-       this.shots = this.physics.add.group({
-        defaultKey: 'hairball', 
-        maxSize: 10
-       });
+        this.playerShots.addMultiple([]) //array of game objects
     }
     
     addPowerUps() {
@@ -115,7 +121,6 @@ export class Game extends Scene
     }
 
     addScores() {
-        //set depth on this element so it is the only thing above the UI top
         this.scores = {
             player1: {},
             player2: {}
@@ -132,7 +137,6 @@ export class Game extends Scene
 
     }
 
-     //physics time!
     addColliders() {
         this.physics.add.collider(
             this.players,
@@ -151,7 +155,7 @@ export class Game extends Scene
         );
 
         this.physics.add.overlap(
-            this.shots,
+            this.playerShots,
             this.enemyGroup,
             this.destroyEnemy,
             () => {return true},
@@ -159,7 +163,7 @@ export class Game extends Scene
         );
 
         this.physics.add.overlap(
-            this.shots,
+            this.playerShots,
             this.enemyWaveGroup,
             this.destroyWaveEnemy,
             () => {return true},
@@ -183,7 +187,7 @@ export class Game extends Scene
         );
 
         this.physics.add.collider(
-            this.shots,
+            this.playerShots,
             this.enemyShots,
             this.destroyShot,
             () => {return true},
@@ -219,7 +223,7 @@ export class Game extends Scene
     onWorldBounds(body: any, t: any) {
         const name = body.gameObject.name.toString();
 
-        if(["enemyshot", "shot"].includes(name)){
+        if(["enemyshot", "playerShot"].includes(name)){
             body.gameObject.shadow.destroy();
             body.gameObject.destroy();
         }
@@ -243,8 +247,8 @@ export class Game extends Scene
 
     }
 
-    destroyShot(shot, enemyShot) {
-        const point = this.lights.addPointLight(shot.x, shot.y, 0xffffff, 10, 0.7);
+    destroyShot(playerShot, enemyShot) {
+        const point = this.lights.addPointLight(playerShot.x, playerShot.y, 0xffffff, 10, 0.7);
         this.tweens.add({
             targets: point,
             duration: 400,
@@ -253,15 +257,15 @@ export class Game extends Scene
 
         //this.playAudio("enemyexplosion");
 
-        shot.destroy();
+        playerShot.destroy();
         enemyShot.shadow.destroy();
         enemyShot.destroy();
-        this.updateScore(shot.playerName, 50);
+        this.updateScore(playerShot.playerName, 50);
     }
 
-    destroyWaveEnemy(shot: any, enemy: any) {
+    destroyWaveEnemy(playerShot: any, enemy: any) {
         this.lastDestroyedWaveEnemy = {x: enemy.x, y: enemy.y}; //this is for power-ups
-        this.destroyEnemy(shot, enemy);
+        this.destroyEnemy(playerShot, enemy);
     }
 
     destroyEnemy(shot: any, enemy: any) {
@@ -286,7 +290,7 @@ export class Game extends Scene
             targets: enemy,
             y: "-=10",
             yoyo: true,
-            duration: 100
+            duration: 100 
         });
 
         shot.destroy();
@@ -307,14 +311,14 @@ export class Game extends Scene
 
     }
 
-    hitPlayer(player, shot) {
+    hitPlayer(player, playerShot) {
         if(player.blinking) return;
 
         this.players.remove(this.player);
         player.dead();
         //this.playAudio("explosion");
-        shot.shadow.destroy();
-        shot.destroy();
+        playerShot.shadow.destroy();
+        playerShot.destroy();
         this.time.delayedCall(1000, () => this.respawnPlayer(), null, this);
     }
 
@@ -332,14 +336,13 @@ export class Game extends Scene
         const {x, y} = this.lastDestroyedWaveEnemy;
         this.shake = new PowerUp(this, x, y);
         this.powerUps.add(this.shake);
-     }
-
+        
         this.time.delayedCall(5000, () => {
             this.shake.destroy(); //dunno if this is needed but it's here for now
             this.powerUps.remove(this.shake); //this worked!
         }, null, this);
+     }
 
-    }
 
     respawnPlayer() {
         this.player = new Player(this, this.center_width, this.center_height);

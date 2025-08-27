@@ -68,13 +68,13 @@ export class Player extends Phaser.GameObjects.Sprite {
             y: {from: text.y - 10, to: text.y - 100},
         });
     }
-
+    
     shoot() {
-        //pew pew
-        //this.scene.playAudio("shot");
-        this.shootingPatterns.shoot(this.x, this.y, this.powerUp);
-    }
-
+            //pew pew
+            //this.scene.playAudio("shot");
+            this.shootingPatterns.shoot(this.x, this.y, "hairball");
+        }
+    
 
     dead() {
         console.log("You have died.");
@@ -120,10 +120,15 @@ export class Player extends Phaser.GameObjects.Sprite {
             repeat: -1
         });
        this.anims.play(this.name, true);
-
-
     }
 
+    // preUpdate(time, delta) {
+    // super.preUpdate(time, delta);
+
+    // if(this.y <= 0) {
+    //     this.setActive(false);
+    //     this.setVisible(false);
+    // }
 
     update(timestep: any, delta: any) {
         if (this.death) return;    
@@ -151,39 +156,16 @@ export class Player extends Phaser.GameObjects.Sprite {
         else if (this.cursor?.down.isDown) {
             this.y += 5;
         }
-
+        
         //shoot the missiles!
 
         //this delays the initial call but not continuosly ?? spelling 
-        if(this.SPACE?.on('down', () => this.scene.time.delayedCall(2000, () => this.shoot(), null, this))) console.log("fire!!")
-        
-        // "Updated" if statement using delta to delay shots
-        //delta doesn't seem to be anything other than undefined
-        // if (this.SPACE.isDown && delta > this.nextShotTime) {
-        //      console.log(delta)
-        //     this.shoot();
-        //     this.updateShadow();
-        //     this.nextShotTime = delta + 200;
-        // }
-        //light particle stream - great if the cat is shitting itself or turns into a spaceship but unnecessary for now
-        //this.scene.trailLayer.add(new LightParticle(this.scene, this.x, this.y, 0xffffff, 10));
+       //if(this.SPACE?.on('down', () => this.scene.time.delayedCall(2000, () => this.shoot(), null, this))) console.log("fire!!")
+    //    if(Phaser.Input.Keyboard.JustDown(this.SPACE)) {
+    //         //this.shoot();
+    //         //
+    //         console.log('pew pew')
+    //    }
+
     }
-
-    //update this
-     fireShot() {
-            let shot = this.playerShots.get(this.player.x, this.player.y); // Get inactive bullet
-
-            if (shot) {
-                shot.setActive(true);
-                shot.setVisible(true);
-                shot.body.enable = true; // Enable physics body
-
-                shot.body.onWorldBounds = true;
-                shot.body.collideWorldBounds = true;
-            }
-
-            //current
-            //this.shootingPatterns.shoot(this.x, this.y, this.powerUp);
-
-    } 
 }
