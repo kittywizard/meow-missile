@@ -37,6 +37,7 @@ export class Game extends Scene
     shake: PowerUp;
     available: string[];
     playerShots: Phaser.GameObjects.Group;
+    SPACE: Phaser.Input.Keyboard.Key | undefined;
 
     constructor (){
         super({key: "game"});
@@ -102,9 +103,10 @@ export class Game extends Scene
     
     addShots() {
         this.SPACE = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        this.SPACE.setEmitOnRepeat(true); //allows for holding the key down and firing eventss
+        this.SPACE.setEmitOnRepeat(true); //allows for holding the key down and firing events
         this.shotsLayer = this.add.layer();
         this.playerShots = new Shots(this);
+        console.log(this.playerShots)
     }
     
     addPowerUps() {
@@ -376,7 +378,12 @@ export class Game extends Scene
         //background movement 
         this.background.tilePositionY -= 10;
 
-       this.SPACE.on('down', () => this.playerShots.fireShot(this.player.x, this.player.y))
+       this.SPACE.on('down', () => {
+           // this.playerShots.children.entries.forEach(shot => shot.fire(this.player.x, this.player.y));
+            this.playerShots.fireShot(this.player.x, this.player.y)
+            //this.playerShots.children.entries.fire(this.player.x, this.player.y)
+            //console.log(this.playerShots.children.entries)
+        })
 
     //    if(Phaser.Input.Keyboard.JustDown(this.SPACE)) {
     //         console.log(this.player.x)

@@ -66,18 +66,25 @@ export class Shots extends Phaser.Physics.Arcade.Group {
         super(scene.physics.world, scene);
         
         this.createMultiple({
-            frameQuantity: 10,
+            frameQuantity: 5,
             key: 'hairball',
             active: false,
             visible: false,
-            classType: Hairball
+            classType: Hairball,
+            max: 5       
         });
     }
       
     fireShot(x: number, y: number) {
-                const shot = this.getFirstDead(false);
-                if(shot) {
-                    shot.fire(x, y);
-                }
+        //console.log(this.getFirstDead(false))
+        //this.enemyShots.children.entries.forEach(shot => shot.shadow.destroy());
+
+        //this is one hairball object at a time
+        //const shot = this.getFirstDead(false);
+        const shot = this.get(x, y);     
+        console.log(this.get(x, y))
+        if(shot) {
+            shot.fire(x, y);
+        }
     }
 }

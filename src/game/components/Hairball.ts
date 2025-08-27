@@ -5,12 +5,12 @@ export class Hairball extends Phaser.Physics.Arcade.Sprite {
     shadow: Phaser.GameObjects.Arc;
 
     //name == type in shot example (i think)
-    constructor(scene: Phaser.Scene, x: number, y: number, name: string, playerName: string = "player1", velocityX = 0, velocityY = -500) {
+    constructor(scene: Phaser.Scene, x: number, y: number, name: string = 'hairball', playerName: string = "player1", velocityX = 0, velocityY = -500) {
         super(scene, x, y, 'hairball');
 
         this.name = name;
         this.playerName = playerName;
-        this.id = Math.random();
+        this.alive = true;
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
@@ -18,23 +18,22 @@ export class Hairball extends Phaser.Physics.Arcade.Sprite {
         this.setActive(false);
         this.setVisible(false);
 
-        this.init();
+        //this.init();
     }
 
-    fire(x: number, y: number) {
-        console.log(this)
-        this.body?.reset(x, y);
+    fire(x: number, y: number) {       
+        this.body?.reset(x, y); //reset position to player
 
         this.setActive(true);
         this.setVisible(true);
 
-        this.setVelocityY(-300);
+        this.setVelocityY(-300); //speed upwards
     }
 
     protected preUpdate(time: number, delta: number): void {
         super.preUpdate(time, delta);
 
-        if(this.y <= -32) {
+        if(this.y <= 0) {
             this.setActive(false);
             this.setVisible(false);
         }
@@ -49,6 +48,5 @@ export class Hairball extends Phaser.Physics.Arcade.Sprite {
         });
         this.anims.play(this.name, true);
         this.direction = -1;
-
     }
 }
