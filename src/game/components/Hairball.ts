@@ -21,7 +21,8 @@ export class Hairball extends Phaser.Physics.Arcade.Sprite {
         //this.init();
     }
 
-    fire(x: number, y: number) {       
+    fire(x: number, y: number) {    
+        this.body.enable = true;   
         this.body?.reset(x, y); //reset position to player
 
         this.setActive(true);

@@ -63,7 +63,7 @@ import { Hairball } from "../components/Hairball";
 
 export class Shots extends Phaser.Physics.Arcade.Group {
     constructor(scene: Phaser.Scene) {
-        super(scene.physics.world, scene);
+        super(scene.physics.world, scene, { enable: false });
         
         this.createMultiple({
             frameQuantity: 5,
@@ -73,6 +73,8 @@ export class Shots extends Phaser.Physics.Arcade.Group {
             classType: Hairball,
             max: 5       
         });
+
+
     }
       
     fireShot(x: number, y: number) {
@@ -81,8 +83,9 @@ export class Shots extends Phaser.Physics.Arcade.Group {
 
         //this is one hairball object at a time
         //const shot = this.getFirstDead(false);
-        const shot = this.get(x, y);     
-        console.log(this.get(x, y))
+        //const shot = this.get(x, y);  
+        const shot = this.getFirstDead(false)   
+        //console.log(shot2)
         if(shot) {
             shot.fire(x, y);
         }
