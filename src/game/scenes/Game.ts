@@ -105,8 +105,14 @@ export class Game extends Scene
         this.SPACE = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.SPACE.setEmitOnRepeat(true); //allows for holding the key down and firing events
         this.shotsLayer = this.add.layer();
-        this.playerShots = new Shots(this);
-
+        // let playerShots = this.physics.add.group({
+        //     defaultKey: 'hairball',
+        //     defaultFrame: 0,
+        //     maxSize: 10,
+        //     enable: false
+        // });
+       let playerShots = new Shots(this);
+        console.log(playerShots)
     }
     
     addPowerUps() {

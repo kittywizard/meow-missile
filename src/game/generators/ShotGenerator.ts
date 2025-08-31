@@ -67,11 +67,11 @@ export class Shots extends Phaser.Physics.Arcade.Group {
         
         this.createMultiple({
             frameQuantity: 5,
-            key: 'hairball',
+            key: this.defaultKey,
+            frame: this.defaultFrame,
             active: false,
             visible: false,
-            classType: Hairball,
-            max: 5       
+            classType: Hairball
         });
 
 
