@@ -34,6 +34,6 @@ export default class shootingPatterns {
     }
 
     tri() {
-
+        console.log('later')
     }
 }

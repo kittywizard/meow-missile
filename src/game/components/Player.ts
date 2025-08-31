@@ -124,7 +124,6 @@ export class Player extends Phaser.GameObjects.Sprite {
 
     }
 
-
     update(timestep: any, delta: any) {
         if (this.death) return;    
             
@@ -153,37 +152,12 @@ export class Player extends Phaser.GameObjects.Sprite {
         }
 
         //shoot the missiles!
-
-        //this delays the initial call but not continuosly ?? spelling 
-        if(this.SPACE?.on('down', () => this.scene.time.delayedCall(2000, () => this.shoot(), null, this))) console.log("fire!!")
-        
-        // "Updated" if statement using delta to delay shots
-        //delta doesn't seem to be anything other than undefined
-        // if (this.SPACE.isDown && delta > this.nextShotTime) {
-        //      console.log(delta)
-        //     this.shoot();
-        //     this.updateShadow();
-        //     this.nextShotTime = delta + 200;
-        // }
+       
+        if (Phaser.Input.Keyboard.JustDown(this.SPACE)) {
+            this.shoot();
+        }
         //light particle stream - great if the cat is shitting itself or turns into a spaceship but unnecessary for now
         //this.scene.trailLayer.add(new LightParticle(this.scene, this.x, this.y, 0xffffff, 10));
     }
 
-    //update this
-     fireShot() {
-            let shot = this.playerShots.get(this.player.x, this.player.y); // Get inactive bullet
-
-            if (shot) {
-                shot.setActive(true);
-                shot.setVisible(true);
-                shot.body.enable = true; // Enable physics body
-
-                shot.body.onWorldBounds = true;
-                shot.body.collideWorldBounds = true;
-            }
-
-            //current
-            //this.shootingPatterns.shoot(this.x, this.y, this.powerUp);
-
-    } 
 }
