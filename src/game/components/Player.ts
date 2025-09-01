@@ -75,7 +75,6 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.shootingPatterns.shoot(this.x, this.y, this.powerUp);
     }
 
-
     dead() {
         console.log("You have died.");
 
