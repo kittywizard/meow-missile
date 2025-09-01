@@ -144,7 +144,7 @@ export class EnemyGenerator {
         const enemy = new Enemy(this.scene, x, Phaser.Math.Between(100, 600), "enemy1", velocity, 0);
 
         this.scene.tweens.add({
-            targets: [enemy, enemy.shadow],
+            targets: [enemy],
             duration: 500,
             rotation: "+=5",
             repeat: -1,
@@ -209,7 +209,6 @@ export class EnemyGenerator {
                 let vec = enemy.getData("vector");
                 this.path.getPoint(t, vec);
                 enemy.setPosition(vec.x, vec.y);
-                enemy.shadow.setPosition(vec.x + 20, vec.y + 20);
                // enemy.setDepth(enemy.y);
             });
 

@@ -52,8 +52,8 @@ export default class Boot extends Scene
     loadCharacterSheets() {
         //can sprite name (below) be changed to be more descriptive w/o breaking everything calling player1- outside of sprites?
         this.load.spritesheet("player1", "assets/tali_spritesheet.png", {
-            frameWidth: 64,
-            frameHeight: 64,
+            frameWidth: 70,
+            frameHeight: 70,
         });
 
     }

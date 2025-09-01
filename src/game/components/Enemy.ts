@@ -13,7 +13,6 @@ export class Enemy extends Phaser.GameObjects.Sprite {
     points: any;
     lives: any;
     id: number;
-    shadow: any;
     patternIndex: number;
     pattern: number[];
     direction: number;
@@ -25,10 +24,6 @@ export class Enemy extends Phaser.GameObjects.Sprite {
         this.points = TYPES[name].points;
         this.lives = TYPES[name].lives; 
         this.id = Math.random();
-
-        if(this.name !== "enemy2"){
-            this.spawnShadow(x, y);
-        }
         
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
@@ -75,7 +70,6 @@ export class Enemy extends Phaser.GameObjects.Sprite {
         //called from generator class
 
         if(this.y > this.scene.height + 64) {
-            if(this.name !== "enemy2") this.shadow.destroy();
             this.destroy();
         }
         
@@ -91,21 +85,9 @@ export class Enemy extends Phaser.GameObjects.Sprite {
             this.scene.physics.moveTo(shot, this.scene.player.x, this.scene.player.y, 300);
             this.scene.physics.moveTo(shot.shadow, this.scene.player.x, this.scene.player.y, 300);
 
-            if(this.name !== "enemy2") {
-                this.updateShadow();
-            }
         }
     }
 
-    spawnShadow(x: number, y: number) {
-        this.shadow = this.scene.add.image(x + 20, y + 20, this.name)
-                        .setScale(0.7).setTint(0x000000).setAlpha(0.4);
-    }
-
-    updateShadow() {
-        this.shadow.x = this.x + 20;
-        this.shadow.y = this.y + 20;
-    }
 
     dead() {
         let radius = 60;
@@ -132,14 +114,6 @@ export class Enemy extends Phaser.GameObjects.Sprite {
         });
 
         new Explosion(this.scene, this.x, this.y, explosionRadius);
-        if(
-            this.name !== "enemy2" &&
-            this.scene &&
-            this.scene.scene.isActive() &&
-            this.shadow &&
-            this.shadow.active
-        )
-            this.shadow.destroy();
 
         if(this.name === "boss") {
             this.scene.number  = 5;

@@ -138,15 +138,16 @@ export class Player extends Phaser.GameObjects.Sprite {
             this.anims.play(this.name + "right", true);
         }
         else {
-            //this.anims.play(this.name, true);
-            this.anims.play(this.name + "vomit", true); //fix later
+            this.anims.play(this.name, true);
         }
 
         //y axis, up and down
         if (this.cursor?.up.isDown) {
+            this.anims.play(this.name + "vomit", true); 
             this.y -= 5;
         }
         else if (this.cursor?.down.isDown) {
+            this.anims.play(this.name + "vomit", true); 
             this.y += 5;
         }
 
