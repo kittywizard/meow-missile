@@ -23,7 +23,7 @@ export class Hairball extends Phaser.GameObjects.Sprite {
         this.body.setCollideWorldBounds(true);
         this.body.onWorldBounds = true;
 
-        this.init();
+       // this.init();
     }
 
 

@@ -44,7 +44,7 @@ export default class Boot extends Scene
 
     loadImages() {
         this.load.image('background', 'assets/woodfloor.png');
-        //this.load.image('hairball', "assets/hairball_halfsize.png");
+        this.load.image('hairball', "assets/hairball_halfsize.png");
         this.load.image('top', 'assets/ui/ui_top.png');
         this.load.image('title', 'assets/ui/titlescreen.png');
     }
@@ -59,13 +59,13 @@ export default class Boot extends Scene
     }
 
     loadSpriteSheets() {
-        this.load.spritesheet("hairball", "assets/hairball.png", {
-            frameWidth: 64,
-            frameHeight: 64
-        })
-         this.load.spritesheet("enemy0", "assets/carpet.png", {
-            frameWidth: 150,
-            frameHeight: 150,
+        // this.load.spritesheet("hairball", "assets/hairball.png", {
+        //     frameWidth: 64,
+        //     frameHeight: 64
+        // })
+         this.load.spritesheet("enemy0", "assets/enemy_carpet.png", {
+            frameWidth: 80,
+            frameHeight: 154,
         });
         this.load.spritesheet("enemy1", "assets/images/foe1.png", {
             frameWidth: 64,
