@@ -1,5 +1,5 @@
 const TYPES = {
-    enemy: {  color: 0xfff01f, radius: 16, intensity: 0.4},
+    enemy: {  color: 0xd9614a, radius: 16, intensity: 0.7},
     water: { color: 0xff44aa, radius: 16, intensity: 0.8}
 }
 
@@ -32,7 +32,7 @@ export class EnemyShot extends Phaser.GameObjects.PointLight {
 
 
     spawnShadow(x: number, y: number, velocityX: number, velocityY: number) {
-        this.shadow = this.scene.add.circle(x + 20, y + 20, 10, 0x000000).setAlpha(0.4);
+        this.shadow = this.scene.add.circle(x + 10, y + 10, 10,).setAlpha(0.2);
         this.scene.add.existing(this.shadow);
         this.scene.physics.add.existing(this.shadow);
         if (this.playerName === "boss") {

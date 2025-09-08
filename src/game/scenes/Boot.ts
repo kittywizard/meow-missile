@@ -22,8 +22,6 @@ export default class Boot extends Scene
     }
 
     setLoadEvents() {
-        // loading an event. progress = value increases when file is loaded
-        //function, scope
         this.load.on(
             "progress",
              (value: any) => {
@@ -50,12 +48,10 @@ export default class Boot extends Scene
     }
 
     loadCharacterSheets() {
-        //can sprite name (below) be changed to be more descriptive w/o breaking everything calling player1- outside of sprites?
         this.load.spritesheet("player1", "assets/tali_spritesheet.png", {
             frameWidth: 70,
             frameHeight: 70,
         });
-
     }
 
     loadSpriteSheets() {
