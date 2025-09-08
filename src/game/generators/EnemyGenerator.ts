@@ -141,7 +141,7 @@ export class EnemyGenerator {
             x = this.scene.width + 100;
         }
 
-        const enemy = new Enemy(this.scene, x, Phaser.Math.Between(100, 600), "enemy1", velocity, 0);
+        const enemy = new Enemy(this.scene, x, Phaser.Math.Between(100, 600), "enemy0", velocity, 0);
 
         this.scene.tweens.add({
             targets: [enemy],
@@ -158,12 +158,12 @@ export class EnemyGenerator {
 
     //add new enemy in random position
     add() {
-        const enemy = new Enemy(
-            this.scene,
-            Phaser.Math.Between(32, this.scene.width - 32),
-            0
-        );
-        this.scene.enemyGroup.add(enemy);
+        this.scene.enemyGroup.add(
+            new Enemy(this.scene,
+                Phaser.Math.Between(32, this.scene.width - 32),
+                0,
+                "enemy0",
+                0, 300));
     }
 
     //for the ordered wave enemies
@@ -210,6 +210,7 @@ export class EnemyGenerator {
                 this.path.getPoint(t, vec);
                 enemy.setPosition(vec.x, vec.y);
                // enemy.setDepth(enemy.y);
+               enemy.update(); //they fire now???
             });
 
             if(this.activeWave && this.checkIfWaveDestroyed()) {

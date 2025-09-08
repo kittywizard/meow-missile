@@ -80,12 +80,12 @@ export class Enemy extends Phaser.GameObjects.Sprite {
             if(!this.scene || !this.scene.player) return;
 
             //this.scene.playAudio("enemyshot");
-            let shot = new EnemyShot(this.scene, this.x, this.y, "enemy", this.name);
+            let shot = new EnemyShot(this.scene, this.x, this.y, "water", this.name);
             this.scene.enemyShots.add(shot);
             this.scene.physics.moveTo(shot, this.scene.player.x, this.scene.player.y, 300);
             this.scene.physics.moveTo(shot.shadow, this.scene.player.x, this.scene.player.y, 300);
-
         }
+
     }
 
 

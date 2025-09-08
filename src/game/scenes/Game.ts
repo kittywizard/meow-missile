@@ -349,7 +349,7 @@ export class Game extends Scene
 
     endScene() {
         this.enemyWaveGroup.children.entries.forEach(foe => foe.shadow.destroy());
-        this.enemyGroup.children.entries.forEach((foe) => foe.shadow.destroy());
+        //this.enemyGroup.children.entries.forEach((foe) => foe.shadow.destroy());
         this.enemyShots.children.entries.forEach(shot => shot.shadow.destroy());
 
         this.time.delayedCall(2000, () => this.finishScene(), null, this)
