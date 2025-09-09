@@ -26,7 +26,7 @@ export default class Boot extends Scene
             "progress",
              (value: any) => {
                 this.progressBar.clear();
-                this.progressBar.fillStyle(0x0088aa, 1);
+                this.progressBar.fillStyle(0x58d9ca, 1);
                 this.progressBar.fillRect(
                     this.cameras.main.width / 4,
                     this.cameras.main.height / 2 - 16,
@@ -58,10 +58,6 @@ export default class Boot extends Scene
     }
 
     loadSpriteSheets() {
-        // this.load.spritesheet("hairball", "assets/hairball.png", {
-        //     frameWidth: 64,
-        //     frameHeight: 64
-        // })
         //  this.load.spritesheet("enemy0", "assets/enemy_carpet.png", {
         //     frameWidth: 80,
         //     frameHeight: 154,
@@ -103,7 +99,7 @@ export default class Boot extends Scene
 
     createBars() {
         this.loadBar = this.add.graphics();
-        this.loadBar.fillStyle(0xd40000, 1);
+        this.loadBar.fillStyle(0x5564d9, 1);
         this.loadBar.fillRect(
             this.cameras.main.width / 4 - 2,
             this.cameras.main.height / 2 - 18,
