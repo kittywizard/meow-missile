@@ -41,10 +41,13 @@ export default class Boot extends Scene
     }
 
     loadImages() {
+        //UI
         this.load.image('background', 'assets/woodfloor.png');
-        this.load.image('hairball', "assets/hairball_halfsize.png");
         this.load.image('top', 'assets/ui/ui_top.png');
         this.load.image('title', 'assets/ui/titlescreen.png');
+        
+        //static enemy sprites
+        this.load.image('hairball', "assets/hairball_halfsize.png");
     }
 
     loadCharacterSheets() {
@@ -59,17 +62,13 @@ export default class Boot extends Scene
         //     frameWidth: 64,
         //     frameHeight: 64
         // })
-         this.load.spritesheet("enemy0", "assets/enemy_carpet.png", {
-            frameWidth: 80,
-            frameHeight: 154,
-        });
-        this.load.spritesheet("enemy1", "assets/images/foe1.png", {
-            frameWidth: 64,
-            frameHeight: 64,
-        });
-        this.load.spritesheet("enemy2", "assets/images/foe2.png", {
-            frameWidth: 32,
-            frameHeight: 32,
+        //  this.load.spritesheet("enemy0", "assets/enemy_carpet.png", {
+        //     frameWidth: 80,
+        //     frameHeight: 154,
+        // });
+        this.load.spritesheet("enemy0", "assets/enemy_couch.png", {
+            frameWidth: 150,
+            frameHeight: 75,
         });
         this.load.spritesheet("catnip", "assets/powerup_catnip.png", {
             frameWidth: 64,
