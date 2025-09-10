@@ -47,12 +47,17 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.SPACE = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.SPACE?.setEmitOnRepeat(true); //allows for holding the key down and firing events
         this.cursor = this.scene.input.keyboard?.createCursorKeys();
-        this.W = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        this.A = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        this.S = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        this.D = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
+        this.W = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.W).setEmitOnRepeat(true);
+        this.A = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A).setEmitOnRepeat(true);
+        this.S = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.S).setEmitOnRepeat(true);
+        this.D = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.D).setEmitOnRepeat(true);
+
+        
         // TO DO : add actual WASD keyboard controls
+        //need to set a keyboard.event for this i believe
+
+
     }
 
     showPoints(score: any, color = 0xff0000) {
@@ -123,17 +128,25 @@ export class Player extends Phaser.GameObjects.Sprite {
 
     }
 
+    move(axis: string, direction: string){
+        this.axis -= 5; //maybe something else
+        this.anims.play(this.name + direction, true);
+    }
+
     update(timestep: any, delta: any) {
         if (this.death) return;    
             
+        //WASD movement
+        //this.Phaser.Input.Keyboard.on('keydown-A', move("x", "left"));
+        // need to write a callback function to move, might as well replace all the rest
+        
         // // ARROW KEYS!!!! // //
-
         //left right on the x axis
-        if(this.cursor?.left.isDown) {
+        if(this.cursor?.left.isDown || Phaser.Input.Keyboard.JustDown(this.A)) {
             this.x -= 5; 
             this.anims.play(this.name + "left", true);
         }
-        else if(this.cursor?.right.isDown) {
+        else if(this.cursor?.right.isDown || Phaser.Input.Keyboard.JustDown(this.D)) {
             this.x += 5; 
             this.anims.play(this.name + "right", true);
         }
@@ -142,11 +155,11 @@ export class Player extends Phaser.GameObjects.Sprite {
         }
 
         //y axis, up and down
-        if (this.cursor?.up.isDown) {
+        if (this.cursor?.up.isDown || Phaser.Input.Keyboard.JustDown(this.W)) {
             this.anims.play(this.name + "vomit", true); 
             this.y -= 5;
         }
-        else if (this.cursor?.down.isDown) {
+        else if (this.cursor?.down.isDown || Phaser.Input.Keyboard.JustDown(this.S)) {
             this.anims.play(this.name + "vomit", true); 
             this.y += 5;
         }
@@ -156,8 +169,6 @@ export class Player extends Phaser.GameObjects.Sprite {
         if (Phaser.Input.Keyboard.JustDown(this.SPACE)) {
             this.shoot();
         }
-        //light particle stream - great if the cat is shitting itself or turns into a spaceship but unnecessary for now
-        //this.scene.trailLayer.add(new LightParticle(this.scene, this.x, this.y, 0xffffff, 10));
     }
 
 }
