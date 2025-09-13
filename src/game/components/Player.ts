@@ -1,6 +1,5 @@
 import { Scene } from "phaser";
 import shootingPatterns from "../generators/ShootingPatterns";
-import { LightParticle } from "./LightParticle";
 import Explosion from "./Explosion";
 export class Player extends Phaser.GameObjects.Sprite {
     SPACE: Phaser.Input.Keyboard.Key | undefined;
@@ -52,12 +51,6 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.A = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.A).setEmitOnRepeat(true);
         this.S = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.S).setEmitOnRepeat(true);
         this.D = this.scene.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.D).setEmitOnRepeat(true);
-
-        
-        // TO DO : add actual WASD keyboard controls
-        //need to set a keyboard.event for this i believe
-
-
     }
 
     showPoints(score: any, color = 0xff0000) {
@@ -124,45 +117,64 @@ export class Player extends Phaser.GameObjects.Sprite {
             repeat: -1
         });
        this.anims.play(this.name, true);
-
-
     }
 
-    move(axis: string, direction: string){
-        this.axis -= 5; //maybe something else
-        this.anims.play(this.name + direction, true);
+    move(direction: string){
+        switch (direction) {
+            case "left":
+                this.x -= 5;
+                this.anims.play(this.name + direction, true);
+                break;
+            case "right":
+                this.x += 5;
+                this.anims.play(this.name + direction, true);
+                break;
+            case "up":
+                this.y -= 5;
+                this.anims.play(this.name + direction, true);
+                break;
+            case "down":
+                this.y += 5;
+                this.anims.play(this.name + direction, true);
+                break;
+            default:
+                this.anims.play(this.name, true);
+        }
     }
 
     update(timestep: any, delta: any) {
         if (this.death) return;    
             
         //WASD movement
-        //this.Phaser.Input.Keyboard.on('keydown-A', move("x", "left"));
-        // need to write a callback function to move, might as well replace all the rest
+        this.scene.input.keyboard.on('keydown-A', () => this.move("left"));
+        this.scene.input.keyboard.on('keydown-D', () => this.move("right"));
+        this.scene.input.keyboard.on('keydown-W', () => this.move("up"));
+        this.scene.input.keyboard.on('keydown-S', () => this.move("down"));
+
         
         // // ARROW KEYS!!!! // //
         //left right on the x axis
-        if(this.cursor?.left.isDown || Phaser.Input.Keyboard.JustDown(this.A)) {
-            this.x -= 5; 
-            this.anims.play(this.name + "left", true);
-        }
-        else if(this.cursor?.right.isDown || Phaser.Input.Keyboard.JustDown(this.D)) {
-            this.x += 5; 
-            this.anims.play(this.name + "right", true);
-        }
-        else {
-            this.anims.play(this.name, true);
-        }
+        // if(this.cursor?.left.isDown || Phaser.Input.Keyboard.JustDown(this.A)) {
+        //     this.x -= 5; 
+        //     this.anims.play(this.name + "left", true);
+        // }
+        // else if(this.cursor?.right.isDown || Phaser.Input.Keyboard.JustDown(this.D)) {
+        //     this.x += 5; 
+        //     this.anims.play(this.name + "right", true);
+        // }
+        // else {
+        //     this.anims.play(this.name, true);
+        // }
 
-        //y axis, up and down
-        if (this.cursor?.up.isDown || Phaser.Input.Keyboard.JustDown(this.W)) {
-            this.anims.play(this.name + "vomit", true); 
-            this.y -= 5;
-        }
-        else if (this.cursor?.down.isDown || Phaser.Input.Keyboard.JustDown(this.S)) {
-            this.anims.play(this.name + "vomit", true); 
-            this.y += 5;
-        }
+        // //y axis, up and down
+        // if (this.cursor?.up.isDown || Phaser.Input.Keyboard.JustDown(this.W)) {
+        //     this.anims.play(this.name + "vomit", true); 
+        //     this.y -= 5;
+        // }
+        // else if (this.cursor?.down.isDown || Phaser.Input.Keyboard.JustDown(this.S)) {
+        //     this.anims.play(this.name + "vomit", true); 
+        //     this.y += 5;
+        // }
 
         //shoot the missiles!
        

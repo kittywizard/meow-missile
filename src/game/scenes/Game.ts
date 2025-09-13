@@ -371,7 +371,6 @@ export class Game extends Scene
     update() {
         if (this.player) this.player.update();
         this.enemies.update();
-        //background movement 
         this.background.tilePositionY -= 10;
     }
 }
