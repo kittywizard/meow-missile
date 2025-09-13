@@ -55,6 +55,10 @@ export default class Boot extends Scene
             frameWidth: 70,
             frameHeight: 70,
         });
+        this.load.spritesheet("tali-select", "assets/character-selector.png", {
+            frameWidth: 100,
+            frameHeight: 175,
+        });
     }
 
     loadSpriteSheets() {
