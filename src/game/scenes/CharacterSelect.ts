@@ -18,20 +18,22 @@ export default class CharacterSelect extends Phaser.Scene {
             // need to set a variable that will set sprite / character info. to start probably just swap sprites
             // will adding these to a group make it easier to code?
             // keyboard controls too
-         const tali = this.add.sprite(this.center_width, this.center_height - 40, 'tali-select').setInteractive();
+        const tali = this.add.sprite(this.center_width, this.center_height - 40, 'tali-select').setInteractive();
         
         let activeState: boolean = false;
         tali.on('pointerdown', () => {
             if(!activeState) {
-               // tali.setTint(0x5564d9);
                 tali.setFrame(1);
                 activeState = !activeState;
+                //set a character variable
             } else {
-                //tali.clearTint();
                 tali.setFrame(0);
                 activeState = !activeState;
+                //unset variable
             }
         });
+
+        //repeat this for each character (or write a function to reduce repeat code)
 
         this.add.bitmapText(this.center_width, this.center_height + 100, 'minogram', 'Select a Character', 30).setOrigin(0.5).setTintFill(0x000000);
         this.add.bitmapText(this.center_width, this.center_height + 140, 'minogram', 'SPACE to start', 30).setOrigin(0.5).setTintFill(0x000000);
