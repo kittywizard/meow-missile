@@ -25,10 +25,12 @@ export default class CharacterSelect extends Phaser.Scene {
             if(!activeState) {
                 tali.setFrame(1);
                 activeState = !activeState;
+                this.registry.set("player1_character", "tali");
                 //set a character variable
             } else {
                 tali.setFrame(0);
                 activeState = !activeState;
+                this.registry.remove("player1_character");
                 //unset variable
             }
         });

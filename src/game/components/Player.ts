@@ -18,7 +18,8 @@ export class Player extends Phaser.GameObjects.Sprite {
     playerShots: any;
     nextShotTime: number;
 
-    
+    //default player name is tied to sprite names, will need to change so 
+    // player 1 is different from tali/kuroi/etc
     constructor(scene: Scene, x: integer, y: integer, name: string = "player1", powerUp: string = "hairball") {
         super(scene, x, y, name); //from sprite class 
 

@@ -84,7 +84,8 @@ export class Game extends Scene
     addPlayers() {
         this.trailLayer = this.add.layer();
         this.players = this.add.group();
-        this.player = new Player(this, this.center_height, this.center_width);
+        //new player, pass in whatever character was selected
+        this.player = new Player(this, this.center_height, this.center_width, this.registry.get('player1_character'));
         this.players.add(this.player);
     }
     
