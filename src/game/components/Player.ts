@@ -17,14 +17,16 @@ export class Player extends Phaser.GameObjects.Sprite {
     powerUp: string;
     playerShots: any;
     nextShotTime: number;
+    character: string;
 
     //default player name is tied to sprite names, will need to change so 
     // player 1 is different from tali/kuroi/etc
-    constructor(scene: Scene, x: integer, y: integer, name: string = "player1", powerUp: string = "hairball") {
+    constructor(scene: Scene, x: integer, y: integer, name: string = "player1", character = "tali", powerUp: string = "hairball") {
         super(scene, x, y, name); //from sprite class 
 
         this.name = name;
         this.id = Math.random();
+        this.character = character;
         this.powerUp = powerUp;
         this.nextShotTime = 0;
 
@@ -94,52 +96,53 @@ export class Player extends Phaser.GameObjects.Sprite {
 
     init() {
         this.scene.anims.create({
-            key: this.name,
-            frames: this.scene.anims.generateFrameNumbers(this.name, { start: 0, end: 0 }),
+            key: this.character,
+            frames: this.scene.anims.generateFrameNumbers(this.character, { start: 0, end: 0 }),
             frameRate: 10,
             repeat: -1
         });
         this.scene.anims.create({
-            key: this.name + "right",
-            frames: this.scene.anims.generateFrameNumbers(this.name, { start: 2, end: 2 }),
+            key: this.character + "right",
+            frames: this.scene.anims.generateFrameNumbers(this.character, { start: 2, end: 2 }),
             frameRate: 10,
             repeat: -1
         });
         this.scene.anims.create({
-            key: this.name + "left",
-            frames: this.scene.anims.generateFrameNumbers(this.name, { start: 0, end: 0 }),
+            key: this.character + "left",
+            frames: this.scene.anims.generateFrameNumbers(this.character, { start: 0, end: 0 }),
             frameRate: 10,
             repeat: -1
         });
         this.scene.anims.create({
-            key: this.name + "vomit",
-            frames: this.scene.anims.generateFrameNumbers(this.name, { start: 1, end: 1 }),
+            key: this.character + "vomit",
+            frames: this.scene.anims.generateFrameNumbers(this.character, { start: 1, end: 1 }),
             frameRate: 10,
             repeat: -1
         });
-       this.anims.play(this.name, true);
+        console.log(this.character)
+       this.anims.play(this.character, true);
     }
 
     move(direction: string){
         switch (direction) {
             case "left":
                 this.x -= 5;
-                this.anims.play(this.name + direction, true);
+                this.anims.play(this.character + direction, true);
                 break;
             case "right":
                 this.x += 5;
-                this.anims.play(this.name + direction, true);
+                this.anims.play(this.character + direction, true);
                 break;
             case "up":
                 this.y -= 5;
-                this.anims.play(this.name + direction, true);
+                this.anims.play(this.character + direction, true);
                 break;
             case "down":
                 this.y += 5;
-                this.anims.play(this.name + direction, true);
+                this.anims.play(this.character + direction, true);
                 break;
             default:
-                this.anims.play(this.name, true);
+                this.anims.play(this.character, true);
         }
     }
 
@@ -147,35 +150,35 @@ export class Player extends Phaser.GameObjects.Sprite {
         if (this.death) return;    
             
         //WASD movement
-        this.scene.input.keyboard.on('keydown-A', () => this.move("left"));
-        this.scene.input.keyboard.on('keydown-D', () => this.move("right"));
-        this.scene.input.keyboard.on('keydown-W', () => this.move("up"));
-        this.scene.input.keyboard.on('keydown-S', () => this.move("down"));
+        // this.scene.input.keyboard.on('keydown-A', () => this.move("left"));
+        // this.scene.input.keyboard.on('keydown-D', () => this.move("right"));
+        // this.scene.input.keyboard.on('keydown-W', () => this.move("up"));
+        // this.scene.input.keyboard.on('keydown-S', () => this.move("down"));
 
         
         // // ARROW KEYS!!!! // //
         //left right on the x axis
-        // if(this.cursor?.left.isDown || Phaser.Input.Keyboard.JustDown(this.A)) {
-        //     this.x -= 5; 
-        //     this.anims.play(this.name + "left", true);
-        // }
-        // else if(this.cursor?.right.isDown || Phaser.Input.Keyboard.JustDown(this.D)) {
-        //     this.x += 5; 
-        //     this.anims.play(this.name + "right", true);
-        // }
-        // else {
-        //     this.anims.play(this.name, true);
-        // }
+        if(this.cursor?.left.isDown || Phaser.Input.Keyboard.JustDown(this.A)) {
+            this.x -= 5; 
+            this.anims.play(this.name + "left", true);
+        }
+        else if(this.cursor?.right.isDown || Phaser.Input.Keyboard.JustDown(this.D)) {
+            this.x += 5; 
+            this.anims.play(this.name + "right", true);
+        }
+        else {
+            this.anims.play(this.name, true);
+        }
 
-        // //y axis, up and down
-        // if (this.cursor?.up.isDown || Phaser.Input.Keyboard.JustDown(this.W)) {
-        //     this.anims.play(this.name + "vomit", true); 
-        //     this.y -= 5;
-        // }
-        // else if (this.cursor?.down.isDown || Phaser.Input.Keyboard.JustDown(this.S)) {
-        //     this.anims.play(this.name + "vomit", true); 
-        //     this.y += 5;
-        // }
+        //y axis, up and down
+        if (this.cursor?.up.isDown || Phaser.Input.Keyboard.JustDown(this.W)) {
+            this.anims.play(this.name + "vomit", true); 
+            this.y -= 5;
+        }
+        else if (this.cursor?.down.isDown || Phaser.Input.Keyboard.JustDown(this.S)) {
+            this.anims.play(this.name + "vomit", true); 
+            this.y += 5;
+        }
 
         //shoot the missiles!
        

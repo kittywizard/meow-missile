@@ -51,11 +51,20 @@ export default class Boot extends Scene
     }
 
     loadCharacterSheets() {
-        this.load.spritesheet("player1", "assets/tali_spritesheet.png", {
+        //sprite name is still player name 
+        this.load.spritesheet("tali", "assets/tali_spritesheet.png", {
             frameWidth: 70,
             frameHeight: 70,
         });
         this.load.spritesheet("tali-select", "assets/character-selector.png", {
+            frameWidth: 100,
+            frameHeight: 175,
+        });
+        this.load.spritesheet("kuroi", "assets/kuroi_spritesheet.png", {
+            frameWidth: 64,
+            frameHeight: 64,
+        });
+        this.load.spritesheet("kuroi-select", "assets/character-selector_kuroi.png", {
             frameWidth: 100,
             frameHeight: 175,
         });
@@ -115,7 +124,8 @@ export default class Boot extends Scene
 
     setRegistry() {
         this.registry.set("score_player1", 0);
-        this.registry.set("player1_name", "Tali");
+        this.registry.set("player1_name", "Player 1"); //display name, later on ask?
+        this.registry.set("player1_character", "tali"); //character that is selected, default Tali
         this.registry.set("power_player1", "hairball");
         this.registry.set("lives_player1", 0);
 
