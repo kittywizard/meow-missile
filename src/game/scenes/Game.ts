@@ -207,6 +207,7 @@ export class Game extends Scene
         this.currentPowerUp = this.currentPowerUp + 1 === this.available.length
             ? this.currentPowerUp : this.currentPowerUp + 1;
         this.registry.set("currentPowerUp", this.currentPowerUp);
+        console.log(this.currentPowerUp)
     }
     
 
