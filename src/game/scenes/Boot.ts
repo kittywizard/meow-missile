@@ -79,6 +79,10 @@ export default class Boot extends Scene
             frameWidth: 150,
             frameHeight: 75,
         });
+        this.load.spritesheet("enemy1", "assets/enemy_shoe.png", {
+            frameWidth: 100,
+            frameHeight: 100,
+        });
         this.load.spritesheet("catnip", "assets/powerup_catnip.png", {
             frameWidth: 64,
             frameHeight: 64,
