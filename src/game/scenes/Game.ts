@@ -89,13 +89,14 @@ export class Game extends Scene
         this.players.add(this.player);
     }
     
+    //change this w/ new shooting patterns
     addEnemies() {
         this.enemyGroup = this.add.group();
         this.enemyWaveGroup = this.add.group();
         this.enemyShots = this.add.group();
+        
         this.enemies = new EnemyGenerator(this);
 
-        //this.enemyGroup.setDepth(1);
         this.enemyWaveGroup.setDepth(1);
     }
     

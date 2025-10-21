@@ -25,7 +25,7 @@ const config: Types.Core.GameConfig = {
     physics: {
         default: 'arcade',
         arcade: { 
-            debug: false, //pink boxes everywhere!
+            debug: true, //pink boxes everywhere!
             gravity: {
                 y: 0
             } 

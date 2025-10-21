@@ -21,14 +21,52 @@ export class EnemyGenerator {
         this.waves = 0;
     }
 
+    // generate() {
+    //     //boss level
+    //     if (this.scene.number === 4) {
+    //         this.scene.time.delayedCall(2000, () => this.releaseBoss(), null, this);
+    //     } else {
+    //         //generating events per scene
+    //         this.generateEvent1 = this.scene.time.addEvent({
+    //             delay: 7000,
+    //             callback: () => this.orderedWave(),
+    //             callbackScope: this,
+    //             loop: true,
+    //         });
+    //         this.generateEvent2 = this.scene.time.addEvent({
+    //             delay: 15000,
+    //             callback: () => this.wave(),
+    //             callbackScope: this,
+    //             loop: true,
+    //         });
+    //         if (this.scene.number > 1) {
+    //             this.generateEvent3 = this.scene.time.addEvent({
+    //                 delay: 3000,
+    //                 callback: () => this.tank(),
+    //                 callbackScope: this,
+    //                 loop: true,
+    //             });  
+    //         }
+    //         if(this.scene.number > 2){
+    //             this.generateEvent4 = this.scene.time.addEvent({
+    //                 delay: 5000,
+    //                 callback: () => this.slider(),
+    //                 callbackScope: this,
+    //                 loop: true,
+    //         });
+    //         }
+    //     }
+
+    // }
+
     generate() {
-        //boss level
+        //boss
         if (this.scene.number === 4) {
             this.scene.time.delayedCall(2000, () => this.releaseBoss(), null, this);
         } else {
             //generating events per scene
             this.generateEvent1 = this.scene.time.addEvent({
-                delay: 7000,
+                delay: 1000,
                 callback: () => this.orderedWave(),
                 callbackScope: this,
                 loop: true,
@@ -78,7 +116,7 @@ export class EnemyGenerator {
     //path that neemies follow when in formation
     createPath() {
         this.waves++;
-        if(this.waves === 3) this.finishScene();
+        //if(this.waves === 3) this.finishScene();
 
         const start = Phaser.Math.Between(100, 600);
 
@@ -102,14 +140,21 @@ export class EnemyGenerator {
     }
 
     //enemy wave in ordered formation
-    orderedWave(difficulty = 5) {
-        const x = Phaser.Math.Between(64, this.scene.width - 200);
+    orderedWave(difficulty = 1) {
+        const x = Phaser.Math.Between(64, this.scene.width - 160);
         const y = Phaser.Math.Between(-100, 0);
         const minus = Phaser.Math.Between(-1, 1) > 0 ? 1 : -1;
 
         Array(difficulty).fill().forEach((_, i) => {
             this.addOrder(i, x, y, minus);
         });
+    }
+    //difficulty number of enemies per wave? yes
+    singleWave(difficulty: number = 5){
+        this.createPath();
+
+        const x = Phaser.Math.Between(64, this.scene.width - 200);
+        const y = Phaser.Math.Between(-100, 0);
     }
 
     //simple enemy wave
