@@ -255,7 +255,7 @@ export class EnemyGenerator {
                 this.path.getPoint(t, vec);
                 enemy.setPosition(vec.x, vec.y);
                // enemy.setDepth(enemy.y);
-               enemy.update(); //they fire now???
+               enemy.update(); 
             });
 
             if(this.activeWave && this.checkIfWaveDestroyed()) {

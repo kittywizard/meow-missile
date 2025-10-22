@@ -51,8 +51,7 @@ export class Game extends Scene
         this.currentPowerUp = +this.registry.get("currentPowerUp");
     }
 
-    create ()
-    {
+    create() {
         this.duration = this.time * 1000;
         this.width = this.sys.game.config.width;
         this.height = this.sys.game.config.height;
@@ -77,7 +76,6 @@ export class Game extends Scene
         this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
         this.add.tileSprite(0, 0, this.width, 50, "top").setOrigin(0).setDepth(4);
         //add other UI elements here
-        //how to layer so they are above everything? 
     }
     
     //adding
@@ -89,7 +87,6 @@ export class Game extends Scene
         this.players.add(this.player);
     }
     
-    //change this w/ new shooting patterns
     addEnemies() {
         this.enemyGroup = this.add.group();
         this.enemyWaveGroup = this.add.group();
