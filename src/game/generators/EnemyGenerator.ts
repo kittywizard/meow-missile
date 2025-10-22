@@ -21,44 +21,6 @@ export class EnemyGenerator {
         this.waves = 0;
     }
 
-    // generate() {
-    //     //boss level
-    //     if (this.scene.number === 4) {
-    //         this.scene.time.delayedCall(2000, () => this.releaseBoss(), null, this);
-    //     } else {
-    //         //generating events per scene
-    //         this.generateEvent1 = this.scene.time.addEvent({
-    //             delay: 7000,
-    //             callback: () => this.orderedWave(),
-    //             callbackScope: this,
-    //             loop: true,
-    //         });
-    //         this.generateEvent2 = this.scene.time.addEvent({
-    //             delay: 15000,
-    //             callback: () => this.wave(),
-    //             callbackScope: this,
-    //             loop: true,
-    //         });
-    //         if (this.scene.number > 1) {
-    //             this.generateEvent3 = this.scene.time.addEvent({
-    //                 delay: 3000,
-    //                 callback: () => this.tank(),
-    //                 callbackScope: this,
-    //                 loop: true,
-    //             });  
-    //         }
-    //         if(this.scene.number > 2){
-    //             this.generateEvent4 = this.scene.time.addEvent({
-    //                 delay: 5000,
-    //                 callback: () => this.slider(),
-    //                 callbackScope: this,
-    //                 loop: true,
-    //         });
-    //         }
-    //     }
-
-    // }
-
     generate() {
         //boss
         if (this.scene.number === 4) {
@@ -67,7 +29,7 @@ export class EnemyGenerator {
             //generating events per scene
             this.generateEvent1 = this.scene.time.addEvent({
                 delay: 1000,
-                callback: () => this.orderedWave(),
+                callback: () => this.wave(),
                 callbackScope: this,
                 loop: true,
             });
@@ -137,24 +99,6 @@ export class EnemyGenerator {
         this.path.lineTo(start, this.scene.height + 50);
         this.graphics = this.scene.add.graphics();
         this.graphics.lineStyle(0, 0xffffff, 0); //debug only
-    }
-
-    //enemy wave in ordered formation
-    orderedWave(difficulty = 1) {
-        const x = Phaser.Math.Between(64, this.scene.width - 160);
-        const y = Phaser.Math.Between(-100, 0);
-        const minus = Phaser.Math.Between(-1, 1) > 0 ? 1 : -1;
-
-        Array(difficulty).fill().forEach((_, i) => {
-            this.addOrder(i, x, y, minus);
-        });
-    }
-    //difficulty number of enemies per wave? yes
-    singleWave(difficulty: number = 5){
-        this.createPath();
-
-        const x = Phaser.Math.Between(64, this.scene.width - 200);
-        const y = Phaser.Math.Between(-100, 0);
     }
 
     //simple enemy wave
