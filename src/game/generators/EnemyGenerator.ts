@@ -29,7 +29,7 @@ export class EnemyGenerator {
             //generating events per scene
             this.generateEvent1 = this.scene.time.addEvent({
                 delay: 1000,
-                callback: () => this.wave(),
+                callback: () => this.singleEnemyWave(),
                 callbackScope: this,
                 loop: true,
             });
@@ -78,7 +78,7 @@ export class EnemyGenerator {
     //path that neemies follow when in formation
     createPath() {
         this.waves++;
-        //if(this.waves === 3) this.finishScene();
+        if(this.waves === 3) this.finishScene();
 
         const start = Phaser.Math.Between(100, 600);
 
@@ -102,7 +102,29 @@ export class EnemyGenerator {
     }
 
     //simple enemy wave
-    wave(difficulty = 5) {
+    singleEnemyWave(difficulty = 1) {
+        //this.createPath();
+
+        const x = Phaser.Math.Between(64, this.scene.width - 150);
+        const y = Phaser.Math.Between(-100, 0);
+        const minus = Phaser.Math.Between(-1, 1) > 0 ? 1 : -1; // why???
+
+        Array(difficulty).fill().forEach((_, i) => this.addOrder(i, x, y, minus));
+        //this.activeWave = true;
+    }
+
+    addOrder(i: number, x: number, y: number, minus: number) {
+        const offset = minus * 70;
+    
+        this.scene.enemyGroup.add(
+            new Enemy(this.scene, 
+                x + i * 70, 
+                i * y + offset, 
+                "enemy0", 0, 300));
+    }
+
+    //this one creates power up, so need to find and reduce that. 
+    wave(difficulty = 3) {
         this.createPath();
 
         const x = Phaser.Math.Between(64, this.scene.width - 200);
@@ -153,17 +175,6 @@ export class EnemyGenerator {
                 0,
                 "enemy0",
                 0, 300));
-    }
-
-    //for the ordered wave enemies
-    addOrder(i: number, x: number, y: number, minus: number) {
-        const offset = minus * 70;
-    
-        this.scene.enemyGroup.add(
-            new Enemy(this.scene, 
-                x + i * 70, 
-                i * y + offset, 
-                "enemy0", 0, 300));
     }
 
     //add to a wave
