@@ -114,16 +114,16 @@ export class EnemyGenerator {
     }
 
     addOrder(i: number, x: number, y: number, minus: number) {
+        let num = Phaser.Math.Between(0, 2);
         const offset = minus * 70;
     
         this.scene.enemyGroup.add(
             new Enemy(this.scene, 
                 x + i * 70, 
                 i * y + offset, 
-                "enemy0", 0, 300));
+                `enemy${num}`, 0, 300));
     }
 
-    //this one creates power up, so need to find and reduce that. 
     wave(difficulty = 3) {
         this.createPath();
 
@@ -133,6 +133,29 @@ export class EnemyGenerator {
 
         Array(difficulty).fill().forEach((_, i) => this.addToWave(i));
         this.activeWave = true;
+    }
+
+    //add to a wave
+    addToWave(i: number) {
+        //random number
+        let num = Phaser.Math.Between(0, 2);
+
+        const enemy = new Enemy(
+            this.scene,
+            Phaser.Math.Between(32, this.scene.width - 32),
+            0,
+            `enemy${num}`
+        );
+        this.scene.tweens.add({
+            targets: enemy,
+            z: 1,
+            ease: "Linear",
+            duration: 12000,
+            repeat: -1,
+            delay: i * 100,
+        })
+        this;
+        this.scene.enemyWaveGroup.add(enemy);
     }
 
     //enemy types
@@ -175,27 +198,6 @@ export class EnemyGenerator {
                 0,
                 "enemy0",
                 0, 300));
-    }
-
-    //add to a wave
-    addToWave(i: number) {
-        //enemy name auto-generated> check example
-        const enemy = new Enemy(
-            this.scene,
-            Phaser.Math.Between(32, this.scene.width - 32),
-            0,
-            "enemy0"
-        );
-        this.scene.tweens.add({
-            targets: enemy,
-            z: 1,
-            ease: "Linear",
-            duration: 12000,
-            repeat: -1,
-            delay: i * 100,
-        })
-        this;
-        this.scene.enemyWaveGroup.add(enemy);
     }
 
     update() {

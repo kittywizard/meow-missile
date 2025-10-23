@@ -71,18 +71,22 @@ export default class Boot extends Scene
     }
 
     loadSpriteSheets() {
-        //  this.load.spritesheet("enemy0", "assets/enemy_carpet.png", {
-        //     frameWidth: 80,
-        //     frameHeight: 154,
-        // });
-        this.load.spritesheet("enemy0", "assets/enemy_couch.png", {
+        // ENEMIES
+
+        this.load.spritesheet("enemy0", "assets/enemy_carpet.png", {
+            frameWidth: 80,
+            frameHeight: 154,
+        });
+        this.load.spritesheet("enemy1", "assets/enemy_couch.png", {
             frameWidth: 150,
             frameHeight: 75,
         });
-        this.load.spritesheet("enemy1", "assets/enemy_shoe.png", {
+        this.load.spritesheet("enemy2", "assets/enemy_shoe.png", {
             frameWidth: 100,
             frameHeight: 100,
         });
+
+        // POWER-UPS
         this.load.spritesheet("catnip", "assets/powerup_catnip.png", {
             frameWidth: 64,
             frameHeight: 64,
