@@ -136,14 +136,16 @@ export class EnemyGenerator {
     }
 
     //add to a wave
-    addToWave(i: number) {
+    addToWave(i: number, x: number, y: number, minus: number) {
         //random number
         let num = Phaser.Math.Between(0, 2);
 
+        const offset = minus * 70;
+
         const enemy = new Enemy(
             this.scene,
-            Phaser.Math.Between(32, this.scene.width - 32),
-            0,
+            x + i * 40,
+            i * y + offset,
             `enemy${num}`
         );
         this.scene.tweens.add({
