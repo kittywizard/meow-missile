@@ -22,14 +22,14 @@ export class EnemyGenerator {
     }
 
     generate() {
-        //boss level
+        //boss
         if (this.scene.number === 4) {
             this.scene.time.delayedCall(2000, () => this.releaseBoss(), null, this);
         } else {
             //generating events per scene
             this.generateEvent1 = this.scene.time.addEvent({
-                delay: 7000,
-                callback: () => this.orderedWave(),
+                delay: 1000,
+                callback: () => this.singleEnemyWave(),
                 callbackScope: this,
                 loop: true,
             });
@@ -101,19 +101,30 @@ export class EnemyGenerator {
         this.graphics.lineStyle(0, 0xffffff, 0); //debug only
     }
 
-    //enemy wave in ordered formation
-    orderedWave(difficulty = 5) {
-        const x = Phaser.Math.Between(64, this.scene.width - 200);
-        const y = Phaser.Math.Between(-100, 0);
-        const minus = Phaser.Math.Between(-1, 1) > 0 ? 1 : -1;
+    //simple enemy wave
+    singleEnemyWave(difficulty = 1) {
+        //this.createPath();
 
-        Array(difficulty).fill().forEach((_, i) => {
-            this.addOrder(i, x, y, minus);
-        });
+        const x = Phaser.Math.Between(64, this.scene.width - 150);
+        const y = Phaser.Math.Between(-100, 0);
+        const minus = Phaser.Math.Between(-1, 1) > 0 ? 1 : -1; // why???
+
+        Array(difficulty).fill().forEach((_, i) => this.addOrder(i, x, y, minus));
+        //this.activeWave = true;
     }
 
-    //simple enemy wave
-    wave(difficulty = 5) {
+    addOrder(i: number, x: number, y: number, minus: number) {
+        const offset = minus * 70;
+    
+        this.scene.enemyGroup.add(
+            new Enemy(this.scene, 
+                x + i * 70, 
+                i * y + offset, 
+                "enemy0", 0, 300));
+    }
+
+    //this one creates power up, so need to find and reduce that. 
+    wave(difficulty = 3) {
         this.createPath();
 
         const x = Phaser.Math.Between(64, this.scene.width - 200);
@@ -166,17 +177,6 @@ export class EnemyGenerator {
                 0, 300));
     }
 
-    //for the ordered wave enemies
-    addOrder(i: number, x: number, y: number, minus: number) {
-        const offset = minus * 70;
-    
-        this.scene.enemyGroup.add(
-            new Enemy(this.scene, 
-                x + i * 70, 
-                i * y + offset, 
-                "enemy0", 0, 300));
-    }
-
     //add to a wave
     addToWave(i: number) {
         //enemy name auto-generated> check example
@@ -210,7 +210,7 @@ export class EnemyGenerator {
                 this.path.getPoint(t, vec);
                 enemy.setPosition(vec.x, vec.y);
                // enemy.setDepth(enemy.y);
-               enemy.update(); //they fire now???
+               enemy.update(); 
             });
 
             if(this.activeWave && this.checkIfWaveDestroyed()) {

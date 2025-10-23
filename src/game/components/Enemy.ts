@@ -28,8 +28,7 @@ export class Enemy extends Phaser.GameObjects.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
         this.body.setAllowGravity(false);
-        this.body.setCircle(19);
-        this.body.setOffset(12,12);
+        this.body.setSize(130, 65, true);
         this.body.setVelocityX(velocityX);
         this.body.setVelocityY(velocityY);
         this.setData("vector", new Phaser.Math.Vector2());
