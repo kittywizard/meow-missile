@@ -3,6 +3,7 @@ import { Player } from '../components/Player';
 import { EnemyGenerator } from '../generators/EnemyGenerator';
 import { PowerUp } from '../components/PowerUp';
 import SceneEffect from '../components/SceneEffect';
+import eventCenter from '../../utils/EventCenter';
 
 
 export class Game extends Scene
@@ -62,6 +63,9 @@ export class Game extends Scene
         this.lights.enable();
         this.lights.setAmbientColor(0x666666);
         this.setBackground();
+
+        this.scene.run('ui-scene');
+
         this.addScores();
         this.addPlayers();
         this.addPowerUps();
@@ -74,7 +78,6 @@ export class Game extends Scene
     //change name if this works? setUI maybe
     setBackground() {
         this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
-        this.add.tileSprite(0, 0, this.width, 50, "top").setOrigin(0).setDepth(4);
         //add other UI elements here
     }
     
@@ -113,16 +116,6 @@ export class Game extends Scene
             player1: {},
             player2: {}
         };
-
-        this.scores["player1"]["scoreText"] = this.add.bitmapText(
-            30,15, "minogram", 
-            String(this.registry.get('player1_name') + " ") + String(this.registry.get("score_player1")).padStart(4, "0"), 30)
-            .setOrigin(0).setScrollFactor(0).setTintFill(0x000000).setDepth(1000);
-        // this.scores["player2"]["scoreText"] = this.add.bitmapText(
-        //     this.width - 150, 16, "minogram", 
-        //     String(this.registry.get("score_player2")).padStart(6, "0"), 50)
-        //     .setOrigin(0.5).setScrollFactor(0);
-
     }
 
      //physics time!
