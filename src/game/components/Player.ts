@@ -160,23 +160,23 @@ export class Player extends Phaser.GameObjects.Sprite {
         //left right on the x axis
         if(this.cursor?.left.isDown || Phaser.Input.Keyboard.JustDown(this.A)) {
             this.x -= 5; 
-            this.anims.play(this.name + "left", true);
+            this.anims.play(this.character + "left", true);
         }
         else if(this.cursor?.right.isDown || Phaser.Input.Keyboard.JustDown(this.D)) {
             this.x += 5; 
-            this.anims.play(this.name + "right", true);
+            this.anims.play(this.character + "right", true);
         }
         else {
-            this.anims.play(this.name, true);
+            this.anims.play(this.character, true);
         }
 
         //y axis, up and down
         if (this.cursor?.up.isDown || Phaser.Input.Keyboard.JustDown(this.W)) {
-            this.anims.play(this.name + "vomit", true); 
+            this.anims.play(this.character + "vomit", true); 
             this.y -= 5;
         }
         else if (this.cursor?.down.isDown || Phaser.Input.Keyboard.JustDown(this.S)) {
-            this.anims.play(this.name + "vomit", true); 
+            this.anims.play(this.character + "vomit", true); 
             this.y += 5;
         }
 
