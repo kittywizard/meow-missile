@@ -22,30 +22,31 @@ export default class CharacterSelect extends Phaser.Scene {
         const kuroi = this.add.sprite(this.center_width + 75, this.center_height - 40, 'kuroi-select').setInteractive();
 
         
-        let activeState: boolean = false;
+        let activeStateTali: boolean = false;
+        let activeStateKuroi : boolean = false;
+
         tali.on('pointerdown', () => {
-            if(!activeState) {
+            if(!activeStateTali && !activeStateKuroi) {
                 tali.setFrame(1);
-                activeState = !activeState;
+                activeStateTali = !activeStateTali;
                 this.registry.set("player1_character", "tali");
-                //set a character variable
             } else {
                 tali.setFrame(0);
-                activeState = !activeState;
+                activeStateTali = !activeStateTali;
                 this.registry.remove("player1_character");
                 //unset variable
             }
         });
 
         kuroi.on('pointerdown', () => {
-            if(!activeState) {
+            if(!activeStateKuroi && !activeStateTali) {
                 kuroi.setFrame(1);
-                activeState = !activeState;
+                activeStateKuroi = !activeStateKuroi;
                 this.registry.set("player1_character", "kuroi");
                 //set a character variable
             } else {
                 kuroi.setFrame(0);
-                activeState = !activeState;
+                activeStateKuroi = !activeStateKuroi;
                 this.registry.remove("player1_character");
                 //unset variable
             }
