@@ -21,36 +21,14 @@ export default class CharacterSelect extends Phaser.Scene {
         const tali = this.add.sprite(this.center_width - 75, this.center_height - 40, 'tali-select').setInteractive();
         const kuroi = this.add.sprite(this.center_width + 75, this.center_height - 40, 'kuroi-select').setInteractive();
 
-        
-        let activeStateTali: boolean = false;
-        let activeStateKuroi : boolean = false;
+        //better way to determine character "state"
+        //let activeStateTali: boolean = false;
+        //let activeStateKuroi : boolean = false;
+        let activeState : boolean = false;
 
-        tali.on('pointerdown', () => {
-            if(!activeStateTali && !activeStateKuroi) {
-                tali.setFrame(1);
-                activeStateTali = !activeStateTali;
-                this.registry.set("player1_character", "tali");
-            } else {
-                tali.setFrame(0);
-                activeStateTali = !activeStateTali;
-                this.registry.remove("player1_character");
-                //unset variable
-            }
-        });
+        tali.on('pointerdown', () => this.characterCheck(activeState, 'tali'));
 
-        kuroi.on('pointerdown', () => {
-            if(!activeStateKuroi && !activeStateTali) {
-                kuroi.setFrame(1);
-                activeStateKuroi = !activeStateKuroi;
-                this.registry.set("player1_character", "kuroi");
-                //set a character variable
-            } else {
-                kuroi.setFrame(0);
-                activeStateKuroi = !activeStateKuroi;
-                this.registry.remove("player1_character");
-                //unset variable
-            }
-        });
+        kuroi.on('pointerdown', () => this.characterCheck(activeState, 'kuroi'));
 
         //repeat this for each character (or write a function to reduce repeat code)
 
@@ -60,6 +38,19 @@ export default class CharacterSelect extends Phaser.Scene {
         this.add.bitmapText(this.center_width, this.center_height + 170, 'minogram', 'SPACE to hairball on all your owner\'s favorite furniture and accessories!', 20).setOrigin(0.5).setTintFill(0x000000);
         this.add.bitmapText(this.center_width, this.center_height + 190, 'minogram', 'arrow keys move you', 20).setOrigin(0.5).setTintFill(0x000000);
 
+    }
+
+    characterCheck(active: boolean, character: any) {
+        if(active){
+         character.setFrame(1);
+         active =!active;
+         this.registry.set("player1_character", character);   
+        }
+        else {
+         character.setFrame(0);
+         active = !active;
+         this.registry.remove("player1_character"); //set as null instead??   
+        }
     }
     
     startGame() {
