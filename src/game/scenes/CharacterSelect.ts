@@ -11,13 +11,17 @@ export default class CharacterSelect extends Phaser.Scene {
         super({key: "characterselect"});
     }
 
-    showCharacters() {
+    showInformation() {
         this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
+        this.add.bitmapText(this.center_width, this.center_height - 200, 'minogram', 'Select a Character', 50).setOrigin(0.5).setTintFill(0x000000);
+        this.add.bitmapText(this.center_width, this.center_height + 140, 'minogram', 'SPACE to start', 30).setOrigin(0.5).setTintFill(0x000000);
 
-        //TO DO
-            // need to set a variable that will set sprite / character info. to start probably just swap sprites
-            // will adding these to a group make it easier to code?
-            // keyboard controls too
+        this.add.bitmapText(this.center_width, this.center_height + 170, 'minogram', 'SPACE to hairball on all your owner\'s favorite furniture and accessories!', 20).setOrigin(0.5).setTintFill(0x000000);
+        this.add.bitmapText(this.center_width, this.center_height + 190, 'minogram', 'arrow keys move you', 20).setOrigin(0.5).setTintFill(0x000000);
+    }
+
+    showCharacters() {
+
         const tali = this.add.sprite(this.center_width - 75, this.center_height - 40, 'tali-select').setInteractive();
         const kuroi = this.add.sprite(this.center_width + 75, this.center_height - 40, 'kuroi-select').setInteractive();
 
@@ -26,28 +30,24 @@ export default class CharacterSelect extends Phaser.Scene {
         //let activeStateKuroi : boolean = false;
         let activeState : boolean = false;
 
-        tali.on('pointerdown', () => this.characterCheck(activeState, 'tali'));
+        tali.on('pointerdown', () => this.characterCheck(activeState, 'tali', tali));
 
-        kuroi.on('pointerdown', () => this.characterCheck(activeState, 'kuroi'));
-
-        //repeat this for each character (or write a function to reduce repeat code)
-
-        this.add.bitmapText(this.center_width, this.center_height - 200, 'minogram', 'Select a Character', 50).setOrigin(0.5).setTintFill(0x000000);
-        this.add.bitmapText(this.center_width, this.center_height + 140, 'minogram', 'SPACE to start', 30).setOrigin(0.5).setTintFill(0x000000);
-
-        this.add.bitmapText(this.center_width, this.center_height + 170, 'minogram', 'SPACE to hairball on all your owner\'s favorite furniture and accessories!', 20).setOrigin(0.5).setTintFill(0x000000);
-        this.add.bitmapText(this.center_width, this.center_height + 190, 'minogram', 'arrow keys move you', 20).setOrigin(0.5).setTintFill(0x000000);
-
+        kuroi.on('pointerdown', () => this.characterCheck(activeState, 'kuroi', kuroi));
     }
 
-    characterCheck(active: boolean, character: any) {
+    characterCheck(active: boolean, character: string, variable: any) {
+        
+            //needs a check for the initial state change
+            //show tali by default maybe?
         if(active){
-         character.setFrame(1);
+            console.log("active")
+         variable.setFrame(1);
          active =!active;
          this.registry.set("player1_character", character);   
         }
         else {
-         character.setFrame(0);
+            console.log('unset')
+         variable.setFrame(0);
          active = !active;
          this.registry.remove("player1_character"); //set as null instead??   
         }
@@ -71,6 +71,7 @@ export default class CharacterSelect extends Phaser.Scene {
         this.height = parseInt(this.sys.game.config.height);
         this.center_width = this.width / 2;
         this.center_height = this.height / 2;
+        this.showInformation();
         this.showCharacters();
 
         this.input.keyboard?.on("keydown-SPACE", () => this.transitionToChange(), this)
