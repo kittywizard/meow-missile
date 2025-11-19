@@ -34,6 +34,7 @@ export class Game extends Scene
     powerUps: any;
     shake: PowerUp;
     available: string[];
+    rectWidth: number;
     //crashEnemy: ArcadePhysicsCallback | undefined;
 
     constructor (){
@@ -57,6 +58,8 @@ export class Game extends Scene
         this.height = this.sys.game.config.height;
         this.center_width = this.width / 2;
         this.center_height = this.height / 2;
+        this.rectWidth = 500; //footer width only change here!
+
         new SceneEffect(this).simpleOpen(() => 0);
         this.cameras.main.setBackgroundColor(0x333333);
         this.lights.enable();
@@ -74,11 +77,12 @@ export class Game extends Scene
     //change name if this works? setUI maybe
     setBackground() {
         this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
+        //header
         this.add.tileSprite(0, 0, this.width, 50, "top").setOrigin(0).setDepth(4);
-        //add other UI elements here
+        //footer
+        this.add.rectangle(this.center_width - (this.rectWidth / 2), 875, this.rectWidth, 25, 0x5564d9, 1).setOrigin(0).setDepth(4);
     }
-    
-    //adding
+
     addPlayers() {
         this.trailLayer = this.add.layer();
         this.players = this.add.group();
@@ -105,10 +109,14 @@ export class Game extends Scene
     addPowerUps() {
         this.available = ["catnip"];
         this.powerUps = this.add.group();
+
+        this.add.bitmapText(
+            this.center_width - (this.rectWidth / 2), 880, "minogram", 
+            "current power up", 16)
+            .setOrigin(0).setScrollFactor(0).setTintFill(0xffffff).setDepth(1000);
     }
 
     addScores() {
-        //set depth on this element so it is the only thing above the UI top
         this.scores = {
             player1: {},
             player2: {}
@@ -122,7 +130,6 @@ export class Game extends Scene
         //     this.width - 150, 16, "minogram", 
         //     String(this.registry.get("score_player2")).padStart(6, "0"), 50)
         //     .setOrigin(0.5).setScrollFactor(0);
-
     }
 
      //physics time!
