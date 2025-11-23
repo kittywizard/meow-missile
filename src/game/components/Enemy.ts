@@ -68,7 +68,7 @@ export class Enemy extends Phaser.GameObjects.Sprite {
     update () {
         //called from generator class
 
-        if(this.y > this.scene.height + 64) {
+        if(this.y > this.scene.width + 64) {
             this.destroy();
         }
         

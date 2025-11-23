@@ -15,8 +15,8 @@ const config: Types.Core.GameConfig = {
     parent: 'game-container',
     backgroundColor: '#fff',
     scale: {
-        width: 1000,
-        height: 900
+        width: 1200,
+        height: 700
     },
     render: {
         pixelArt: true
