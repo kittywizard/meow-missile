@@ -112,7 +112,7 @@ export class Game extends Scene
 
         this.add.bitmapText(
             this.center_width - (this.rectWidth / 2), 880, "minogram", 
-            "current power up", 16)
+            "current power up:", 16)
             .setOrigin(0).setScrollFactor(0).setTintFill(0xffffff).setDepth(1000);
     }
 
@@ -212,7 +212,13 @@ export class Game extends Scene
         this.currentPowerUp = this.currentPowerUp + 1 === this.available.length
             ? this.currentPowerUp : this.currentPowerUp + 1;
         this.registry.set("currentPowerUp", this.currentPowerUp);
-        console.log(this.currentPowerUp)
+        console.log(this.currentPowerUp);
+        
+        this.add.bitmapText(
+            this.center_width - this.rectWidth, 880, "minogram", 
+            String(this.registry.get("currentPowerUp")), 16)
+            .setOrigin(0).setScrollFactor(0).setTintFill(0xffffff).setDepth(1000);
+
     }
     
 
