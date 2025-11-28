@@ -78,7 +78,7 @@ export class Game extends Scene
     setBackground() {
         this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
         //header
-        this.add.tileSprite(0, 0, this.width, 50, "top").setOrigin(0).setDepth(4);
+        this.add.image(0, 0, "top").setOrigin(0).setDepth(4);
         //footer
         this.add.rectangle(this.center_width - (this.rectWidth / 2), 875, this.rectWidth, 25, 0x5564d9, 1).setOrigin(0).setDepth(4);
     }

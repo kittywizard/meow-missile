@@ -43,7 +43,9 @@ export default class Boot extends Scene
     loadImages() {
         //UI
         this.load.image('background', 'assets/woodfloor.png');
-        this.load.image('top', 'assets/ui/ui_top.png');
+        //this.load.image('top', 'assets/ui/ui_top.png');
+        this.load.image('top', 'assets/ui/ui-v2-top.png');
+
         this.load.image('title', 'assets/ui/titlescreen.png');
         
         //static enemy sprites
@@ -73,9 +75,13 @@ export default class Boot extends Scene
     loadSpriteSheets() {
         // ENEMIES
 
-        this.load.spritesheet("enemy0", "assets/enemy_carpet.png", {
-            frameWidth: 80,
-            frameHeight: 154,
+        // this.load.spritesheet("enemy0", "assets/enemy_carpet.png", {
+        //     frameWidth: 80,
+        //     frameHeight: 154,
+        // });
+        this.load.spritesheet("enemy0", "assets/pen_house.png", {
+            frameWidth: 56,
+            frameHeight: 32,
         });
         this.load.spritesheet("enemy1", "assets/enemy_couch.png", {
             frameWidth: 150,

@@ -26,13 +26,12 @@ export default class CharacterSelect extends Phaser.Scene {
         const kuroi = this.add.sprite(this.center_width + 75, this.center_height - 40, 'kuroi-select').setInteractive();
 
         //better way to determine character "state"
-        //let activeStateTali: boolean = false;
-        //let activeStateKuroi : boolean = false;
-        let activeState : boolean = false;
+        let activeStateTali: boolean = false;
+        let activeStateKuroi : boolean = false;
 
-        tali.on('pointerdown', () => this.characterCheck(activeState, 'tali', tali));
+        tali.on('pointerdown', () => this.characterCheck(activeStateTali, 'tali', tali));
 
-        kuroi.on('pointerdown', () => this.characterCheck(activeState, 'kuroi', kuroi));
+        kuroi.on('pointerdown', () => this.characterCheck(activeStateKuroi, 'kuroi', kuroi));
     }
 
     characterCheck(active: boolean, character: string, variable: any) {
