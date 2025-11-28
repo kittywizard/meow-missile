@@ -6,6 +6,10 @@ const TYPES = {
     enemy0: {points: 400, lives: 1},
     enemy1: {points: 600, lives: 3},
     enemy2: {points: 1000, lives: 2},
+    enemy3: {points: 400, lives: 1},
+    enemy4: {points: 400, lives: 1},
+    enemy5: {points: 400, lives: 1},
+    enemy6: {points: 400, lives: 1},
     boss: {points: 3000, lives: 4}
 };
 

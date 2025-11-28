@@ -138,7 +138,7 @@ export class EnemyGenerator {
     //add to a wave
     addToWave(i: number, x: number, y: number, minus: number) {
         //random number
-        let num = Phaser.Math.Between(0, 2);
+        let num = Phaser.Math.Between(0, 6); //edit to a variable!!
 
         const offset = minus * 70;
 
@@ -163,7 +163,7 @@ export class EnemyGenerator {
     //enemy types
     tank() {
         this.scene.enemyGroup.add(
-            new Enemy(this.scene, Phaser.Math.Between(100, 600), -100, "enemy2", 0, 620)
+            new Enemy(this.scene, Phaser.Math.Between(100, 600), -100, "enemy100", 0, 620)
         );
     }
 
@@ -177,7 +177,8 @@ export class EnemyGenerator {
             x = this.scene.width + 100;
         }
 
-        const enemy = new Enemy(this.scene, x, Phaser.Math.Between(100, 600), "enemy0", velocity, 0);
+
+        const enemy = new Enemy(this.scene, x, Phaser.Math.Between(100, 600), "enemy5", velocity, 0);
 
         this.scene.tweens.add({
             targets: [enemy],

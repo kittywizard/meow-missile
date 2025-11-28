@@ -42,7 +42,9 @@ export default class Boot extends Scene
 
     loadImages() {
         //UI
-        this.load.image('background', 'assets/woodfloor.png');
+        //this.load.image('background', 'assets/woodfloor.png');
+        this.load.image('background', 'assets/pen_woodfloor.png');
+
         //this.load.image('top', 'assets/ui/ui_top.png');
         this.load.image('top', 'assets/ui/ui-v2-top.png');
 
@@ -79,7 +81,7 @@ export default class Boot extends Scene
         //     frameWidth: 80,
         //     frameHeight: 154,
         // });
-        this.load.spritesheet("enemy0", "assets/pen_house.png", {
+        this.load.spritesheet("enemy3", "assets/pen_house.png", {
             frameWidth: 56,
             frameHeight: 32,
         });
@@ -87,9 +89,25 @@ export default class Boot extends Scene
             frameWidth: 150,
             frameHeight: 75,
         });
-        this.load.spritesheet("enemy2", "assets/enemy_shoe.png", {
-            frameWidth: 100,
-            frameHeight: 100,
+        this.load.spritesheet("enemy2", "assets/enemy_carpet.png", {
+            frameWidth: 80,
+            frameHeight: 154,
+        });
+        this.load.spritesheet("enemy0", "assets/pen_fishbowl.png", {
+            frameWidth: 51,
+            frameHeight: 48,
+        });
+        this.load.spritesheet("enemy4", "assets/pen_water.png", {
+            frameWidth: 48,
+            frameHeight: 54,
+        });
+        // this.load.spritesheet("enemy5", "assets/pen_plant.png", {
+        //     frameWidth: 50,
+        //     frameHeight: 50,
+        // });
+        this.load.spritesheet("enemy6", "assets/pen_coffee.png", {
+            frameWidth: 58,
+            frameHeight: 48,
         });
 
         // POWER-UPS
