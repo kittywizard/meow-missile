@@ -26,30 +26,38 @@ export default class CharacterSelect extends Phaser.Scene {
         const kuroi = this.add.sprite(this.center_width + 75, this.center_height - 40, 'kuroi-select').setInteractive();
 
         //better way to determine character "state"
-        let activeStateTali: boolean = false;
+        let activeStateTali: boolean = true;
         let activeStateKuroi : boolean = false;
+        let initialState : boolean = true;
 
-        tali.on('pointerdown', () => this.characterCheck(activeStateTali, 'tali', tali));
+        if(initialState){
+            tali.on('pointerdown', () => this.characterCheck(activeStateTali, 'tali', tali));
+    
+            kuroi.on('pointerdown', () => this.characterCheck(activeStateKuroi, 'kuroi', kuroi));
+            initialState = false;
+        }
+         else {
+            tali.on('pointerdown', () => this.characterCheck(activeStateTali, 'tali', tali));
+    
+            kuroi.on('pointerdown', () => this.characterCheck(activeStateKuroi, 'kuroi', kuroi));
+         }
 
-        kuroi.on('pointerdown', () => this.characterCheck(activeStateKuroi, 'kuroi', kuroi));
     }
 
     characterCheck(active: boolean, character: string, variable: any) {
+            if(active){
+                console.log("active")
+             variable.setFrame(1);
+             active =!active;
+             this.registry.set("player1_character", character);   
+            }
+            else {
+                console.log('unset')
+             variable.setFrame(0);
+             active = !active;
+             this.registry.remove("player1_character"); //set as null instead??   
+            }
         
-            //needs a check for the initial state change
-            //show tali by default maybe?
-        if(active){
-            console.log("active")
-         variable.setFrame(1);
-         active =!active;
-         this.registry.set("player1_character", character);   
-        }
-        else {
-            console.log('unset')
-         variable.setFrame(0);
-         active = !active;
-         this.registry.remove("player1_character"); //set as null instead??   
-        }
     }
     
     startGame() {
