@@ -11,7 +11,7 @@ export default class CharacterSelect extends Phaser.Scene {
         super({ key: "characterselect" });
     }
 
-    //test for new editor's git support
+    //another tedst, another laptop
 
     showInformation() {
         this.background = this.add
