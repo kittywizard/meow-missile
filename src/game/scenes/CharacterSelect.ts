@@ -11,8 +11,6 @@ export default class CharacterSelect extends Phaser.Scene {
         super({ key: "characterselect" });
     }
 
-    //another tedst, another laptop
-
     showInformation() {
         this.background = this.add
             .tileSprite(0, 0, this.width, this.height, "background")
