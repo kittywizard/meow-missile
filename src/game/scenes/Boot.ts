@@ -42,8 +42,8 @@ export default class Boot extends Scene
 
     loadImages() {
         //UI
-        //this.load.image('background', 'assets/woodfloor.png');
-        this.load.image('background', 'assets/pen_woodfloor.png');
+        this.load.image('background', 'assets/woodfloor.png');
+        //this.load.image('background', 'assets/pen_woodfloor.png');
 
         //this.load.image('top', 'assets/ui/ui_top.png');
         this.load.image('top', 'assets/ui/ui-v2-top.png');
