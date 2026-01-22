@@ -78,9 +78,11 @@ export class Game extends Scene
     setBackground() {
         this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
         //header
-        this.add.image(0, 0, "top").setOrigin(0).setDepth(4);
+        //this.add.image(0, 0, "top").setOrigin(0).setDepth(4);
+        
+        this.add.rectangle(10, 10, 175, 25, 0x81b96d, 1).setOrigin(0).setDepth(4);
         //footer
-        this.add.rectangle(this.center_width - (this.rectWidth / 2), 875, this.rectWidth, 25, 0x5564d9, 1).setOrigin(0).setDepth(4);
+        this.add.rectangle(this.center_width - (this.rectWidth / 2), this.rectWidth / 2, 25, 100, 0x5564d9, 1).setOrigin(0).setDepth(4);
     }
 
     addPlayers() {
@@ -243,8 +245,7 @@ export class Game extends Scene
         this.tweens.add({
             targets: this.scores[playerName]["scoreText"], 
             duration: 200,
-            tint: {from: 0x5564d9, to: 0x000000},
-            scale: {from: 1.2, to: 1},
+            tint: {from: 0x999999, to: 0x000000},
             repeat: 2
         });
 
