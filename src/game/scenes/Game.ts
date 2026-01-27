@@ -77,12 +77,13 @@ export class Game extends Scene
     //change name if this works? setUI maybe
     setBackground() {
         this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
+
         //header
         //this.add.image(0, 0, "top").setOrigin(0).setDepth(4);
+        this.add.rectangle(5, 5, 300, 45, 0x5564d9, 1).setOrigin(0).setDepth(4);
         
-        this.add.rectangle(10, 10, 175, 25, 0x81b96d, 1).setOrigin(0).setDepth(4);
         //footer
-        this.add.rectangle(this.center_width - (this.rectWidth / 2), this.rectWidth / 2, 25, 100, 0x5564d9, 1).setOrigin(0).setDepth(4);
+        this.add.rectangle(this.center_width - (this.rectWidth / 2), 875, this.rectWidth, 75, 0x5564d9, 1).setOrigin(0).setDepth(4);
     }
 
     addPlayers() {
