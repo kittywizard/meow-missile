@@ -75,43 +75,19 @@ export default class CharacterSelect extends Phaser.Scene {
             )
             .setInteractive();
 
-        //better way to determine character "state"
-        let activeStateTali: boolean = true;
-        let activeStateKuroi: boolean = false;
-        let initialState: boolean = true;
+            //issue is only one of these can be active at any one time. so we need to check for each one if another character is already activated, you can't
+            // select this one. and if the character is already active, then when you click again, it unsets the character as active.
 
-        if (initialState) {
-            tali.on("pointerdown", () =>
-                this.characterCheck(activeStateTali, "tali", tali),
-            );
+        tali.on('pointerdown', function() {
+            //pointer down does not set this off, unless you use pointerup i guess. woo
+            this.setTint(0x000000);
+        });
+        kuroi.on('pointerdown', function() {
+            this.setTint(0x000000).setAlpha(.5);
+        });
 
-            kuroi.on("pointerdown", () =>
-                this.characterCheck(activeStateKuroi, "kuroi", kuroi),
-            );
-            initialState = false;
-        } else {
-            tali.on("pointerdown", () =>
-                this.characterCheck(activeStateTali, "tali", tali),
-            );
+        // this.registry.set("player1_character", character);
 
-            kuroi.on("pointerdown", () =>
-                this.characterCheck(activeStateKuroi, "kuroi", kuroi),
-            );
-        }
-    }
-
-    characterCheck(active: boolean, character: string, variable: any) {
-        if (active) {
-            console.log("active");
-            variable.setFrame(1);
-            active = !active;
-            this.registry.set("player1_character", character);
-        } else {
-            console.log("unset");
-            variable.setFrame(0);
-            active = !active;
-            this.registry.remove("player1_character"); //set as null instead??
-        }
     }
 
     startGame() {
