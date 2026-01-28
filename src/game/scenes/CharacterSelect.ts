@@ -99,7 +99,7 @@ export default class CharacterSelect extends Phaser.Scene {
             );
         }
     }
-
+    //test for zed
     characterCheck(active: boolean, character: string, variable: any) {
         if (active) {
             console.log("active");
