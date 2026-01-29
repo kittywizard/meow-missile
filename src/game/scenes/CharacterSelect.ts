@@ -80,10 +80,10 @@ export default class CharacterSelect extends Phaser.Scene {
 
         tali.on('pointerdown', function() {
             //pointer down does not set this off, unless you use pointerup i guess. woo
-            this.setTint(0x000000).setAlpha(.5);
+            tali.setFrame(1);
         });
         kuroi.on('pointerdown', function() {
-            this.setTint(0x000000).setAlpha(.5);
+            kuroi.setFrame(1);
         });
 
         tali.on('pointerup', function() {
