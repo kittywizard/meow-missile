@@ -59,6 +59,16 @@ export default class CharacterSelect extends Phaser.Scene {
             .setTintFill(0x000000);
     }
 
+    setActive(char: string){
+        //check
+        if(this.registry.get("player1_character") == "none"){
+             this.registry.set("player1_character", char);
+        }
+        //set
+
+        //return
+    }
+
     showCharacters() {
         const tali = this.add
             .sprite(
@@ -75,24 +85,20 @@ export default class CharacterSelect extends Phaser.Scene {
             )
             .setInteractive();
 
-            //issue is only one of these can be active at any one time. so we need to check for each one if another character is already activated, you can't
-            // select this one. and if the character is already active, then when you click again, it unsets the character as active.
-
         tali.on('pointerdown', function() {
-            //pointer down does not set this off, unless you use pointerup i guess. woo
             tali.setFrame(1);
+            this.setActive("tali");
         });
         kuroi.on('pointerdown', function() {
             kuroi.setFrame(1);
+            this.setActive("kuroi");
+            //set active
+            //check other status
         });
 
-        tali.on('pointerup', function() {
-   
-        });
-        kuroi.on('pointerup', function() {
-           
-
-        });
+        //this seems to have the pointerdown be active constantly?
+        // tali.emit('pointerdown');
+        // kuroi.emit('pointerdown');
 
         // this.registry.set("player1_character", character);
 
