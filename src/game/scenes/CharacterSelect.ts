@@ -65,7 +65,7 @@ export default class CharacterSelect extends Phaser.Scene {
              this.registry.set("player1_character", char);
         }
         //set
-
+        return;
         //return
     }
 
@@ -86,23 +86,25 @@ export default class CharacterSelect extends Phaser.Scene {
             .setInteractive();
 
         tali.on('pointerdown', function() {
-            if(kuroi.frame.name !== "1") {
+            if(kuroi.frame.name !== "1" && tali.frame.name == "0") {
                 tali.setFrame(1);
                 console.log(tali.frame.name);
                 this.setActive("tali");
             }
             else {
                 tali.setFrame(0);
+                this.setActive("none");
             }
         });
         kuroi.on('pointerdown', function() {
-            if(tali.frame.name !== "1") {
+            if(tali.frame.name !== "1" && kuroi.frame.name == "0" ) {
                 kuroi.setFrame(1);
                 console.log(kuroi.frame.name);
                 this.setActive("kuroi");
             }
             else {
                 kuroi.setFrame(0);
+                this.setActive("none");
             }
             //set active
             //check other status
