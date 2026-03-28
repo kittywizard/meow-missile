@@ -86,12 +86,24 @@ export default class CharacterSelect extends Phaser.Scene {
             .setInteractive();
 
         tali.on('pointerdown', function() {
-            tali.setFrame(1);
-            this.setActive("tali");
+            if(kuroi.frame.name !== "1") {
+                tali.setFrame(1);
+                console.log(tali.frame.name);
+                this.setActive("tali");
+            }
+            else {
+                tali.setFrame(0);
+            }
         });
         kuroi.on('pointerdown', function() {
-            kuroi.setFrame(1);
-            this.setActive("kuroi");
+            if(tali.frame.name !== "1") {
+                kuroi.setFrame(1);
+                console.log(kuroi.frame.name);
+                this.setActive("kuroi");
+            }
+            else {
+                kuroi.setFrame(0);
+            }
             //set active
             //check other status
         });
