@@ -123,8 +123,24 @@ export default class CharacterSelect extends Phaser.Scene {
         // tali.emit('pointerdown');
         // kuroi.emit('pointerdown');
 
-        // this.registry.set("player1_character", character);
-
+            kuroi.on("pointerdown", () =>
+                this.characterCheck(activeStateKuroi, "kuroi", kuroi),
+            );
+        }
+    }
+    //test for zed
+    characterCheck(active: boolean, character: string, variable: any) {
+        if (active) {
+            console.log("active");
+            variable.setFrame(1);
+            active = !active;
+            this.registry.set("player1_character", character);
+        } else {
+            console.log("unset");
+            variable.setFrame(0);
+            active = !active;
+            this.registry.remove("player1_character"); //set as null instead??
+        }
     }
 
     startGame() {
