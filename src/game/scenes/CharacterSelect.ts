@@ -87,6 +87,11 @@ export default class CharacterSelect extends Phaser.Scene {
 
         tali.on('pointerdown', function() {
             if(kuroi.frame.name !== "1" && tali.frame.name == "0") {
+                if(kuroi.frame.name == "1")
+                {
+                    console.log('why')
+                    return;
+                }
                 tali.setFrame(1);
                 console.log(tali.frame.name);
                 this.setActive("tali");
@@ -98,6 +103,10 @@ export default class CharacterSelect extends Phaser.Scene {
         });
         kuroi.on('pointerdown', function() {
             if(tali.frame.name !== "1" && kuroi.frame.name == "0" ) {
+                if(tali.frame.name == "0") {
+                    console.log("no");
+                    return;
+                }
                 kuroi.setFrame(1);
                 console.log(kuroi.frame.name);
                 this.setActive("kuroi");
