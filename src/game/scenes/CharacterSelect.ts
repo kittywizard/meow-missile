@@ -59,6 +59,16 @@ export default class CharacterSelect extends Phaser.Scene {
             .setTintFill(0x000000);
     }
 
+    setActive(char: string){
+        //check
+        if(this.registry.get("player1_character") == "none"){
+             this.registry.set("player1_character", char);
+        }
+        //set
+        return;
+        //return
+    }
+
     showCharacters() {
         const tali = this.add
             .sprite(
@@ -75,24 +85,43 @@ export default class CharacterSelect extends Phaser.Scene {
             )
             .setInteractive();
 
-        //better way to determine character "state"
-        let activeStateTali: boolean = true;
-        let activeStateKuroi: boolean = false;
-        let initialState: boolean = true;
+        tali.on('pointerdown', function() {
+            if(kuroi.frame.name !== "1" && tali.frame.name == "0") {
+                if(kuroi.frame.name == "1")
+                {
+                    console.log('why')
+                    return;
+                }
+                tali.setFrame(1);
+                console.log(tali.frame.name);
+                this.setActive("tali");
+            }
+            else {
+                tali.setFrame(0);
+                this.setActive("none");
+            }
+        });
+        kuroi.on('pointerdown', function() {
+            if(tali.frame.name !== "1" && kuroi.frame.name == "0" ) {
+                if(tali.frame.name == "0") {
+                    console.log("no");
+                    return;
+                }
+                kuroi.setFrame(1);
+                console.log(kuroi.frame.name);
+                this.setActive("kuroi");
+            }
+            else {
+                kuroi.setFrame(0);
+                this.setActive("none");
+            }
+            //set active
+            //check other status
+        });
 
-        if (initialState) {
-            tali.on("pointerdown", () =>
-                this.characterCheck(activeStateTali, "tali", tali),
-            );
-
-            kuroi.on("pointerdown", () =>
-                this.characterCheck(activeStateKuroi, "kuroi", kuroi),
-            );
-            initialState = false;
-        } else {
-            tali.on("pointerdown", () =>
-                this.characterCheck(activeStateTali, "tali", tali),
-            );
+        //this seems to have the pointerdown be active constantly?
+        // tali.emit('pointerdown');
+        // kuroi.emit('pointerdown');
 
             kuroi.on("pointerdown", () =>
                 this.characterCheck(activeStateKuroi, "kuroi", kuroi),

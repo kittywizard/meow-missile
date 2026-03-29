@@ -81,7 +81,7 @@ export class Game extends Scene
         //header
         //this.add.image(0, 0, "top").setOrigin(0).setDepth(4);
         this.add.rectangle(5, 5, 300, 45, 0x5564d9, 1).setOrigin(0).setDepth(4);
-        
+
         //footer
         this.add.rectangle(this.center_width - (this.rectWidth / 2), 875, this.rectWidth, 75, 0x5564d9, 1).setOrigin(0).setDepth(4);
     }
@@ -89,6 +89,7 @@ export class Game extends Scene
     addPlayers() {
         this.trailLayer = this.add.layer();
         this.players = this.add.group();
+        
         //new player, pass in whatever character was selected
         this.player = new Player(this, this.center_height, this.center_width, "player1", this.registry.get('player1_character'));
         this.players.add(this.player);
@@ -117,6 +118,8 @@ export class Game extends Scene
             this.center_width - (this.rectWidth / 2), 880, "minogram", 
             "current power up:", 16)
             .setOrigin(0).setScrollFactor(0).setTintFill(0xffffff).setDepth(1000);
+
+            //add in  the current power ups later
     }
 
     addScores() {

@@ -157,7 +157,7 @@ export default class Boot extends Scene
     setRegistry() {
         this.registry.set("score_player1", 0);
         this.registry.set("player1_name", "Player 1"); //display name, later on ask?
-        this.registry.set("player1_character", "tali"); //character that is selected, default Tali
+        this.registry.set("player1_character", "none"); 
         this.registry.set("power_player1", "hairball");
         this.registry.set("lives_player1", 0);
 
