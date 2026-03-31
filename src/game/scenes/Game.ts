@@ -79,8 +79,8 @@ export class Game extends Scene
         this.background = this.add.tileSprite(0, 0, this.width, this.height, "background").setOrigin(0).setScrollFactor(0, 1);
 
         //header
-        //this.add.image(0, 0, "top").setOrigin(0).setDepth(4);
-        this.add.rectangle(5, 5, 300, 45, 0x5564d9, 1).setOrigin(0).setDepth(4);
+        this.add.image(0, 0, "top").setOrigin(0).setDepth(4);
+        //this.add.rectangle(5, 5, 300, 45, 0x5564d9, 1).setOrigin(0).setDepth(4);
 
         //footer
         this.add.rectangle(this.center_width - (this.rectWidth / 2), 875, this.rectWidth, 75, 0x5564d9, 1).setOrigin(0).setDepth(4);
@@ -129,9 +129,9 @@ export class Game extends Scene
         };
 
         this.scores["player1"]["scoreText"] = this.add.bitmapText(
-            30,15, "minogram", 
+            80,30, "minogram", 
             String(this.registry.get('player1_name') + " ") + String(this.registry.get("score_player1")).padStart(4, "0"), 30)
-            .setOrigin(0).setScrollFactor(0).setTintFill(0x000000).setDepth(1000);
+            .setOrigin(0).setScrollFactor(0).setTintFill(0xfae0b0).setDepth(1000);
         // this.scores["player2"]["scoreText"] = this.add.bitmapText(
         //     this.width - 150, 16, "minogram", 
         //     String(this.registry.get("score_player2")).padStart(6, "0"), 50)
@@ -249,7 +249,7 @@ export class Game extends Scene
         this.tweens.add({
             targets: this.scores[playerName]["scoreText"], 
             duration: 200,
-            tint: {from: 0x999999, to: 0x000000},
+            tint: {from: 0x5564d9, to: 0xfae0b0},
             repeat: 2
         });
 

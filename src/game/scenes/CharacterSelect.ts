@@ -104,6 +104,7 @@ export default class CharacterSelect extends Phaser.Scene {
         kuroi.on('pointerdown', function() {
             if(tali.frame.name !== "1" && kuroi.frame.name == "0" ) {
                 if(tali.frame.name == "0") {
+                    //this isnt working properly :P
                     console.log("no");
                     return;
                 }

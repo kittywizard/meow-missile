@@ -46,7 +46,7 @@ export default class Boot extends Scene
         this.load.image('background', 'assets/pen_woodfloor.png');
 
         //this.load.image('top', 'assets/ui/ui_top.png');
-        this.load.image('top', 'assets/ui/ui-v2-top.png');
+        this.load.image('top', 'assets/ui/ui-v3-top.png');
 
         this.load.image('title', 'assets/ui/titlescreen.png');
         
@@ -157,7 +157,7 @@ export default class Boot extends Scene
     setRegistry() {
         this.registry.set("score_player1", 0);
         this.registry.set("player1_name", "Player 1"); //display name, later on ask?
-        this.registry.set("player1_character", "none"); 
+        this.registry.set("player1_character", "tali"); //change this back to "none" when multiple characters are setup
         this.registry.set("power_player1", "hairball");
         this.registry.set("lives_player1", 0);
 
