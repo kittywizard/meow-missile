@@ -83,7 +83,8 @@ export class Game extends Scene
         //this.add.rectangle(5, 5, 300, 45, 0x5564d9, 1).setOrigin(0).setDepth(4);
 
         //footer
-        this.add.rectangle(this.center_width - (this.rectWidth / 2), 875, this.rectWidth, 75, 0x5564d9, 1).setOrigin(0).setDepth(4);
+            //getting cut off because of the x/y positioning i think (:
+        this.add.rectangle(this.center_width - (this.rectWidth / 2), 875, this.rectWidth, 90, 0x5564d9, 1).setOrigin(0).setDepth(4);
     }
 
     addPlayers() {
@@ -116,8 +117,8 @@ export class Game extends Scene
 
         this.add.bitmapText(
             this.center_width - (this.rectWidth / 2), 880, "minogram", 
-            "current power up:", 16)
-            .setOrigin(0).setScrollFactor(0).setTintFill(0xffffff).setDepth(1000);
+            "Current Power-up:", 30)
+            .setOrigin(0).setScrollFactor(0).setTintFill(0xfae0b0).setDepth(1000);
 
             //add in  the current power ups later
     }
@@ -223,7 +224,7 @@ export class Game extends Scene
         this.add.bitmapText(
             this.center_width - this.rectWidth, 880, "minogram", 
             String(this.registry.get("currentPowerUp")), 16)
-            .setOrigin(0).setScrollFactor(0).setTintFill(0xffffff).setDepth(1000);
+            .setOrigin(0).setScrollFactor(0).setTintFill(0xfae0b0).setDepth(1000);
 
     }
     
