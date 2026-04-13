@@ -47,6 +47,7 @@ export default class Boot extends Scene
 
         //this.load.image('top', 'assets/ui/ui_top.png');
         this.load.image('top', 'assets/ui/ui-v3-top.png');
+        this.load.image('bottom', 'assets/ui/powerup_bottom.png');
 
         this.load.image('title', 'assets/ui/titlescreen.png');
         
